@@ -12,7 +12,7 @@ namespace UartMuxDemux.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -122,13 +122,188 @@ namespace UartMuxDemux.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
-        public int serialBaudrate {
+        public global::System.IO.Ports.SerialPort sourcePort {
             get {
-                return ((int)(this["serialBaudrate"]));
+                return ((global::System.IO.Ports.SerialPort)(this["sourcePort"]));
             }
             set {
-                this["serialBaudrate"] = value;
+                this["sourcePort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort1 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort1"]));
+            }
+            set {
+                this["destPort1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort2 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort2"]));
+            }
+            set {
+                this["destPort2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort3 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort3"]));
+            }
+            set {
+                this["destPort3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort4 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort4"]));
+            }
+            set {
+                this["destPort4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort5 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort5"]));
+            }
+            set {
+                this["destPort5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort6 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort6"]));
+            }
+            set {
+                this["destPort6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort7 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort7"]));
+            }
+            set {
+                this["destPort7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort8 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort8"]));
+            }
+            set {
+                this["destPort8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort9 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort9"]));
+            }
+            set {
+                this["destPort9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort10 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort10"]));
+            }
+            set {
+                this["destPort10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort11 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort11"]));
+            }
+            set {
+                this["destPort11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort12 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort12"]));
+            }
+            set {
+                this["destPort12"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort13 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort13"]));
+            }
+            set {
+                this["destPort13"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort14 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort14"]));
+            }
+            set {
+                this["destPort14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort15 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort15"]));
+            }
+            set {
+                this["destPort15"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.IO.Ports.SerialPort destPort16 {
+            get {
+                return ((global::System.IO.Ports.SerialPort)(this["destPort16"]));
+            }
+            set {
+                this["destPort16"] = value;
             }
         }
     }

@@ -13,7 +13,7 @@ namespace UartMuxDemux
 {
     public partial class MainForm : Form
     {
-        private const int NB_OF_PORT = 3; 
+        public const int MAX_NB_OF_PORT = 16; 
         protected UartLogger[] uartLoggers = new UartLogger[6];
         private bool bFrameStarted = false;
         public bool bFrameTimeout = false;
@@ -30,36 +30,30 @@ namespace UartMuxDemux
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            serialPorts = new SerialPort[NB_OF_PORT];
+            serialPorts = new SerialPort[MAX_NB_OF_PORT];
             for (int i=0;i<serialPorts.Length;i++)
             {
-                serialPorts[i] = new SerialPort();
-            }
-            comPortNameSource.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-            comPortName0.SelectedIndex = comPortName0.Items.Count - 1;
-            comPortName0.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-            comPortName0.SelectedIndex = comPortName0.Items.Count - 1;
-            comPortName1.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-            comPortName1.SelectedIndex = comPortName1.Items.Count - 1;
-            comPortName2.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-            comPortName2.SelectedIndex = comPortName2.Items.Count - 1;
-            comboBoxBaudrate.SelectedIndex = 0;
-            // Serial ports
-            int settingsBaudrate = Properties.Settings.Default.serialBaudrate;
-            comboBoxBaudrate.Text = settingsBaudrate.ToString();
-            foreach (SerialPort serialPort in serialPorts)
-            {
-                serialPort.BaudRate = settingsBaudrate;
+                //serialPorts[i] = new SerialPort();
             }
             // Load saved settings
             LoadSettings();
+            // Configure datagrid view
+            SetupDataGrid();
+        }
+
+        private void SetupDataGrid()
+        {
+            dataGridViewFrames.ColumnCount = 3;
+            dataGridViewFrames.Columns[0].Name = "PortName";
+            dataGridViewFrames.Columns[1].Name = "Open";
+            dataGridViewFrames.Columns[2].Name = "FrameCount";
         }
 
         private void LoadSettings()
         {
             UartLogger.startByte = Properties.Settings.Default.startByte;
             UartLogger.eofByte = Properties.Settings.Default.eofByte;
-            numericUpDownEoF.Value = Properties.Settings.Default.eofByte;
+            //numericUpDownEoF.Value = Properties.Settings.Default.eofByte;
             UartLogger.specialByte = Properties.Settings.Default.specialByte;
         }
 
@@ -100,32 +94,6 @@ namespace UartMuxDemux
 
         private void UpdateCheboxesText()
         {
-            if (serialPorts[0].IsOpen)
-            {
-                RecordCheckbox0.Text = "Close";
-            }
-            else
-            {
-                RecordCheckbox0.Text = "Open";
-            }
-
-            if (serialPorts[1].IsOpen)
-            {
-                RecordCheckbox1.Text = "Close";
-            }
-            else
-            {
-                RecordCheckbox1.Text = "Open";
-            }
-
-            if (serialPorts[2].IsOpen)
-            {
-                RecordCheckbox2.Text = "Close";
-            }
-            else
-            {
-                RecordCheckbox2.Text = "Open";
-            }
         }
 
         private void RecordCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -138,18 +106,18 @@ namespace UartMuxDemux
             {
 
                 // Set the End of Frame Byte
-                UartLogger.eofByte = (byte)numericUpDownEoF.Value;
+                //UartLogger.eofByte = (byte)numericUpDownEoF.Value;
 
                 switch (portNumber)
                 {
                     case 0:
-                        serialPorts[portNumber].PortName = comPortName0.Text;
+                        
                         break;
                     case 1:
-                        serialPorts[portNumber].PortName = comPortName1.Text;
+                        
                         break;
                     case 2:
-                        serialPorts[portNumber].PortName = comPortName2.Text;
+                        
                         break;
                 }
             }
@@ -158,18 +126,6 @@ namespace UartMuxDemux
 
                 if (serialPorts[portNumber].IsOpen == false)
                 {
-                    switch (portNumber)
-                    {
-                        case 0:
-                            serialPorts[portNumber].PortName = comPortName0.Text;
-                            break;
-                        case 1:
-                            serialPorts[portNumber].PortName = comPortName1.Text;
-                            break;
-                        case 2:
-                            serialPorts[portNumber].PortName = comPortName2.Text;
-                            break;
-                    }
                 }
             }
             OpenClosePort(portNumber, openClose);
@@ -178,85 +134,10 @@ namespace UartMuxDemux
 
         private void RefreshCheckboxes()
         {
-            if (serialPorts[0].IsOpen)
-            {
-                RecordCheckbox0.Checked = true;
-            }
-            if (serialPorts[1].IsOpen)
-            {
-                RecordCheckbox1.Checked = true;
-            }
-            if (serialPorts[2].IsOpen)
-            {
-                RecordCheckbox1.Checked = true;
-            }
         }
 
         private void RefreshCounters()
         {
-            try
-            {
-                if (uartLoggers[0] != null)
-                {
-                    numericUpDown0.Value = uartLoggers[0].iFrameCount;
-                    if (uartLoggers[0].IsPortOpen())
-                    {
-                        RecordCheckbox0.Text = "Close";
-                    }
-                    else
-                    {
-                        RecordCheckbox0.Text = "Open";
-                    }
-                }
-                if (uartLoggers[1] != null)
-                {
-                    if (uartLoggers[1].IsPortOpen())
-                    {
-                        RecordCheckbox1.Text = "Close";
-                    }
-                    else
-                    {
-                        RecordCheckbox1.Text = "Open";
-                    }
-                }
-                if (uartLoggers[2] != null)
-                {
-                    if (uartLoggers[2].IsPortOpen())
-                    {
-                        RecordCheckbox2.Text = "Close";
-                    }
-                    else
-                    {
-                        RecordCheckbox2.Text = "Open";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            try
-            {
-                if (uartLoggers[1] != null)
-                {
-                    numericUpDown1.Value = uartLoggers[1].iFrameCount;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            try
-            {
-                if (uartLoggers[2] != null)
-                {
-                    numericUpDown2.Value = uartLoggers[2].iFrameCount;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
         }
 
         private void buttonOpenAll_Click(object sender, EventArgs e)
@@ -264,24 +145,9 @@ namespace UartMuxDemux
             //b
         }
 
-        private void comPortName1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string strPortNumber = ((ComboBox)sender).Name;
-            strPortNumber = strPortNumber.Substring(strPortNumber.Length - 1, 1);
-            int portNumber = Convert.ToInt32(strPortNumber);
-
-            serialPorts[portNumber].PortName = ((ComboBox)sender).Text;
-        }
-
         private void CheckBoxConnect_CheckedChanged(object sender, EventArgs e)
         {
             OpenClosePort(1, ((CheckBox)sender).Checked);
-        }
-
-        private void comboBoxBaudrate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.serialBaudrate = Convert.ToInt32(comboBoxBaudrate.Text);
-            Properties.Settings.Default.Save();
         }
 
         private void timerRefreshDisplay_Tick(object sender, EventArgs e)
@@ -303,8 +169,6 @@ namespace UartMuxDemux
             if (CloseToOpen)
             {
                 // If Opening
-                // Configure the port
-                serialPortSource.BaudRate = Properties.Settings.Default.serialBaudrate;
                 try
                 {
                     serialPortSource.Open();
@@ -395,6 +259,12 @@ namespace UartMuxDemux
             RefreshCheckboxes();
             // Refresh the Counters
             RefreshCounters();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PortsConfigForm portsConfigForm = new PortsConfigForm(serialPorts);
+            portsConfigForm.ShowDialog();
         }
     }
 }

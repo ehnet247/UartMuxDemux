@@ -271,8 +271,56 @@
     <Setting Name="specialByte" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">222</Value>
     </Setting>
-    <Setting Name="serialBaudrate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">9600</Value>
+    <Setting Name="sourcePort" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort1" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort2" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort3" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort4" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort5" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort6" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort7" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort8" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort9" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort10" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort11" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort12" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort13" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort14" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort15" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="destPort16" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
