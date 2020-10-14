@@ -44,6 +44,15 @@ namespace UartMuxDemux
         {
             // Save the config
             SaveConfig();
+            // Save the settings in external file
+            try
+            {
+                Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             // Close the form
             this.Close();
         }
@@ -258,8 +267,6 @@ namespace UartMuxDemux
                 default:
                     //
                     break;
-                    // Save the settings in external file
-                    Settings.Default.Save();
             }
         }
 
