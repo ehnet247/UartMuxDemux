@@ -262,64 +262,250 @@
   &lt;string /&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="startByte" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">208</Value>
+    <Setting Name="nbOfDemuxPorts" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="eofByte" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">13</Value>
-    </Setting>
-    <Setting Name="specialByte" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">222</Value>
-    </Setting>
-    <Setting Name="sourcePort" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="muxPort" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort1" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort1" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort2" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort2" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort3" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort3" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort4" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort4" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort5" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort5" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort6" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort6" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort7" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort7" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort8" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort8" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort9" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort9" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort10" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort10" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort11" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort11" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort12" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort12" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort13" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort13" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort14" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort14" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort15" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort15" Type="System.IO.Ports.SerialPort" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="destPort16" Type="System.IO.Ports.SerialPort" Scope="User">
+    <Setting Name="demuxPort16" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType1" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType3" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType4" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType5" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType6" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType7" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType8" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType9" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType10" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType11" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType12" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType13" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType14" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="linkType15" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="linkType16" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize1" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize2" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize3" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize4" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize5" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize6" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize7" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize8" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize9" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize10" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize11" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize12" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize13" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize14" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize15" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameSize16" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte1" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte2" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte3" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte4" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte5" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte6" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte7" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte8" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte9" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte10" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte11" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte12" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte13" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte14" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte15" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="eoFByte16" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frameDelimiter1" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter3" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter4" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter5" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter6" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter7" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter8" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter9" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter10" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter11" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter12" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter13" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter14" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter15" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="frameDelimiter16" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

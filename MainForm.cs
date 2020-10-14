@@ -22,7 +22,7 @@ namespace UartMuxDemux
         private string strDataReceivedDate;
         private string strDataReceivedTime;
         //private UartLogger uartLogger1;
-        protected SerialPort[] serialPorts;
+        protected SerialPortsDescription[] serialPortsDesc;
         public MainForm()
         {
             InitializeComponent();
@@ -30,10 +30,10 @@ namespace UartMuxDemux
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            serialPorts = new SerialPort[MAX_NB_OF_PORT];
-            for (int i=0;i<serialPorts.Length;i++)
+            serialPortsDesc = new SerialPortsDescription[MAX_NB_OF_PORT];
+            for (int i=0;i< MAX_NB_OF_PORT; i++)
             {
-                //serialPorts[i] = new SerialPort();
+                serialPortsDesc[i] = new SerialPortsDescription();
             }
             // Load saved settings
             LoadSettings();
@@ -51,23 +51,23 @@ namespace UartMuxDemux
 
         private void LoadSettings()
         {
-            UartLogger.startByte = Properties.Settings.Default.startByte;
-            UartLogger.eofByte = Properties.Settings.Default.eofByte;
+            //UartLogger.startByte = Properties.Settings.Default.nbOfDemuxPorts;
+            //UartLogger.eofByte = Properties.Settings.Default.eofByte;
             //numericUpDownEoF.Value = Properties.Settings.Default.eofByte;
-            UartLogger.specialByte = Properties.Settings.Default.specialByte;
+            //UartLogger.specialByte = Properties.Settings.Default.specialByte;
         }
 
         private void OpenClosePort(int portNumber, bool actionOpen)
         {
 
-            if ((actionOpen == true) && (serialPorts[portNumber].IsOpen == false))
+            if ((actionOpen == true) && (serialPortsDesc[portNumber].serialPort.IsOpen == false))
             {
-                string fileName = "log_" + serialPorts[portNumber].PortName + ".csv";
+                string fileName = "log_" + serialPortsDesc[portNumber].serialPort.PortName + ".csv";
                 // Create an instance of UartLogger
-                uartLoggers[portNumber] = new UartLogger(serialPorts[portNumber], fileName);
+                uartLoggers[portNumber] = new UartLogger(serialPortsDesc[portNumber].serialPort, fileName);
                 try
                 {
-                    serialPorts[portNumber].Open();
+                    serialPortsDesc[portNumber].serialPort.Open();
                 }
                 catch (Exception ex)
                 {
@@ -75,13 +75,13 @@ namespace UartMuxDemux
                 }
                 UpdateCheboxesText();
             }
-            else if((actionOpen == false) && (serialPorts[portNumber].IsOpen == true))
+            else if((actionOpen == false) && (serialPortsDesc[portNumber].serialPort.IsOpen == true))
             {
                 try
                 {
-                    if (serialPorts[portNumber].IsOpen)
+                    if (serialPortsDesc[portNumber].serialPort.IsOpen)
                     {
-                        serialPorts[portNumber].Close();
+                        serialPortsDesc[portNumber].serialPort.Close();
                     }
                 }
                 catch (Exception ex)
@@ -124,7 +124,7 @@ namespace UartMuxDemux
             else // If Closing
             {
 
-                if (serialPorts[portNumber].IsOpen == false)
+                if (serialPortsDesc[portNumber].serialPort.IsOpen == false)
                 {
                 }
             }
@@ -234,13 +234,13 @@ namespace UartMuxDemux
                     byte[] readBuffer = new byte[serialPortSource.BytesToRead];
                     serialPortSource.Read(readBuffer, 0, serialPortSource.BytesToRead);
                     // Write the received bytes in every open ports
-                    foreach (SerialPort sp in serialPorts)
+                    foreach (SerialPortsDescription spDesc in serialPortsDesc)
                     {
-                        if (sp.IsOpen)
+                        if (spDesc.serialPort.IsOpen)
                         {
                             try
                             {
-                                sp.Write(readBuffer, 0, readBuffer.Length);
+                                spDesc.serialPort.Write(readBuffer, 0, readBuffer.Length);
                             }
                             catch (Exception ex)
                             {
@@ -263,7 +263,7 @@ namespace UartMuxDemux
 
         private void button2_Click(object sender, EventArgs e)
         {
-            PortsConfigForm portsConfigForm = new PortsConfigForm(serialPorts);
+            PortsConfigForm portsConfigForm = new PortsConfigForm(serialPortsDesc);
             portsConfigForm.ShowDialog();
         }
     }

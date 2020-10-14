@@ -86,224 +86,968 @@ namespace UartMuxDemux.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("208")]
-        public byte startByte {
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int nbOfDemuxPorts {
             get {
-                return ((byte)(this["startByte"]));
+                return ((int)(this["nbOfDemuxPorts"]));
             }
             set {
-                this["startByte"] = value;
+                this["nbOfDemuxPorts"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("13")]
-        public byte eofByte {
+        public global::System.IO.Ports.SerialPort muxPort {
             get {
-                return ((byte)(this["eofByte"]));
+                return ((global::System.IO.Ports.SerialPort)(this["muxPort"]));
             }
             set {
-                this["eofByte"] = value;
+                this["muxPort"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("222")]
-        public byte specialByte {
+        public global::System.IO.Ports.SerialPort demuxPort1 {
             get {
-                return ((byte)(this["specialByte"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort1"]));
             }
             set {
-                this["specialByte"] = value;
+                this["demuxPort1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort sourcePort {
+        public global::System.IO.Ports.SerialPort demuxPort2 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["sourcePort"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort2"]));
             }
             set {
-                this["sourcePort"] = value;
+                this["demuxPort2"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort1 {
+        public global::System.IO.Ports.SerialPort demuxPort3 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort1"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort3"]));
             }
             set {
-                this["destPort1"] = value;
+                this["demuxPort3"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort2 {
+        public global::System.IO.Ports.SerialPort demuxPort4 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort2"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort4"]));
             }
             set {
-                this["destPort2"] = value;
+                this["demuxPort4"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort3 {
+        public global::System.IO.Ports.SerialPort demuxPort5 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort3"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort5"]));
             }
             set {
-                this["destPort3"] = value;
+                this["demuxPort5"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort4 {
+        public global::System.IO.Ports.SerialPort demuxPort6 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort4"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort6"]));
             }
             set {
-                this["destPort4"] = value;
+                this["demuxPort6"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort5 {
+        public global::System.IO.Ports.SerialPort demuxPort7 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort5"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort7"]));
             }
             set {
-                this["destPort5"] = value;
+                this["demuxPort7"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort6 {
+        public global::System.IO.Ports.SerialPort demuxPort8 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort6"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort8"]));
             }
             set {
-                this["destPort6"] = value;
+                this["demuxPort8"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort7 {
+        public global::System.IO.Ports.SerialPort demuxPort9 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort7"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort9"]));
             }
             set {
-                this["destPort7"] = value;
+                this["demuxPort9"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort8 {
+        public global::System.IO.Ports.SerialPort demuxPort10 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort8"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort10"]));
             }
             set {
-                this["destPort8"] = value;
+                this["demuxPort10"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort9 {
+        public global::System.IO.Ports.SerialPort demuxPort11 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort9"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort11"]));
             }
             set {
-                this["destPort9"] = value;
+                this["demuxPort11"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort10 {
+        public global::System.IO.Ports.SerialPort demuxPort12 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort10"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort12"]));
             }
             set {
-                this["destPort10"] = value;
+                this["demuxPort12"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort11 {
+        public global::System.IO.Ports.SerialPort demuxPort13 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort11"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort13"]));
             }
             set {
-                this["destPort11"] = value;
+                this["demuxPort13"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort12 {
+        public global::System.IO.Ports.SerialPort demuxPort14 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort12"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort14"]));
             }
             set {
-                this["destPort12"] = value;
+                this["demuxPort14"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort13 {
+        public global::System.IO.Ports.SerialPort demuxPort15 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort13"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort15"]));
             }
             set {
-                this["destPort13"] = value;
+                this["demuxPort15"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort14 {
+        public global::System.IO.Ports.SerialPort demuxPort16 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort14"]));
+                return ((global::System.IO.Ports.SerialPort)(this["demuxPort16"]));
             }
             set {
-                this["destPort14"] = value;
+                this["demuxPort16"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort15 {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType1 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort15"]));
+                return ((string)(this["linkType1"]));
             }
             set {
-                this["destPort15"] = value;
+                this["linkType1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.IO.Ports.SerialPort destPort16 {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType2 {
             get {
-                return ((global::System.IO.Ports.SerialPort)(this["destPort16"]));
+                return ((string)(this["linkType2"]));
             }
             set {
-                this["destPort16"] = value;
+                this["linkType2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType3 {
+            get {
+                return ((string)(this["linkType3"]));
+            }
+            set {
+                this["linkType3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType4 {
+            get {
+                return ((string)(this["linkType4"]));
+            }
+            set {
+                this["linkType4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType5 {
+            get {
+                return ((string)(this["linkType5"]));
+            }
+            set {
+                this["linkType5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType6 {
+            get {
+                return ((string)(this["linkType6"]));
+            }
+            set {
+                this["linkType6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType7 {
+            get {
+                return ((string)(this["linkType7"]));
+            }
+            set {
+                this["linkType7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType8 {
+            get {
+                return ((string)(this["linkType8"]));
+            }
+            set {
+                this["linkType8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType9 {
+            get {
+                return ((string)(this["linkType9"]));
+            }
+            set {
+                this["linkType9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType10 {
+            get {
+                return ((string)(this["linkType10"]));
+            }
+            set {
+                this["linkType10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType11 {
+            get {
+                return ((string)(this["linkType11"]));
+            }
+            set {
+                this["linkType11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType12 {
+            get {
+                return ((string)(this["linkType12"]));
+            }
+            set {
+                this["linkType12"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType13 {
+            get {
+                return ((string)(this["linkType13"]));
+            }
+            set {
+                this["linkType13"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string linkType14 {
+            get {
+                return ((string)(this["linkType14"]));
+            }
+            set {
+                this["linkType14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string linkType15 {
+            get {
+                return ((string)(this["linkType15"]));
+            }
+            set {
+                this["linkType15"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string linkType16 {
+            get {
+                return ((string)(this["linkType16"]));
+            }
+            set {
+                this["linkType16"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize1 {
+            get {
+                return ((uint)(this["frameSize1"]));
+            }
+            set {
+                this["frameSize1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize2 {
+            get {
+                return ((uint)(this["frameSize2"]));
+            }
+            set {
+                this["frameSize2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize3 {
+            get {
+                return ((uint)(this["frameSize3"]));
+            }
+            set {
+                this["frameSize3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize4 {
+            get {
+                return ((uint)(this["frameSize4"]));
+            }
+            set {
+                this["frameSize4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize5 {
+            get {
+                return ((uint)(this["frameSize5"]));
+            }
+            set {
+                this["frameSize5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize6 {
+            get {
+                return ((uint)(this["frameSize6"]));
+            }
+            set {
+                this["frameSize6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize7 {
+            get {
+                return ((uint)(this["frameSize7"]));
+            }
+            set {
+                this["frameSize7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize8 {
+            get {
+                return ((uint)(this["frameSize8"]));
+            }
+            set {
+                this["frameSize8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize9 {
+            get {
+                return ((uint)(this["frameSize9"]));
+            }
+            set {
+                this["frameSize9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize10 {
+            get {
+                return ((uint)(this["frameSize10"]));
+            }
+            set {
+                this["frameSize10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize11 {
+            get {
+                return ((uint)(this["frameSize11"]));
+            }
+            set {
+                this["frameSize11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize12 {
+            get {
+                return ((uint)(this["frameSize12"]));
+            }
+            set {
+                this["frameSize12"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize13 {
+            get {
+                return ((uint)(this["frameSize13"]));
+            }
+            set {
+                this["frameSize13"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize14 {
+            get {
+                return ((uint)(this["frameSize14"]));
+            }
+            set {
+                this["frameSize14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize15 {
+            get {
+                return ((uint)(this["frameSize15"]));
+            }
+            set {
+                this["frameSize15"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public uint frameSize16 {
+            get {
+                return ((uint)(this["frameSize16"]));
+            }
+            set {
+                this["frameSize16"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte1 {
+            get {
+                return ((byte)(this["eoFByte1"]));
+            }
+            set {
+                this["eoFByte1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte2 {
+            get {
+                return ((byte)(this["eoFByte2"]));
+            }
+            set {
+                this["eoFByte2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte3 {
+            get {
+                return ((byte)(this["eoFByte3"]));
+            }
+            set {
+                this["eoFByte3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte4 {
+            get {
+                return ((byte)(this["eoFByte4"]));
+            }
+            set {
+                this["eoFByte4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte5 {
+            get {
+                return ((byte)(this["eoFByte5"]));
+            }
+            set {
+                this["eoFByte5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte6 {
+            get {
+                return ((byte)(this["eoFByte6"]));
+            }
+            set {
+                this["eoFByte6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte7 {
+            get {
+                return ((byte)(this["eoFByte7"]));
+            }
+            set {
+                this["eoFByte7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte8 {
+            get {
+                return ((byte)(this["eoFByte8"]));
+            }
+            set {
+                this["eoFByte8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte9 {
+            get {
+                return ((byte)(this["eoFByte9"]));
+            }
+            set {
+                this["eoFByte9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte10 {
+            get {
+                return ((byte)(this["eoFByte10"]));
+            }
+            set {
+                this["eoFByte10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte11 {
+            get {
+                return ((byte)(this["eoFByte11"]));
+            }
+            set {
+                this["eoFByte11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte12 {
+            get {
+                return ((byte)(this["eoFByte12"]));
+            }
+            set {
+                this["eoFByte12"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte13 {
+            get {
+                return ((byte)(this["eoFByte13"]));
+            }
+            set {
+                this["eoFByte13"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte14 {
+            get {
+                return ((byte)(this["eoFByte14"]));
+            }
+            set {
+                this["eoFByte14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte15 {
+            get {
+                return ((byte)(this["eoFByte15"]));
+            }
+            set {
+                this["eoFByte15"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public byte eoFByte16 {
+            get {
+                return ((byte)(this["eoFByte16"]));
+            }
+            set {
+                this["eoFByte16"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter1 {
+            get {
+                return ((string)(this["frameDelimiter1"]));
+            }
+            set {
+                this["frameDelimiter1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter2 {
+            get {
+                return ((string)(this["frameDelimiter2"]));
+            }
+            set {
+                this["frameDelimiter2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter3 {
+            get {
+                return ((string)(this["frameDelimiter3"]));
+            }
+            set {
+                this["frameDelimiter3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter4 {
+            get {
+                return ((string)(this["frameDelimiter4"]));
+            }
+            set {
+                this["frameDelimiter4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter5 {
+            get {
+                return ((string)(this["frameDelimiter5"]));
+            }
+            set {
+                this["frameDelimiter5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter6 {
+            get {
+                return ((string)(this["frameDelimiter6"]));
+            }
+            set {
+                this["frameDelimiter6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter7 {
+            get {
+                return ((string)(this["frameDelimiter7"]));
+            }
+            set {
+                this["frameDelimiter7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter8 {
+            get {
+                return ((string)(this["frameDelimiter8"]));
+            }
+            set {
+                this["frameDelimiter8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter9 {
+            get {
+                return ((string)(this["frameDelimiter9"]));
+            }
+            set {
+                this["frameDelimiter9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter10 {
+            get {
+                return ((string)(this["frameDelimiter10"]));
+            }
+            set {
+                this["frameDelimiter10"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter11 {
+            get {
+                return ((string)(this["frameDelimiter11"]));
+            }
+            set {
+                this["frameDelimiter11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter12 {
+            get {
+                return ((string)(this["frameDelimiter12"]));
+            }
+            set {
+                this["frameDelimiter12"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter13 {
+            get {
+                return ((string)(this["frameDelimiter13"]));
+            }
+            set {
+                this["frameDelimiter13"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter14 {
+            get {
+                return ((string)(this["frameDelimiter14"]));
+            }
+            set {
+                this["frameDelimiter14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter15 {
+            get {
+                return ((string)(this["frameDelimiter15"]));
+            }
+            set {
+                this["frameDelimiter15"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string frameDelimiter16 {
+            get {
+                return ((string)(this["frameDelimiter16"]));
+            }
+            set {
+                this["frameDelimiter16"] = value;
             }
         }
     }
