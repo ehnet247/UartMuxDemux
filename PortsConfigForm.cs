@@ -14,10 +14,11 @@ namespace UartMuxDemux
 {
     public partial class PortsConfigForm : Form
     {
+        public const int MAX_NB_OF_PORT = 16;
         // Serial ports description table
-        protected SerialPortsDescription[] serialPortsDescription;
-        private decimal previousConfigPortNumber = 0;
-        public PortsConfigForm(SerialPortsDescription[] serialPortsDescription)
+        protected SerialPortDescription[] serialPortsDescription;
+        private int previousConfigPortNumber = 0;
+        public PortsConfigForm(SerialPortDescription[] serialPortsDescription)
         {
             this.serialPortsDescription = serialPortsDescription;
             InitializeComponent();
@@ -26,18 +27,46 @@ namespace UartMuxDemux
         private void PortsConfigForm_Load(object sender, EventArgs e)
         {
             // Get the number of ports
+            try
+            {
             numericUpDownPortNumber.Value = (decimal)Settings.Default.nbOfDemuxPorts;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             numericUpDownPortConfig.Maximum = numericUpDownPortNumber.Value;
-            propertyGridPorts.SelectedObject = serialPortsDescription[(int)numericUpDownPortNumber.Value].serialPort;
+            UpdateListboxPortConfig();
+            // Restore the settings 
+            for(int iPortNumber = 0; iPortNumber < Settings.Default.nbOfDemuxPorts; iPortNumber++)
+            {
+                LoadSettings(iPortNumber);
+            }
+            // Select the first port in the port list
+            if (Settings.Default.nbOfDemuxPorts > 0)
+            {
+                listBoxPortConfig.SelectedIndex = 0;
             // Display the properties of the selected port
-            UpdatePortProperties();
+                UpdatePortProperties(0);
+            }
         }
+
+        private void UpdateListboxPortConfig()
+        {
+            int iPortNum = 0;
+            while (iPortNum < numericUpDownPortNumber.Value)
+            {
+                if ((serialPortsDescription[iPortNum] != null) && (serialPortsDescription[iPortNum].serialPort != null))
+                {
+                    listBoxPortConfig.Items.Add(serialPortsDescription[iPortNum].serialPort.PortName);
+                }
+                iPortNum++;
+            }
+        }
+            
 
         private void numericUpDownPortNumber_ValueChanged(object sender, EventArgs e)
         {
-            numericUpDownPortConfig.Maximum = numericUpDownPortNumber.Value;
-            // Display the properties of the selected port
-            UpdatePortProperties();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -67,226 +96,51 @@ namespace UartMuxDemux
             }
         }
 
-        private void SaveSettings(decimal portNum)
+        private void SaveSettings(int portNum)
         {
-            switch (portNum)
-            {
-                case 1:
-
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort1 = serialPortsDescription[0].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType1 = serialPortsDescription[0].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter1 = serialPortsDescription[0].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize1 = (uint)serialPortsDescription[0].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte1 = serialPortsDescription[0].u8EoFByte;
-                    break;
-                case 2:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort2 = serialPortsDescription[1].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType2 = serialPortsDescription[1].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter2 = serialPortsDescription[1].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize2 = (uint)serialPortsDescription[1].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte2 = serialPortsDescription[1].u8EoFByte;
-                    break;
-                case 3:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort3 = serialPortsDescription[2].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType3 = serialPortsDescription[2].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter3 = serialPortsDescription[2].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize3 = (uint)serialPortsDescription[2].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte3 = serialPortsDescription[2].u8EoFByte;
-                    break;
-                case 4:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort4 = serialPortsDescription[3].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType4 = serialPortsDescription[3].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter4 = serialPortsDescription[3].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize4 = (uint)serialPortsDescription[3].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte4 = serialPortsDescription[3].u8EoFByte;
-                    break;
-                case 5:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort5 = serialPortsDescription[4].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType5 = serialPortsDescription[4].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter5 = serialPortsDescription[4].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize5 = (uint)serialPortsDescription[4].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte5 = serialPortsDescription[4].u8EoFByte;
-                    break;
-                case 6:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort6 = serialPortsDescription[5].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType6 = serialPortsDescription[5].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter6 = serialPortsDescription[5].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize6 = (uint)serialPortsDescription[5].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte6 = serialPortsDescription[5].u8EoFByte;
-                    break;
-                case 7:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort7 = serialPortsDescription[6].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType7 = serialPortsDescription[6].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter7 = serialPortsDescription[6].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize7 = (uint)serialPortsDescription[6].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte7 = serialPortsDescription[6].u8EoFByte;
-                    break;
-                case 8:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort8 = serialPortsDescription[7].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType8 = serialPortsDescription[7].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter8 = serialPortsDescription[7].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize8 = (uint)serialPortsDescription[7].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte8 = serialPortsDescription[7].u8EoFByte;
-                    break;
-                case 9:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort9 = serialPortsDescription[8].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType9 = serialPortsDescription[8].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter9 = serialPortsDescription[8].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize9 = (uint)serialPortsDescription[8].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte9 = serialPortsDescription[8].u8EoFByte;
-                    break;
-                case 10:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort10 = serialPortsDescription[9].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType10 = serialPortsDescription[9].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter10 = serialPortsDescription[9].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize10 = (uint)serialPortsDescription[9].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte10 = serialPortsDescription[9].u8EoFByte;
-                    break;
-                case 11:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort11 = serialPortsDescription[10].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType11 = serialPortsDescription[10].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter11 = serialPortsDescription[10].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize11 = (uint)serialPortsDescription[10].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte11 = serialPortsDescription[10].u8EoFByte;
-                    break;
-                case 12:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort12 = serialPortsDescription[11].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType12 = serialPortsDescription[11].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter12 = serialPortsDescription[11].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize12 = (uint)serialPortsDescription[11].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte12 = serialPortsDescription[11].u8EoFByte;
-                    break;
-                case 13:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort13 = serialPortsDescription[12].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType13 = serialPortsDescription[12].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter13 = serialPortsDescription[12].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize13 = (uint)serialPortsDescription[12].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte13 = serialPortsDescription[12].u8EoFByte;
-                    break;
-                case 14:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort14 = serialPortsDescription[13].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType14 = serialPortsDescription[13].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter14 = serialPortsDescription[13].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize14 = (uint)serialPortsDescription[13].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte14 = serialPortsDescription[13].u8EoFByte;
-                    break;
-                case 15:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort15 = serialPortsDescription[14].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType15 = serialPortsDescription[14].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter15 = serialPortsDescription[14].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize15 = (uint)serialPortsDescription[14].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte15 = serialPortsDescription[14].u8EoFByte;
-                    break;
-                case 16:
-                    // Save the serialPort instance
-                    Settings.Default.demuxPort16 = serialPortsDescription[15].serialPort;
-                    // Save the link type
-                    Settings.Default.linkType16 = serialPortsDescription[15].strLinkType;
-                    // Save the frame delimiter
-                    Settings.Default.frameDelimiter16 = serialPortsDescription[15].strFrameDelimiter;
-                    // Save the frame size
-                    Settings.Default.frameSize16 = (uint)serialPortsDescription[15].iFrameSize;
-                    // Save the EoF byte
-                    Settings.Default.eoFByte16 = serialPortsDescription[15].u8EoFByte;
-                    break;
-                default:
-                    //
-                    break;
-            }
+            Settings.Default.demuxPortsName[portNum] = serialPortsDescription[portNum].serialPort.PortName;
+            Settings.Default.demuxPortsBaudrate[portNum] = serialPortsDescription[portNum].serialPort.BaudRate.ToString();
+            Settings.Default.demuxPortsLinkType[portNum] = serialPortsDescription[portNum].strLinkType;
+            Settings.Default.demuxPortsRxTimeout[portNum] = serialPortsDescription[portNum].iRxTimeout.ToString();
+            Settings.Default.demuxPortsFrameDelimiting[portNum] = serialPortsDescription[portNum].strFrameDelimiting;
+            Settings.Default.demuxPortsEOFByte[portNum] = serialPortsDescription[portNum].u8EoFByte.ToString();
+            Settings.Default.demuxPortsFrameLength[portNum] = serialPortsDescription[portNum].iFrameLength.ToString();
         }
 
-        private void UpdatePortProperties()
+        private void LoadSettings(int portNum)
+            {
+            serialPortsDescription[portNum].serialPort.PortName = Settings.Default.demuxPortsName[portNum];
+            serialPortsDescription[portNum].serialPort.BaudRate = Convert.ToInt32(Settings.Default.demuxPortsBaudrate[portNum]);
+            serialPortsDescription[portNum].iRxTimeout = Convert.ToInt32(Settings.Default.demuxPortsRxTimeout[portNum]);
+            serialPortsDescription[portNum].strLinkType = Settings.Default.demuxPortsLinkType[portNum];
+            serialPortsDescription[portNum].strFrameDelimiting = Settings.Default.demuxPortsFrameDelimiting[portNum];
+            serialPortsDescription[portNum].u8EoFByte = Convert.ToByte(Settings.Default.demuxPortsEOFByte[portNum]);
+            serialPortsDescription[portNum].iFrameLength = Convert.ToInt32(Settings.Default.demuxPortsFrameLength);
+        }
+
+        private void UpdatePortProperties(int iPortIndex)
         {
             try
             {
-                if (serialPortsDescription[(int)numericUpDownPortConfig.Value].serialPort == null)
+                if (serialPortsDescription[iPortIndex].serialPort != null)
                 {
-                    // Fill-in the properties table
-                    serialPortsDescription[(int)numericUpDownPortConfig.Value].serialPort = new SerialPort();
+                    // Fill-in the port name
+                    textBoxPortName.Text = serialPortsDescription[iPortIndex].serialPort.PortName;
+                    // Fill-in the port baudrate
+                    numericUpDownBaudrate.Value = serialPortsDescription[iPortIndex].serialPort.BaudRate;
+                    // Fill-in the port link type
+                    comboBoxLinkType.Text = serialPortsDescription[iPortIndex].strLinkType;
+                    // Fill-in the port frame delimiting method
+                    comboBoxFrameDelimiting.Text = serialPortsDescription[iPortIndex].strFrameDelimiting;
+                    // Fill-in the port end of frame byte
+                    numericUpDownEoFByte.Value = Convert.ToByte(serialPortsDescription[iPortIndex].u8EoFByte);
+                    // Fill-in the port end of frame length
+                    numericUpDownFrameLength.Value = serialPortsDescription[iPortIndex].iFrameLength;
                     // Set the link type comboBox value for the new port number
-                    comboBoxLinkType.Text = serialPortsDescription[(int)numericUpDownPortConfig.Value].strLinkType;
-                    // Set the frame size comboBox value for the new port number
-                    comboBoxFrameDelimiter.Text = serialPortsDescription[(int)numericUpDownPortConfig.Value].strFrameDelimiter;
+                    comboBoxLinkType.Text = serialPortsDescription[iPortIndex].strLinkType;
                     // Set the end of frame byte numericUpDown value for the new port number
-                    numericUpDownEoFByte.Value = serialPortsDescription[(int)numericUpDownPortConfig.Value].u8EoFByte;
+                    numericUpDownEoFByte.Value = serialPortsDescription[iPortIndex].u8EoFByte;
                 }
-                // Set the new port as input of the serial port properties grid
-                propertyGridPorts.SelectedObject = serialPortsDescription[(int)numericUpDownPortConfig.Value].serialPort;
             }
             catch (Exception ex)
             {
@@ -299,28 +153,19 @@ namespace UartMuxDemux
             // Save the settings of previous port
             SaveSettings(previousConfigPortNumber);
             // Display the properties of the selected port
-            UpdatePortProperties();
-            // Store the config port number to further save the settings of the correct port
-            previousConfigPortNumber = numericUpDownPortConfig.Value;
-            // Set the link type comboBox value for the new port number
-            comboBoxLinkType.Text = serialPortsDescription[(int)numericUpDownPortConfig.Value].strLinkType;
-            // Set the frame delimiter comboBox value for the new port number
-            comboBoxFrameDelimiter.Text = serialPortsDescription[(int)numericUpDownPortConfig.Value].strFrameDelimiter;
-            DisplayCorrectEoFFields();
-            // Set the end of frame byte numericUpDown value for the new port number
-            numericUpDownEoFByte.Value = serialPortsDescription[(int)numericUpDownPortConfig.Value].u8EoFByte;
+            UpdatePortProperties((int)numericUpDownPortConfig.Value - 1);
         }
 
         private void DisplayCorrectEoFFields()
         {
-            if (comboBoxFrameDelimiter.Text == "Fixed")
+            if (comboBoxFrameDelimiting.Text == "Fixed")
             {
                 labelFrameLength.Visible = true;
                 numericUpDownFrameLength.Visible = true;
                 labelEoFByte.Visible = false;
                 numericUpDownEoFByte.Visible = false;
             }
-            else if (comboBoxFrameDelimiter.Text == "Defined by first byte")
+            else if (comboBoxFrameDelimiting.Text == "Defined by first byte")
             {
                 labelEoFByte.Visible = false;
                 numericUpDownEoFByte.Visible = false;
@@ -337,13 +182,13 @@ namespace UartMuxDemux
         private void comboBoxLinkType_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Set the new value to the current serialPortsDescription item
-            serialPortsDescription[(int)numericUpDownPortConfig.Value].strLinkType = comboBoxLinkType.Text;
+            serialPortsDescription[(int)numericUpDownPortConfig.Value - 1].strLinkType = comboBoxLinkType.Text;
         }
 
         private void comboBoxFrameDelimiter_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Set the new value to the current serialPortsDescription item
-            serialPortsDescription[(int)numericUpDownPortConfig.Value].strFrameDelimiter = comboBoxFrameDelimiter.Text;
+            serialPortsDescription[(int)numericUpDownPortConfig.Value].strFrameDelimiting = comboBoxFrameDelimiting.Text;
             DisplayCorrectEoFFields();
         }
 
@@ -356,7 +201,26 @@ namespace UartMuxDemux
         private void numericUpDownFrameLength_ValueChanged(object sender, EventArgs e)
         {
             // Set the new value to the current serialPortsDescription item
-            serialPortsDescription[(int)numericUpDownPortConfig.Value].iFrameSize = (int)numericUpDownFrameLength.Value;
+            serialPortsDescription[(int)numericUpDownPortConfig.Value].iFrameLength = (int)numericUpDownFrameLength.Value;
+        }
+
+        private void textBoxPortName_TextChanged(object sender, EventArgs e)
+        {
+            serialPortsDescription[(int)numericUpDownPortConfig.Value - 1].serialPort.PortName = textBoxPortName.Text;
+        }
+
+        private void numericUpDownBaudrate_ValueChanged(object sender, EventArgs e)
+        {
+            serialPortsDescription[(int)numericUpDownPortConfig.Value - 1].serialPort.BaudRate = (int)numericUpDownBaudrate.Value;
+        }
+
+        private void listBoxPortConfig_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Save the settings of previous port
+            SaveSettings(previousConfigPortNumber);
+            // Display the properties of the selected port
+            UpdatePortProperties(listBoxPortConfig.SelectedIndex);
+            previousConfigPortNumber = listBoxPortConfig.SelectedIndex;
         }
     }
 }
