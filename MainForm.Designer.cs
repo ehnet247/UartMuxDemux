@@ -59,6 +59,7 @@
             this.backgroundWorkerSource = new System.ComponentModel.BackgroundWorker();
             this.timerRefreshCounters = new System.Windows.Forms.Timer(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -379,12 +380,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "MUX options";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(249, 489);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(73, 29);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "Config";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(876, 558);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBoxLogger);
@@ -441,6 +453,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer timerRefreshCounters;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

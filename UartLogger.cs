@@ -20,7 +20,6 @@ namespace UartMuxDemux
         private SerialPort serialPort;
         private StreamWriter textWriter = null;
         private StreamWriter rawTextWriter = null;
-        private List<byte> aCurrentFrame;
         private string strLogFileName = String.Empty;
         private string strRawLogFileName = String.Empty;
         private bool bFrameStarted = false;
