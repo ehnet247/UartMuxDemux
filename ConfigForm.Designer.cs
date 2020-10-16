@@ -174,6 +174,7 @@
             this.textBoxPortName.Name = "textBoxPortName";
             this.textBoxPortName.Size = new System.Drawing.Size(100, 22);
             this.textBoxPortName.TabIndex = 8;
+            this.textBoxPortName.TextChanged += new System.EventHandler(this.textBoxPortName_TextChanged);
             // 
             // ConfigForm
             // 

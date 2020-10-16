@@ -34,6 +34,8 @@ namespace UartMuxDemux
 
         private void SortItemsInListBox()
         {
+            // Clear the listbox
+            listBoxDemuxPorts.Items.Clear();
             // Get a table of COM number
             List<int> portNumberList = new List<int>();
             foreach(DemuxPort dp in demuxPortsList)
@@ -49,6 +51,7 @@ namespace UartMuxDemux
                 }
                 portNumberList.Add(GetPortNumber(dp.serialPort.PortName));
                 portNumberList.Sort();
+                listBoxDemuxPorts.Items.AddRange(portNumberList);
             }
         }
 
@@ -81,6 +84,20 @@ namespace UartMuxDemux
             return -1;
         }
 
+        private int GetPortIndexByName(string portname)
+        {
+            int iPortIndex = -1;
+            while (iPortIndex < demuxPortsList.Count)
+            {
+                if (demuxPortsList[iPortIndex].serialPort.PortName == portname)
+                {
+                    return iPortIndex;
+                }
+                iPortIndex++;
+            }
+            return -1;
+        }
+
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             // We can add a port if there is one free
@@ -103,6 +120,19 @@ namespace UartMuxDemux
             int iPortNumber = GetPortNumber(strSelectedPort);
             DemuxPort dp = demuxPortsList[GetPortIndexByNumber(iPortNumber)];
             textBoxPortName.Text = dp.serialPort.PortName;
+        }
+
+        private void textBoxPortName_TextChanged(object sender, EventArgs e)
+        {
+            // Get index of the selected port
+            int iPortIndex = GetPortIndexByName(listBoxDemuxPorts.Text);
+            if(iPortIndex >= 0)
+            {
+                demuxPortsList[iPortIndex].serialPort.PortName = textBoxPortName.Text;
+                // Refresh the list
+                SortItemsInListBox();
+
+            }
         }
     }
 }
