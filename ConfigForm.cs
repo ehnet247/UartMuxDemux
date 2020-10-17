@@ -34,25 +34,17 @@ namespace UartMuxDemux
 
         private void SortItemsInListBox()
         {
+            List<string> portNameList = new List<string>();
+
             // Clear the listbox
             listBoxDemuxPorts.Items.Clear();
-            // Get a table of COM number
-            List<int> portNumberList = new List<int>();
-            foreach(DemuxPort dp in demuxPortsList)
-            {
-                string strPortNumber = string.Empty;
-                try
+                // Constitute a list of the ports names
+                foreach(DemuxPort dp in demuxPortsList)
                 {
-                    strPortNumber = dp.serialPort.PortName.Substring(3, (dp.serialPort.PortName.Length - 3));
+                    portNameList.Add(dp.serialPort.PortName);
+                    portNameList.Sort();
                 }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                portNumberList.Add(GetPortNumber(dp.serialPort.PortName));
-                portNumberList.Sort();
-                listBoxDemuxPorts.Items.AddRange(portNumberList);
-            }
+                listBoxDemuxPorts.Items.AddRange( portNameList.ToArray());
         }
 
         private int GetPortNumber(string portname)
@@ -86,6 +78,20 @@ namespace UartMuxDemux
 
         private int GetPortIndexByName(string portname)
         {
+            int iPortIndex = 0;
+            while (iPortIndex < demuxPortsList.Count)
+            {
+                if (demuxPortsList[iPortIndex].serialPort.PortName == portname)
+                {
+                    return iPortIndex;
+                }
+                iPortIndex++;
+            }
+            return -1;
+        }
+
+        private int GetPortNameByIndex(string portname)
+        {
             int iPortIndex = -1;
             while (iPortIndex < demuxPortsList.Count)
             {
@@ -104,8 +110,31 @@ namespace UartMuxDemux
             if(demuxPortsList.Count < MAX_NB_OF_DEMUX_PORT)
             {
                 DemuxPort dp = new DemuxPort();
+                dp.serialPort.PortName = "COM" + ((int)(1 + GetLastPortNumberInList())).ToString();
                 demuxPortsList.Add(dp);
+                SortItemsInListBox();
             }
+        }
+
+        private int GetLastPortNumberInList()
+        {
+            // Get last index of list
+            int iLastIndex = listBoxDemuxPorts.Items.Count - 1;
+            int iLastPortNumber = 0;
+            // Get the last port name
+            string strLastPortName = listBoxDemuxPorts.Items[iLastIndex].ToString();
+            // Get the port number as a string
+            string strLastPortNumber = strLastPortName.Substring(3);
+            // try to convert it in an int
+            try
+            {
+                iLastPortNumber = Convert.ToInt32(strLastPortNumber);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return iLastPortNumber;
         }
 
         private void listBoxDemuxPorts_SelectedIndexChanged(object sender, EventArgs e)
@@ -116,10 +145,13 @@ namespace UartMuxDemux
 
         private void DisplayPortCharacteristics()
         {
-            string strSelectedPort = listBoxDemuxPorts.SelectedItem.ToString();
-            int iPortNumber = GetPortNumber(strSelectedPort);
-            DemuxPort dp = demuxPortsList[GetPortIndexByNumber(iPortNumber)];
-            textBoxPortName.Text = dp.serialPort.PortName;
+            string strSelectedPort;
+            if (listBoxDemuxPorts.SelectedItem != null)
+            {
+                strSelectedPort = listBoxDemuxPorts.SelectedItem.ToString();
+                DemuxPort dp = demuxPortsList[GetPortIndexByName(strSelectedPort)];
+                textBoxPortName.Text = dp.serialPort.PortName;
+            }
         }
 
         private void textBoxPortName_TextChanged(object sender, EventArgs e)
