@@ -37,5 +37,17 @@ namespace UartMuxDemux {
                 this["aDemuxPortsNames"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MuxPortName {
+            get {
+                return ((string)(this["MuxPortName"]));
+            }
+            set {
+                this["MuxPortName"] = value;
+            }
+        }
     }
 }

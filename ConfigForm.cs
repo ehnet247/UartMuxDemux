@@ -23,8 +23,14 @@ namespace UartMuxDemux
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
+            // Load the available com port in comboBoxMuxPortName
+            comboBoxMuxPortName.Items.AddRange(SerialPort.GetPortNames());
+            // Select the saved setting
+            if ((Settings.Default.MuxPortName != String.Empty) &&
+                (SerialPort.GetPortNames().Contains(Settings.Default.MuxPortName)))
+                comboBoxMuxPortName.SelectedItem = Settings.Default.MuxPortName;
             // Load demux ports
-            foreach(DemuxPort demuxPort in demuxPortsList)
+            foreach (DemuxPort demuxPort in demuxPortsList)
             {
                 listBoxDemuxPorts.Items.Add(demuxPort.serialPort.PortName);
             }

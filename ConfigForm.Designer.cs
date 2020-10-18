@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.groupBoxMux = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownTimeout = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxLinkType = new System.Windows.Forms.ComboBox();
             this.textBoxPortName = new System.Windows.Forms.TextBox();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -42,14 +44,17 @@
             this.listBoxDemuxPorts = new System.Windows.Forms.ListBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBoxLinkType = new System.Windows.Forms.ComboBox();
-            this.numericUpDownTimeout = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxMuxPortName = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.groupBoxMux.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMux
             // 
+            this.groupBoxMux.Controls.Add(this.label5);
+            this.groupBoxMux.Controls.Add(this.comboBoxMuxPortName);
             this.groupBoxMux.Location = new System.Drawing.Point(13, 13);
             this.groupBoxMux.Name = "groupBoxMux";
             this.groupBoxMux.Size = new System.Drawing.Size(346, 388);
@@ -76,6 +81,21 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Demux";
+            // 
+            // numericUpDownTimeout
+            // 
+            this.numericUpDownTimeout.Location = new System.Drawing.Point(191, 284);
+            this.numericUpDownTimeout.Name = "numericUpDownTimeout";
+            this.numericUpDownTimeout.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownTimeout.TabIndex = 10;
+            // 
+            // comboBoxLinkType
+            // 
+            this.comboBoxLinkType.FormattingEnabled = true;
+            this.comboBoxLinkType.Location = new System.Drawing.Point(188, 141);
+            this.comboBoxLinkType.Name = "comboBoxLinkType";
+            this.comboBoxLinkType.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxLinkType.TabIndex = 9;
             // 
             // textBoxPortName
             // 
@@ -181,20 +201,22 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // comboBoxLinkType
+            // comboBoxMuxPortName
             // 
-            this.comboBoxLinkType.FormattingEnabled = true;
-            this.comboBoxLinkType.Location = new System.Drawing.Point(188, 141);
-            this.comboBoxLinkType.Name = "comboBoxLinkType";
-            this.comboBoxLinkType.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxLinkType.TabIndex = 9;
+            this.comboBoxMuxPortName.FormattingEnabled = true;
+            this.comboBoxMuxPortName.Location = new System.Drawing.Point(9, 51);
+            this.comboBoxMuxPortName.Name = "comboBoxMuxPortName";
+            this.comboBoxMuxPortName.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxMuxPortName.TabIndex = 0;
             // 
-            // numericUpDownTimeout
+            // label5
             // 
-            this.numericUpDownTimeout.Location = new System.Drawing.Point(191, 284);
-            this.numericUpDownTimeout.Name = "numericUpDownTimeout";
-            this.numericUpDownTimeout.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDownTimeout.TabIndex = 10;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 17);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Port name:";
             // 
             // ConfigForm
             // 
@@ -211,6 +233,8 @@
             this.Name = "ConfigForm";
             this.Text = "ConfigForm";
             this.Load += new System.EventHandler(this.ConfigForm_Load);
+            this.groupBoxMux.ResumeLayout(false);
+            this.groupBoxMux.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).EndInit();
@@ -235,5 +259,7 @@
         private System.Windows.Forms.TextBox textBoxPortName;
         private System.Windows.Forms.ComboBox comboBoxLinkType;
         private System.Windows.Forms.NumericUpDown numericUpDownTimeout;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxMuxPortName;
     }
 }
