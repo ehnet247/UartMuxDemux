@@ -114,7 +114,7 @@ namespace UartMuxDemux
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(demuxPortsList);
+            ConfigForm configForm = new ConfigForm(muxPort, demuxPortsList);
             DialogResult result = configForm.ShowDialog();
         }
 

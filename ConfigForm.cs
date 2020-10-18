@@ -15,9 +15,11 @@ namespace UartMuxDemux
     {
         public const int MAX_NB_OF_DEMUX_PORT = 16;
         protected List<DemuxPort> demuxPortsList;
-        public ConfigForm(List<DemuxPort> dPorts)
+        protected MuxPort muxPort;
+        public ConfigForm(MuxPort muxPort, List<DemuxPort> dPorts)
         {
             this.demuxPortsList = dPorts;
+            this.muxPort = muxPort;
             InitializeComponent();
         }
 
@@ -28,7 +30,20 @@ namespace UartMuxDemux
             // Select the saved setting
             if ((Settings.Default.MuxPortName != String.Empty) &&
                 (SerialPort.GetPortNames().Contains(Settings.Default.MuxPortName)))
+            {
                 comboBoxMuxPortName.SelectedItem = Settings.Default.MuxPortName;
+            }
+            else
+            {
+                try
+                {
+                    comboBoxMuxPortName.Items.AddRange(SerialPort.GetPortNames());
+                }
+                catch(Exception ex)
+                {
+                    TraceLogger.ErrorTrace(ex.Message);
+                }
+            }
             // Load demux ports
             foreach (DemuxPort demuxPort in demuxPortsList)
             {
@@ -157,6 +172,21 @@ namespace UartMuxDemux
                 SortItemsInListBox();
 
             }
+        }
+
+        private void comboBoxMuxPortName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            muxPort.serialPort.PortName = comboBoxMuxPortName.Text;
+        }
+
+        private void comboBoxMuxLinkType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            muxPort.linkType = comboBoxMuxLinkType.Text;
+        }
+
+        private void numericUpDownMuxBaudrate_ValueChanged(object sender, EventArgs e)
+        {
+            muxPort.serialPort.BaudRate = (int)numericUpDownMuxBaudrate.Value;
         }
     }
 }
