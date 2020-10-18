@@ -44,7 +44,7 @@ namespace UartMuxDemux
                     portNameList.Add(dp.serialPort.PortName);
                     portNameList.Sort();
                 }
-                listBoxDemuxPorts.Items.AddRange( portNameList.ToArray());
+                listBoxDemuxPorts.Items.AddRange(portNameList.ToArray());
         }
 
         private int GetPortNumber(string portname)
@@ -58,7 +58,7 @@ namespace UartMuxDemux
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                TraceLogger.ErrorTrace(ex.Message);
             }
             return iPortNumber;
         }
@@ -79,20 +79,6 @@ namespace UartMuxDemux
         private int GetPortIndexByName(string portname)
         {
             int iPortIndex = 0;
-            while (iPortIndex < demuxPortsList.Count)
-            {
-                if (demuxPortsList[iPortIndex].serialPort.PortName == portname)
-                {
-                    return iPortIndex;
-                }
-                iPortIndex++;
-            }
-            return -1;
-        }
-
-        private int GetPortNameByIndex(string portname)
-        {
-            int iPortIndex = -1;
             while (iPortIndex < demuxPortsList.Count)
             {
                 if (demuxPortsList[iPortIndex].serialPort.PortName == portname)
@@ -132,7 +118,7 @@ namespace UartMuxDemux
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                TraceLogger.ErrorTrace(ex.Message);
             }
             return iLastPortNumber;
         }
