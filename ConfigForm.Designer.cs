@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
             this.groupBoxMux = new System.Windows.Forms.GroupBox();
+            this.numericUpDownMuxBaudrate = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxMuxPortName = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -48,23 +50,17 @@
             this.listBoxDemuxPorts = new System.Windows.Forms.ListBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBoxMuxLinkType = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownMuxBaudrate = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBoxMux.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDemuxBaudrate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMux
             // 
             this.groupBoxMux.Controls.Add(this.numericUpDownMuxBaudrate);
             this.groupBoxMux.Controls.Add(this.label8);
-            this.groupBoxMux.Controls.Add(this.comboBoxMuxLinkType);
-            this.groupBoxMux.Controls.Add(this.label7);
             this.groupBoxMux.Controls.Add(this.label5);
             this.groupBoxMux.Controls.Add(this.comboBoxMuxPortName);
             this.groupBoxMux.Location = new System.Drawing.Point(13, 13);
@@ -73,6 +69,43 @@
             this.groupBoxMux.TabIndex = 0;
             this.groupBoxMux.TabStop = false;
             this.groupBoxMux.Text = "Mux";
+            // 
+            // numericUpDownMuxBaudrate
+            // 
+            this.numericUpDownMuxBaudrate.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMuxBaudrate.Location = new System.Drawing.Point(9, 100);
+            this.numericUpDownMuxBaudrate.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownMuxBaudrate.Minimum = new decimal(new int[] {
+            1200,
+            0,
+            0,
+            0});
+            this.numericUpDownMuxBaudrate.Name = "numericUpDownMuxBaudrate";
+            this.numericUpDownMuxBaudrate.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownMuxBaudrate.TabIndex = 14;
+            this.numericUpDownMuxBaudrate.Value = new decimal(new int[] {
+            1200,
+            0,
+            0,
+            0});
+            this.numericUpDownMuxBaudrate.ValueChanged += new System.EventHandler(this.numericUpDownMuxBaudrate_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 80);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(70, 17);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Baudrate:";
             // 
             // label5
             // 
@@ -269,61 +302,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // comboBoxMuxLinkType
-            // 
-            this.comboBoxMuxLinkType.FormattingEnabled = true;
-            this.comboBoxMuxLinkType.Location = new System.Drawing.Point(9, 100);
-            this.comboBoxMuxLinkType.Name = "comboBoxMuxLinkType";
-            this.comboBoxMuxLinkType.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxMuxLinkType.TabIndex = 14;
-            this.comboBoxMuxLinkType.SelectedIndexChanged += new System.EventHandler(this.comboBoxMuxLinkType_SelectedIndexChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 80);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 17);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Link type:";
-            // 
-            // numericUpDownMuxBaudrate
-            // 
-            this.numericUpDownMuxBaudrate.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownMuxBaudrate.Location = new System.Drawing.Point(10, 147);
-            this.numericUpDownMuxBaudrate.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDownMuxBaudrate.Minimum = new decimal(new int[] {
-            1200,
-            0,
-            0,
-            0});
-            this.numericUpDownMuxBaudrate.Name = "numericUpDownMuxBaudrate";
-            this.numericUpDownMuxBaudrate.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDownMuxBaudrate.TabIndex = 14;
-            this.numericUpDownMuxBaudrate.Value = new decimal(new int[] {
-            1200,
-            0,
-            0,
-            0});
-            this.numericUpDownMuxBaudrate.ValueChanged += new System.EventHandler(this.numericUpDownMuxBaudrate_ValueChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 127);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 17);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Baudrate:";
-            // 
             // ConfigForm
             // 
             this.AcceptButton = this.buttonOk;
@@ -341,11 +319,11 @@
             this.Load += new System.EventHandler(this.ConfigForm_Load);
             this.groupBoxMux.ResumeLayout(false);
             this.groupBoxMux.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDemuxBaudrate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -373,7 +351,5 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDemuxBaudrate;
         private System.Windows.Forms.NumericUpDown numericUpDownMuxBaudrate;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBoxMuxLinkType;
-        private System.Windows.Forms.Label label7;
     }
 }
