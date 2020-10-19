@@ -29,15 +29,6 @@ namespace UartMuxDemux
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadDemuxPortsList();
-            comPortNameSource.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-            comboBoxBaudrate.SelectedIndex = 0;
-            // Serial ports
-            int settingsBaudrate = Properties.Settings.Default.serialBaudrate;
-            comboBoxBaudrate.Text = settingsBaudrate.ToString();
-            foreach (DemuxPort demuxPort in demuxPortsList)
-            {
-                demuxPort.serialPort.BaudRate = settingsBaudrate;
-            }
             // Load saved settings
             LoadSettings();
         }
@@ -64,12 +55,6 @@ namespace UartMuxDemux
             int portNumber = Convert.ToInt32(strPortNumber);
 
             demuxPortsList[portNumber].serialPort.PortName = ((ComboBox)sender).Text;
-        }
-
-        private void comboBoxBaudrate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.serialBaudrate = Convert.ToInt32(comboBoxBaudrate.Text);
-            Properties.Settings.Default.Save();
         }
 
         private void timerFrameTimeout_Tick(object sender, EventArgs e)
@@ -217,6 +202,8 @@ namespace UartMuxDemux
 
         private void RefreshCheckedListBoxDemuxPorts()
         {
+            // Clear the list
+            checkedListBoxDemuxPorts.Items.Clear();
             foreach (DemuxPort dp in demuxPortsList)
             {
                 if (dp.serialPort.IsOpen)
