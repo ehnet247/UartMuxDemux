@@ -47,7 +47,7 @@ namespace UartMuxDemux
             demuxPortsList = new List<DemuxPort>();
             foreach(string portName in Settings.Default.aDemuxPortsNames)
             {
-                DemuxPort NewDp = new DemuxPort();
+                DemuxPort NewDp = new DemuxPort(this.muxPort);
                 NewDp.serialPort.PortName = portName;
                 demuxPortsList.Add(NewDp);
             }

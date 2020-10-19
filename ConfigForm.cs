@@ -116,7 +116,7 @@ namespace UartMuxDemux
             // We can add a port if there is one free
             if(demuxPortsList.Count < MAX_NB_OF_DEMUX_PORT)
             {
-                DemuxPort dp = new DemuxPort();
+                DemuxPort dp = new DemuxPort(this.muxPort);
                 dp.serialPort.PortName = "COM" + ((int)(1 + GetLastPortNumberInList())).ToString();
                 demuxPortsList.Add(dp);
                 SortItemsInListBox();
@@ -177,11 +177,6 @@ namespace UartMuxDemux
         private void comboBoxMuxPortName_SelectedIndexChanged(object sender, EventArgs e)
         {
             muxPort.serialPort.PortName = comboBoxMuxPortName.Text;
-        }
-
-        private void comboBoxMuxLinkType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            muxPort.linkType = comboBoxMuxLinkType.Text;
         }
 
         private void numericUpDownMuxBaudrate_ValueChanged(object sender, EventArgs e)
