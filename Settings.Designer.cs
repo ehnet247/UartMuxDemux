@@ -25,10 +25,24 @@ namespace UartMuxDemux {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>COM1</string>\r\n  <string>COM2</string>\r\n  <string>COM3</string>\r\n</ArrayOf" +
-            "String>")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>COM1</string>
+  <string>COM2</string>
+  <string>COM3</string>
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+  <string />
+</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection aDemuxPortsNames {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsNames"]));
@@ -47,6 +61,66 @@ namespace UartMuxDemux {
             }
             set {
                 this["MuxPortName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+  <string>ASCII</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection aDemuxPortsLinkTypes {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsLinkTypes"]));
+            }
+            set {
+                this["aDemuxPortsLinkTypes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+  <string>Unknown</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection aDemuxPortsEoFDetectionModes {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsEoFDetectionModes"]));
+            }
+            set {
+                this["aDemuxPortsEoFDetectionModes"] = value;
             }
         }
     }
