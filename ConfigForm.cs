@@ -16,6 +16,7 @@ namespace UartMuxDemux
         public const int MAX_NB_OF_DEMUX_PORT = 16;
         protected List<DemuxPort> demuxPortsList;
         protected MuxPort muxPort;
+        private string strSelectedPort = string.Empty;
         public ConfigForm(MuxPort muxPort, List<DemuxPort> dPorts)
         {
             this.demuxPortsList = dPorts;
@@ -25,8 +26,6 @@ namespace UartMuxDemux
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
-            // Load the available com port in comboBoxMuxPortName
-            comboBoxMuxPortName.Items.AddRange(SerialPort.GetPortNames());
             // Select the saved setting
             if ((Settings.Default.MuxPortName != String.Empty) &&
                 (SerialPort.GetPortNames().Contains(Settings.Default.MuxPortName)))
@@ -35,6 +34,7 @@ namespace UartMuxDemux
             }
             else
             {
+                // Load the available com port in comboBoxMuxPortName
                 try
                 {
                     comboBoxMuxPortName.Items.AddRange(SerialPort.GetPortNames());
@@ -51,6 +51,11 @@ namespace UartMuxDemux
             }
             // Sort them
             SortItemsInListBox();
+            // Select the first demux port if any
+            if (listBoxDemuxPorts.Items.Count > 0)
+            {
+                listBoxDemuxPorts.SelectedIndex = 0;
+            }
         }
 
         private void SortItemsInListBox()
@@ -146,30 +151,55 @@ namespace UartMuxDemux
 
         private void listBoxDemuxPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            strSelectedPort = listBoxDemuxPorts.SelectedItem.ToString();
             // Display port characteristics
             DisplayPortCharacteristics();
         }
 
         private void DisplayPortCharacteristics()
         {
-            string strSelectedPort;
-            if (listBoxDemuxPorts.SelectedItem != null)
+            if (strSelectedPort != String.Empty)
             {
-                strSelectedPort = listBoxDemuxPorts.SelectedItem.ToString();
                 DemuxPort dp = demuxPortsList[GetPortIndexByName(strSelectedPort)];
-                textBoxPortName.Text = dp.serialPort.PortName;
+                textBoxDemuxPortName.Text = dp.serialPort.PortName;
+                comboBoxDemuxLinkType.Text = dp.linkType;
+            }
+            else
+            {
+                TraceLogger.ErrorTrace("strSelectedPort is empty");
             }
         }
 
         private void textBoxPortName_TextChanged(object sender, EventArgs e)
         {
             // Get index of the selected port
-            int iPortIndex = GetPortIndexByName(listBoxDemuxPorts.Text);
+            int iPortIndex = GetPortIndexByName(strSelectedPort);
             if(iPortIndex >= 0)
             {
-                demuxPortsList[iPortIndex].serialPort.PortName = textBoxPortName.Text;
+                if(demuxPortsList[iPortIndex].serialPort.PortName != textBoxDemuxPortName.Text)
+                demuxPortsList[iPortIndex].serialPort.PortName = textBoxDemuxPortName.Text;
                 // Refresh the list
                 SortItemsInListBox();
+
+            }
+        }
+
+        private void comboBoxDemuxLinkType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get index of the selected port
+            int iPortIndex = GetPortIndexByName(strSelectedPort);
+            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            {
+                if (demuxPortsList[iPortIndex].linkType != comboBoxDemuxLinkType.Text)
+                {
+                    demuxPortsList[iPortIndex].linkType = comboBoxDemuxLinkType.Text;
+                    if(Settings.Default.aDemuxPortsLinkTypes[iPortIndex] != demuxPortsList[iPortIndex].linkType)
+                    {
+                        Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = demuxPortsList[iPortIndex].linkType;
+                    }
+                    // Save the new value
+                    Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = comboBoxDemuxLinkType.Text;
+                }
 
             }
         }
@@ -182,6 +212,34 @@ namespace UartMuxDemux
         private void numericUpDownMuxBaudrate_ValueChanged(object sender, EventArgs e)
         {
             muxPort.serialPort.BaudRate = (int)numericUpDownMuxBaudrate.Value;
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            // Save the settings in the external config file
+            Settings.Default.Save();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void comboBoxEofDetection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get index of the selected port
+            int iPortIndex = GetPortIndexByName(strSelectedPort);
+            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            {
+                if (demuxPortsList[iPortIndex].eofDetection != comboBoxEofDetection.Text)
+                {
+                    demuxPortsList[iPortIndex].eofDetection = comboBoxEofDetection.Text;
+                    if (Settings.Default.aDemuxPortsEoFDetectionModes[iPortIndex] != demuxPortsList[iPortIndex].linkType)
+                    {
+                        Settings.Default.aDemuxPortsEoFDetectionModes[iPortIndex] = demuxPortsList[iPortIndex].linkType;
+                    }
+                    // Save the new value
+                    Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = comboBoxDemuxLinkType.Text;
+                }
+
+            }
         }
     }
 }
