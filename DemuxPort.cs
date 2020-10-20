@@ -8,6 +8,20 @@ using System.Threading.Tasks;
 
 namespace UartMuxDemux
 {
+    public static class LinkType
+    {
+        public const string Ascii = "Ascii";
+        public const string Binary = "Binary";
+        public static readonly string[] LinkTypes = { Ascii, Binary };
+    }
+
+    public static class EofDetection
+    {
+    public const string FixedSize = "Fixed size";
+    public const string FirstByte = "First byte defines size";
+        public const string Unknown = "Unknown";
+        public static readonly string[] EofDetections = { FixedSize, FirstByte, Unknown };
+    }
     public class DemuxPort
     {
         public SerialPort serialPort;
@@ -18,6 +32,7 @@ namespace UartMuxDemux
         private string strCurrentFrameDate = String.Empty;
         private string strCurrentFrameTime = String.Empty;
         public string linkType;
+        public string eofDetection;
         public byte startByte;
         private List<byte> lReadBuffer;
         private int iByteCount;
@@ -29,6 +44,7 @@ namespace UartMuxDemux
         {
             this.serialPort = new SerialPort();
             this.muxPort = muxPort;
+            this.linkType = LinkType.Ascii;
             backgroundWorker = new System.ComponentModel.BackgroundWorker();
             backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
         }
