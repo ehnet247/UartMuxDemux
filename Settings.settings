@@ -8,10 +8,64 @@
   &lt;string&gt;COM1&lt;/string&gt;
   &lt;string&gt;COM2&lt;/string&gt;
   &lt;string&gt;COM3&lt;/string&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
+  &lt;string /&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="MuxPortName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="aDemuxPortsLinkTypes" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+  &lt;string&gt;ASCII&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="aDemuxPortsEoFDetectionModes" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+  &lt;string&gt;Unknown&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>
