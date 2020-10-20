@@ -39,7 +39,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownTimeout = new System.Windows.Forms.NumericUpDown();
             this.comboBoxDemuxLinkType = new System.Windows.Forms.ComboBox();
-            this.textBoxPortName = new System.Windows.Forms.TextBox();
+            this.textBoxDemuxPortName = new System.Windows.Forms.TextBox();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.comboBoxEofDetection = new System.Windows.Forms.ComboBox();
@@ -131,7 +131,7 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.numericUpDownTimeout);
             this.groupBox2.Controls.Add(this.comboBoxDemuxLinkType);
-            this.groupBox2.Controls.Add(this.textBoxPortName);
+            this.groupBox2.Controls.Add(this.textBoxDemuxPortName);
             this.groupBox2.Controls.Add(this.buttonRemove);
             this.groupBox2.Controls.Add(this.buttonAdd);
             this.groupBox2.Controls.Add(this.comboBoxEofDetection);
@@ -193,18 +193,22 @@
             // comboBoxDemuxLinkType
             // 
             this.comboBoxDemuxLinkType.FormattingEnabled = true;
+            this.comboBoxDemuxLinkType.Items.AddRange(new object[] {
+            "Ascii",
+            "Binary"});
             this.comboBoxDemuxLinkType.Location = new System.Drawing.Point(188, 120);
             this.comboBoxDemuxLinkType.Name = "comboBoxDemuxLinkType";
             this.comboBoxDemuxLinkType.Size = new System.Drawing.Size(121, 24);
             this.comboBoxDemuxLinkType.TabIndex = 9;
+            this.comboBoxDemuxLinkType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDemuxLinkType_SelectedIndexChanged);
             // 
-            // textBoxPortName
+            // textBoxDemuxPortName
             // 
-            this.textBoxPortName.Location = new System.Drawing.Point(188, 75);
-            this.textBoxPortName.Name = "textBoxPortName";
-            this.textBoxPortName.Size = new System.Drawing.Size(100, 22);
-            this.textBoxPortName.TabIndex = 8;
-            this.textBoxPortName.TextChanged += new System.EventHandler(this.textBoxPortName_TextChanged);
+            this.textBoxDemuxPortName.Location = new System.Drawing.Point(188, 75);
+            this.textBoxDemuxPortName.Name = "textBoxDemuxPortName";
+            this.textBoxDemuxPortName.Size = new System.Drawing.Size(100, 22);
+            this.textBoxDemuxPortName.TabIndex = 8;
+            this.textBoxDemuxPortName.TextChanged += new System.EventHandler(this.textBoxPortName_TextChanged);
             // 
             // buttonRemove
             // 
@@ -230,12 +234,13 @@
             this.comboBoxEofDetection.FormattingEnabled = true;
             this.comboBoxEofDetection.Items.AddRange(new object[] {
             "Fixed size",
-            "First bytedefines size",
+            "First byte defines size",
             "Unknown"});
             this.comboBoxEofDetection.Location = new System.Drawing.Point(191, 226);
             this.comboBoxEofDetection.Name = "comboBoxEofDetection";
-            this.comboBoxEofDetection.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxEofDetection.Size = new System.Drawing.Size(152, 24);
             this.comboBoxEofDetection.TabIndex = 5;
+            this.comboBoxEofDetection.SelectedIndexChanged += new System.EventHandler(this.comboBoxEofDetection_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -291,6 +296,7 @@
             this.buttonOk.TabIndex = 2;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
@@ -342,7 +348,7 @@
         private System.Windows.Forms.ListBox listBoxDemuxPorts;
         private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.TextBox textBoxPortName;
+        private System.Windows.Forms.TextBox textBoxDemuxPortName;
         private System.Windows.Forms.ComboBox comboBoxDemuxLinkType;
         private System.Windows.Forms.NumericUpDown numericUpDownTimeout;
         private System.Windows.Forms.Label label5;
