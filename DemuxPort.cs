@@ -25,8 +25,9 @@ namespace UartMuxDemux
     public class DemuxPort
     {
         public SerialPort serialPort;
-        private BackgroundWorker backgroundWorker;
-        private bool bKeepwatching = true;
+        private readonly BackgroundWorker readingbackgroundWorker;
+        private readonly BackgroundWorker writingbackgroundWorker;
+        private bool bKeepListening = true;
         private bool bFrameStarted = false;
         public bool bFrameTimeout = false;
         private string strCurrentFrameDate = String.Empty;
@@ -35,7 +36,7 @@ namespace UartMuxDemux
         public string eofDetection;
         public byte startByte;
         private List<byte> lReadBuffer;
-        private int iByteCount;
+        private List<byte> lWriteBuffer;
         private string strDataReceivedDate;
         private string strDataReceivedTime;
         private MuxPort muxPort;
@@ -45,13 +46,45 @@ namespace UartMuxDemux
             this.serialPort = new SerialPort();
             this.muxPort = muxPort;
             this.linkType = LinkType.Ascii;
-            backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            readingbackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            readingbackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReadingBackgroundWorker_DoWork);
+            writingbackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            writingbackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WritingBackgroundWorker_DoWork);
+            // Start the reading thread
+            readingbackgroundWorker.RunWorkerAsync();
+            // Start the writing thread
+            writingbackgroundWorker.RunWorkerAsync();
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        public void Write(byte[] aWriteBuffer)
         {
-            while (bKeepwatching)
+            lWriteBuffer.AddRange(aWriteBuffer);
+        }
+
+        private void WritingBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (bKeepListening)
+            {
+                // Method 1: write the whole buffer
+                if ((serialPort.IsOpen) && (lWriteBuffer.Count > 0))
+                {
+                    serialPort.Write(lWriteBuffer.ToArray(), 0, lWriteBuffer.Count);
+                }
+
+                // Method 2: byte by byte
+                /*while(lWriteBuffer.Count > 0)
+                {
+                    byte[] aWriteBuffer = new byte[1];
+                    aWriteBuffer[0] = lWriteBuffer[0];
+                    serialPort.Write(aWriteBuffer, 0, 1);
+                    lWriteBuffer.RemoveAt(0);
+                }*/
+            }
+        }
+
+        private void ReadingBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (bKeepListening)
             {
                 if (serialPort.IsOpen)
                 {
