@@ -27,14 +27,17 @@ namespace UartMuxDemux
         public SerialPort serialPort;
         private readonly BackgroundWorker readingbackgroundWorker;
         private readonly BackgroundWorker writingbackgroundWorker;
+        private System.Windows.Forms.Timer timerPacketTimeout;
         private bool bKeepListening = true;
-        private bool bFrameStarted = false;
-        public bool bFrameTimeout = false;
+        private bool bPacketStarted = false;
+        private bool bPacketTimeout = false;
+        private byte u8PacketTimeoutValue = 0;
         private string strCurrentFrameDate = String.Empty;
         private string strCurrentFrameTime = String.Empty;
         public string linkType;
         public string eofDetection;
         public byte startByte;
+        public int iPacketLength = 0;
         private List<byte> lReadBuffer;
         private List<byte> lWriteBuffer;
         private string strDataReceivedDate;
@@ -44,6 +47,8 @@ namespace UartMuxDemux
         public DemuxPort(MuxPort muxPort)
         {
             this.serialPort = new SerialPort();
+            this.timerPacketTimeout = new System.Windows.Forms.Timer();
+            this.timerPacketTimeout.Tick += new System.EventHandler(this.timerFrameTimeout_Tick);
             this.muxPort = muxPort;
             this.linkType = LinkType.Ascii;
             readingbackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -84,74 +89,55 @@ namespace UartMuxDemux
 
         private void ReadingBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (bKeepListening)
+            while((bKeepListening) && (serialPort.IsOpen) && (serialPort.BytesToRead > 0))
             {
-                if (serialPort.IsOpen)
+                byte[] aReadBuffer = new byte[serialPort.BytesToRead];
+                // Start the timer to detect a packet timeout
+                if(timerPacketTimeout.Enabled == false)
                 {
-                    if (bFrameStarted == false)
-                    {
-                        // Get the current date
-                        strDataReceivedDate = GetDateString();
-                        // Get the current time
-                        strDataReceivedTime = GetTimeString();
-                    }
-                    if (serialPort.BytesToRead >= 5)
-                    {
-                        // Read the available bytes
-                        //int iNbBytesToRead = serialPort.BytesToRead;
-                        //byte[] aReadBuffer = new byte[iNbBytesToRead];
-                        byte[] aReadBuffer = new byte[5];
-                        //int iReadByte = serialPort.Read(aReadBuffer, 0, iNbBytesToRead);
-                        int iReadByte = serialPort.Read(aReadBuffer, 0, 5);
-                        if (iReadByte > 0)
+                    timerPacketTimeout.Start();
+                }
+                // Read the available bytes
+                serialPort.Read(aReadBuffer, 0, serialPort.BytesToRead);
+                lReadBuffer.AddRange(aReadBuffer);
+                // Check if the frame reception is achieved
+                switch(eofDetection)
+                {
+                    case "Fixed size":
+                        if(aReadBuffer.Length >= iPacketLength)
                         {
-                            if (aReadBuffer.Contains(startByte) && (bFrameStarted == false))
-                            {
-                                bFrameStarted = true;
-                                // Record the date and time of the frame
-                                strCurrentFrameDate = strDataReceivedDate;
-                                strCurrentFrameTime = strDataReceivedTime;
-                            }
-                            // Copy the buffer into the list
-                            lReadBuffer.AddRange(aReadBuffer);
-                            if (lReadBuffer.Count >= 5)
-                            {
-
-                                // Write it into a file
-                                //WriteRawData();
-                            }
-                            int iListLength = lReadBuffer.Count;
-                            int iStartPosition = lReadBuffer.IndexOf(startByte);
-                            int iFrameLength = -1;
-                            if (iStartPosition >= 0)
-                            {
-                                iFrameLength = lReadBuffer.Count - iStartPosition;
-                            }
-                            if (iFrameLength >= 5)
-                            {
-                                if (bFrameStarted)
-                                {
-                                    // Add the received frame to the FIFO
-                                    WriteFrameToMux();
-                                    // Reset Frame started flag
-                                    bFrameStarted = false;
-                                    // Clear the buffer list
-                                    lReadBuffer.Clear();
-                                }
-                            }
+                            //
                         }
-                    }
+                        break;
+            case "First byte defines size":
+                        if (aReadBuffer.Length >= (int)aReadBuffer[0])
+                        {
+                            //
+                        }
+                        break;
+                    case "Unknown":
+                        break;
+             default:
+                        //
+                        break;
                 }
             }
         }
 
-        private void WriteLogLine(string strDate, string strTime, string strCounter, string strEvent, string strDecodedEvent, string strParam)
+        public byte GetPacketTimeout()
         {
+            return u8PacketTimeoutValue;
+        }
+
+        public void SetPacketTimeout(int iTimeoutValue)
+        {
+            timerPacketTimeout.Interval = iTimeoutValue;
+            u8PacketTimeoutValue = (byte)iTimeoutValue;
         }
 
         private void timerFrameTimeout_Tick(object sender, EventArgs e)
         {
-            bFrameTimeout = true;
+            bPacketTimeout = true;
         }
 
         public static string GetDateString()

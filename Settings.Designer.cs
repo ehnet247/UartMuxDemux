@@ -123,5 +123,65 @@ namespace UartMuxDemux {
                 this["aDemuxPortsEoFDetectionModes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection aDemuxPortsTimeout {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsTimeout"]));
+            }
+            set {
+                this["aDemuxPortsTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+  <string>0</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection aDemuxPortsPacketLength {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsPacketLength"]));
+            }
+            set {
+                this["aDemuxPortsPacketLength"] = value;
+            }
+        }
     }
 }

@@ -241,5 +241,45 @@ namespace UartMuxDemux
 
             }
         }
+
+        private void numericUpDownTimeout_ValueChanged(object sender, EventArgs e)
+        {
+            // Get index of the selected port
+            int iPortIndex = GetPortIndexByName(strSelectedPort);
+            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            {
+                if (demuxPortsList[iPortIndex].GetPacketTimeout() != numericUpDownTimeout.Value)
+                {
+                    demuxPortsList[iPortIndex].SetPacketTimeout((int)numericUpDownTimeout.Value);
+                    // Save the setting if necessary
+                    if (Convert.ToByte(Settings.Default.aDemuxPortsTimeout[iPortIndex]) != demuxPortsList[iPortIndex].GetPacketTimeout())
+                    {
+                        Settings.Default.aDemuxPortsTimeout[iPortIndex] = numericUpDownTimeout.Value.ToString();
+                    }
+                    
+                }
+
+            }
+        }
+
+        private void numericUpDownPacketLength_ValueChanged(object sender, EventArgs e)
+        {
+            // Get index of the selected port
+            int iPortIndex = GetPortIndexByName(strSelectedPort);
+            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            {
+                if (demuxPortsList[iPortIndex].iPacketLength != numericUpDownPacketLength.Value)
+                {
+                    demuxPortsList[iPortIndex].iPacketLength = (int)numericUpDownPacketLength.Value;
+                    // Save the setting if necessary
+                    if (Convert.ToByte(Settings.Default.aDemuxPortsPacketLength[iPortIndex]) != demuxPortsList[iPortIndex].iPacketLength)
+                    {
+                        Settings.Default.aDemuxPortsPacketLength[iPortIndex] = numericUpDownPacketLength.Value.ToString();
+                    }
+
+                }
+
+            }
+        }
     }
 }

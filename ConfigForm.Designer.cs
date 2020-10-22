@@ -50,11 +50,14 @@
             this.listBoxDemuxPorts = new System.Windows.Forms.ListBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.numericUpDownPacketLength = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBoxMux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDemuxBaudrate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketLength)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMux
@@ -127,6 +130,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.numericUpDownPacketLength);
             this.groupBox2.Controls.Add(this.numericUpDownDemuxBaudrate);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.numericUpDownTimeout);
@@ -189,6 +194,7 @@
             this.numericUpDownTimeout.Name = "numericUpDownTimeout";
             this.numericUpDownTimeout.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownTimeout.TabIndex = 10;
+            this.numericUpDownTimeout.ValueChanged += new System.EventHandler(this.numericUpDownTimeout_ValueChanged);
             // 
             // comboBoxDemuxLinkType
             // 
@@ -308,6 +314,28 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
+            // numericUpDownPacketLength
+            // 
+            this.numericUpDownPacketLength.Location = new System.Drawing.Point(188, 338);
+            this.numericUpDownPacketLength.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDownPacketLength.Name = "numericUpDownPacketSize";
+            this.numericUpDownPacketLength.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownPacketLength.TabIndex = 13;
+            this.numericUpDownPacketLength.ValueChanged += new System.EventHandler(this.numericUpDownPacketLength_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(188, 318);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 17);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Packet size (bytes):";
+            // 
             // ConfigForm
             // 
             this.AcceptButton = this.buttonOk;
@@ -330,6 +358,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDemuxBaudrate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketLength)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -357,5 +386,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDemuxBaudrate;
         private System.Windows.Forms.NumericUpDown numericUpDownMuxBaudrate;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numericUpDownPacketLength;
     }
 }
