@@ -199,9 +199,10 @@
             // comboBoxDemuxLinkType
             // 
             this.comboBoxDemuxLinkType.FormattingEnabled = true;
-            this.comboBoxDemuxLinkType.Items.AddRange(new object[] {
+            /*this.comboBoxDemuxLinkType.Items.AddRange(new object[] {
             "Ascii",
-            "Binary"});
+            "Binary"});*/
+            this.comboBoxDemuxLinkType.Items.AddRange(EofDetection.EofDetections);
             this.comboBoxDemuxLinkType.Location = new System.Drawing.Point(188, 120);
             this.comboBoxDemuxLinkType.Name = "comboBoxDemuxLinkType";
             this.comboBoxDemuxLinkType.Size = new System.Drawing.Size(121, 24);

@@ -24,6 +24,7 @@ namespace UartMuxDemux
     }
     public class DemuxPort
     {
+        public string strNewLineDef = "\n";
         public SerialPort serialPort;
         private readonly BackgroundWorker readingbackgroundWorker;
         private readonly BackgroundWorker writingbackgroundWorker;
@@ -34,7 +35,7 @@ namespace UartMuxDemux
         private byte u8PacketTimeoutValue = 0;
         private string strCurrentFrameDate = String.Empty;
         private string strCurrentFrameTime = String.Empty;
-        public string linkType;
+        private string linkType;
         public string eofDetection;
         public byte startByte;
         public int iPacketLength = 0;
@@ -48,9 +49,11 @@ namespace UartMuxDemux
         {
             this.serialPort = new SerialPort();
             this.timerPacketTimeout = new System.Windows.Forms.Timer();
-            this.timerPacketTimeout.Tick += new System.EventHandler(this.timerFrameTimeout_Tick);
+            this.timerPacketTimeout.Tick += new System.EventHandler(this.timerPacketTimeout_Tick);
             this.muxPort = muxPort;
             this.linkType = LinkType.Ascii;
+            this.lReadBuffer = new List<byte>();
+            this.lWriteBuffer = new List<byte>();
             readingbackgroundWorker = new System.ComponentModel.BackgroundWorker();
             readingbackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReadingBackgroundWorker_DoWork);
             writingbackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -97,25 +100,42 @@ namespace UartMuxDemux
                 {
                     timerPacketTimeout.Start();
                 }
-                // Read the available bytes
+                // Read the available bytes and copy them into the buffer
                 serialPort.Read(aReadBuffer, 0, serialPort.BytesToRead);
                 lReadBuffer.AddRange(aReadBuffer);
                 // Check if the frame reception is achieved
                 switch(eofDetection)
                 {
-                    case "Fixed size":
+                    case EofDetection.FixedSize:
                         if(aReadBuffer.Length >= iPacketLength)
                         {
-                            //
+                            // Send Packet to MUX
                         }
                         break;
-            case "First byte defines size":
+            case EofDetection.FirstByte:
                         if (aReadBuffer.Length >= (int)aReadBuffer[0])
                         {
-                            //
+                            // Build a packet
+                            Packet packetToSend = new Packet();
+                            packetToSend.strPortSource = serialPort.PortName;
+                            packetToSend.strTime = GetTimeString();
+                            packetToSend.aData = aReadBuffer;
+                            // Send the Packet to MUX
+                            muxPort.SendPacket(packetToSend);
                         }
                         break;
-                    case "Unknown":
+                    case EofDetection.Unknown:
+                        // Check the timeout flag
+                        if(bPacketTimeout)
+                        {
+                            // Build a packet
+                            Packet packetToSend = new Packet();
+                            packetToSend.strPortSource = serialPort.PortName;
+                            packetToSend.strTime = GetTimeString();
+                            packetToSend.aData = aReadBuffer;
+                            // Send the Packet to MUX
+                            muxPort.SendPacket(packetToSend);
+                        }
                         break;
              default:
                         //
@@ -124,26 +144,34 @@ namespace UartMuxDemux
             }
         }
 
-        public byte GetPacketTimeout()
+        public byte GetPacketTimeoutValue()
         {
             return u8PacketTimeoutValue;
         }
 
-        public void SetPacketTimeout(int iTimeoutValue)
+        public void SetPacketTimeoutValue(int iTimeoutValue)
         {
             timerPacketTimeout.Interval = iTimeoutValue;
             u8PacketTimeoutValue = (byte)iTimeoutValue;
         }
-
-        private void timerFrameTimeout_Tick(object sender, EventArgs e)
+        public string GetLinkType()
         {
-            bPacketTimeout = true;
+            return linkType;
         }
 
-        public static string GetDateString()
+        public void SetLinkType(string strLinkType)
         {
-            string strDate = DateTime.Now.Day.ToString("00") + "/" + DateTime.Now.Month.ToString("00") + "/" + DateTime.Now.Year;
-            return strDate;
+            this.linkType = strLinkType;
+            if(strLinkType == LinkType.Ascii)
+            {
+                serialPort.NewLine = this.strNewLineDef;
+            }
+        }
+
+        private void timerPacketTimeout_Tick(object sender, EventArgs e)
+        {
+            bPacketTimeout = true;
+            timerPacketTimeout.Stop();
         }
 
         public static string GetTimeString()

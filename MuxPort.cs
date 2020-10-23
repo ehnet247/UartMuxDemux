@@ -9,54 +9,57 @@ using System.Threading.Tasks;
 
 namespace UartMuxDemux
 {
+    public class Packet
+    {
+        public string strTime;
+        public string strPortSource;
+        public byte[] aData;
+    }
     public class MuxPort
     {
+        public const string strTxHeader = "Tx";
         public SerialPort serialPort;
         public string linkType;
         public bool bKeepListening;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.ComponentModel.BackgroundWorker writingBackgroundWorker;
         private List<DemuxPort> demuxPorts;
+        private List<Packet> lPackets;
 
         public MuxPort(List<DemuxPort> demuxPorts)
         {
             this.serialPort = new SerialPort();
+            this.lPackets = new List<Packet>();
             this.bKeepListening = true;
             this.demuxPorts = demuxPorts;
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.RunWorkerAsync();
+            writingBackgroundWorker = new BackgroundWorker();
+            this.writingBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WritingBackgroundWorker_DoWork);
+            this.writingBackgroundWorker.RunWorkerAsync();
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void WritingBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
-                if((this.bKeepListening) && (serialPort.IsOpen))
+                if((this.bKeepListening) && (serialPort.IsOpen) && (lPackets.Count > 0))
                 {
-                    if(serialPort.BytesToRead > 0)
+                    // Create a string initialized with a header
+                    string strPacketToSend = strTxHeader;
+                    // Add the COM port number to the string to send
+                    strPacketToSend += lPackets[0].strPortSource;
+                    // Convert the packet data in ASCII chars
+                    foreach (byte dataByte in lPackets[0].aData)
                     {
-                        // Read the available bytes
-                        int iNbBytesToRead = serialPort.BytesToRead;
-                        byte[] aReadBuffer = new byte[iNbBytesToRead];
-                        int iReadBytes = serialPort.Read(aReadBuffer, 0, iNbBytesToRead);
-
-                        // Write the received data to every demux port
-                        foreach(DemuxPort dp in demuxPorts)
-                        {
-                            try
-                            {
-                                if((dp != null) && (dp.serialPort.IsOpen))
-                                {
-                                    dp.Write(aReadBuffer);
-                                }
-                            }
-                            catch(Exception ex)
-                            {
-                                TraceLogger.ErrorTrace(ex.Message);
-                            }
-                        }
+                        strPacketToSend += dataByte.ToString("X2") + ";";
                     }
+                    // Send the packet
+                    serialPort.Write(strPacketToSend);
                 }
             }
+        }
+
+        public void SendPacket(Packet packetToSend)
+        {
+            lPackets.Add(packetToSend);
         }
     }
 }

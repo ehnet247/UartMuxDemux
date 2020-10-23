@@ -162,7 +162,7 @@ namespace UartMuxDemux
             {
                 DemuxPort dp = demuxPortsList[GetPortIndexByName(strSelectedPort)];
                 textBoxDemuxPortName.Text = dp.serialPort.PortName;
-                comboBoxDemuxLinkType.Text = dp.linkType;
+                comboBoxDemuxLinkType.Text = dp.GetLinkType();
             }
             else
             {
@@ -190,12 +190,12 @@ namespace UartMuxDemux
             int iPortIndex = GetPortIndexByName(strSelectedPort);
             if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
             {
-                if (demuxPortsList[iPortIndex].linkType != comboBoxDemuxLinkType.Text)
+                if (demuxPortsList[iPortIndex].GetLinkType() != comboBoxDemuxLinkType.Text)
                 {
-                    demuxPortsList[iPortIndex].linkType = comboBoxDemuxLinkType.Text;
-                    if(Settings.Default.aDemuxPortsLinkTypes[iPortIndex] != demuxPortsList[iPortIndex].linkType)
+                    demuxPortsList[iPortIndex].SetLinkType(comboBoxDemuxLinkType.Text);
+                    if(Settings.Default.aDemuxPortsLinkTypes[iPortIndex] != demuxPortsList[iPortIndex].GetLinkType())
                     {
-                        Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = demuxPortsList[iPortIndex].linkType;
+                        Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = demuxPortsList[iPortIndex].GetLinkType();
                     }
                     // Save the new value
                     Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = comboBoxDemuxLinkType.Text;
@@ -231,9 +231,9 @@ namespace UartMuxDemux
                 if (demuxPortsList[iPortIndex].eofDetection != comboBoxEofDetection.Text)
                 {
                     demuxPortsList[iPortIndex].eofDetection = comboBoxEofDetection.Text;
-                    if (Settings.Default.aDemuxPortsEoFDetectionModes[iPortIndex] != demuxPortsList[iPortIndex].linkType)
+                    if (Settings.Default.aDemuxPortsEoFDetectionModes[iPortIndex] != demuxPortsList[iPortIndex].GetLinkType())
                     {
-                        Settings.Default.aDemuxPortsEoFDetectionModes[iPortIndex] = demuxPortsList[iPortIndex].linkType;
+                        Settings.Default.aDemuxPortsEoFDetectionModes[iPortIndex] = demuxPortsList[iPortIndex].GetLinkType();
                     }
                     // Save the new value
                     Settings.Default.aDemuxPortsLinkTypes[iPortIndex] = comboBoxDemuxLinkType.Text;
@@ -248,11 +248,11 @@ namespace UartMuxDemux
             int iPortIndex = GetPortIndexByName(strSelectedPort);
             if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
             {
-                if (demuxPortsList[iPortIndex].GetPacketTimeout() != numericUpDownTimeout.Value)
+                if (demuxPortsList[iPortIndex].GetPacketTimeoutValue() != numericUpDownTimeout.Value)
                 {
-                    demuxPortsList[iPortIndex].SetPacketTimeout((int)numericUpDownTimeout.Value);
+                    demuxPortsList[iPortIndex].SetPacketTimeoutValue((int)numericUpDownTimeout.Value);
                     // Save the setting if necessary
-                    if (Convert.ToByte(Settings.Default.aDemuxPortsTimeout[iPortIndex]) != demuxPortsList[iPortIndex].GetPacketTimeout())
+                    if (Convert.ToByte(Settings.Default.aDemuxPortsTimeout[iPortIndex]) != demuxPortsList[iPortIndex].GetPacketTimeoutValue())
                     {
                         Settings.Default.aDemuxPortsTimeout[iPortIndex] = numericUpDownTimeout.Value.ToString();
                     }
