@@ -20,8 +20,8 @@ namespace UartMuxDemux
         private string strCurrentFrameTime = String.Empty;
         private string strDataReceivedDate;
         private string strDataReceivedTime;
-        protected List<DemuxPort> demuxPortsList = new List<DemuxPort>();
-        protected MuxPort muxPort;
+        protected List<SlavePort> slavePortsList = new List<SlavePort>();
+        protected Mux muxPort;
         public MainForm()
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace UartMuxDemux
         private void Form1_Load(object sender, EventArgs e)
         {
             // Instanciate muxPort
-            muxPort = new MuxPort(demuxPortsList);
+            muxPort = new Mux(slavePortsList);
             LoadDemuxPortsList();
             // Load saved settings
             LoadSettings();
@@ -38,12 +38,12 @@ namespace UartMuxDemux
 
         private void LoadDemuxPortsList()
         {
-            demuxPortsList = new List<DemuxPort>();
-            foreach(string portName in Settings.Default.aDemuxPortsNames)
+            slavePortsList = new List<SlavePort>();
+            foreach(string portName in Settings.Default.aSlavePortsNames)
             {
-                DemuxPort NewDp = new DemuxPort(this.muxPort);
+                Demux NewDp = new Demux(this.muxPort);
                 NewDp.serialPort.PortName = portName;
-                demuxPortsList.Add(NewDp);
+                slavePortsList.Add(NewDp);
             }
         }
 
@@ -57,7 +57,7 @@ namespace UartMuxDemux
             strPortNumber = strPortNumber.Substring(strPortNumber.Length - 1, 1);
             int portNumber = Convert.ToInt32(strPortNumber);
 
-            demuxPortsList[portNumber].serialPort.PortName = ((ComboBox)sender).Text;
+            slavePortsList[portNumber].serialPort.PortName = ((ComboBox)sender).Text;
         }
 
         private void timerFrameTimeout_Tick(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace UartMuxDemux
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(muxPort, demuxPortsList);
+            ConfigForm configForm = new ConfigForm(muxPort, slavePortsList);
             DialogResult result = configForm.ShowDialog();
         }
 
@@ -126,7 +126,7 @@ namespace UartMuxDemux
 
         private void OpenDeMuxPorts()
         {
-            foreach(DemuxPort dp in demuxPortsList)
+            foreach(SlavePort slavePort in slavePortsList)
             {
                 bool bPreviousState = dp.serialPort.IsOpen;
                 if ((dp.serialPort != null) && (dp.serialPort.IsOpen == false))
@@ -148,20 +148,20 @@ namespace UartMuxDemux
 
         private void CloseDeMuxPorts()
         {
-            foreach (DemuxPort dp in demuxPortsList)
+            foreach (SlavePort slavePort in slavePortsList)
             {
-                bool bPreviousState = dp.serialPort.IsOpen;
-                if ((dp.serialPort != null) && (dp.serialPort.IsOpen == true))
+                bool bPreviousState = slavePort.serialPort.IsOpen;
+                if ((slavePort.serialPort != null) && (slavePort.serialPort.IsOpen == true))
                     try
                     {
-                        dp.serialPort.Close();
+                        slavePort.serialPort.Close();
                     }
                     catch (Exception ex)
                     {
                         TraceLogger.ErrorTrace(ex.Message);
                     }
                 // If state has changed, notify it to refresh the port list
-                if (dp.serialPort.IsOpen != bPreviousState)
+                if (slavePort.serialPort.IsOpen != bPreviousState)
                 {
                     bPortsStateChanged = true;
                 }
@@ -184,19 +184,19 @@ namespace UartMuxDemux
             // Clear the list
             checkedListBoxDemuxPorts.Items.Clear();
             // Add the demux ports
-            for(int iPortIndex = 0; iPortIndex < demuxPortsList.Count; iPortIndex++)
+            for(int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
             {
-                if (demuxPortsList[iPortIndex].serialPort.IsOpen)
+                if (slavePortsList[iPortIndex].serialPort.IsOpen)
                 {
-                    checkedListBoxDemuxPorts.Items.Add(demuxPortsList[iPortIndex].serialPort.PortName, CheckState.Checked);
+                    checkedListBoxDemuxPorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Checked);
                 }
-                else if (System.IO.Ports.SerialPort.GetPortNames().Contains(demuxPortsList[iPortIndex].serialPort.PortName))
+                else if (System.IO.Ports.SerialPort.GetPortNames().Contains(slavePortsList[iPortIndex].serialPort.PortName))
                 {
-                    checkedListBoxDemuxPorts.Items.Add(demuxPortsList[iPortIndex].serialPort.PortName, CheckState.Unchecked);
+                    checkedListBoxDemuxPorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Unchecked);
                 }
                 else
                 {
-                    checkedListBoxDemuxPorts.Items.Add(demuxPortsList[iPortIndex].serialPort.PortName, CheckState.Indeterminate);
+                    checkedListBoxDemuxPorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Indeterminate);
                 }
             }
         }
@@ -211,17 +211,17 @@ namespace UartMuxDemux
 
             // DEMUX
             // Instanciate the demux open ports table
-            bool[] aOpenPorts = new bool[demuxPortsList.Count];
+            bool[] aOpenPorts = new bool[slavePortsList.Count];
             if (bPortsStateChanged)
             {
                 // Clear the list
                 checkedListBoxDemuxPorts.Items.Clear();
             }
                 // Get the state of each demux port
-                for (int iPortIndex = 0;iPortIndex < demuxPortsList.Count;iPortIndex++)
+                for (int iPortIndex = 0;iPortIndex < slavePortsList.Count;iPortIndex++)
             {
                 //
-                if(demuxPortsList[iPortIndex].serialPort.IsOpen)
+                if(slavePortsList[iPortIndex].serialPort.IsOpen)
                 {
                     aOpenPorts[iPortIndex] = true;
                 }
@@ -232,7 +232,7 @@ namespace UartMuxDemux
             }
             // Check if the state of the mux port has changed
             // For each demux port, check if the state has changed
-            for (int iPortIndex = 0; iPortIndex < demuxPortsList.Count + 1; iPortIndex++)
+            for (int iPortIndex = 0; iPortIndex < slavePortsList.Count + 1; iPortIndex++)
             {
                 if (bPortsStateChanged)
                 {

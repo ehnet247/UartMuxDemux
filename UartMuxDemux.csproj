@@ -51,14 +51,16 @@
     <Compile Include="ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DemuxPort.cs" />
+    <Compile Include="Demux.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MuxPort.cs" />
+    <Compile Include="MasterPort.cs" />
+    <Compile Include="Mux.cs" />
+    <Compile Include="PortTools.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.Designer.cs">
@@ -66,6 +68,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SlavePort.cs" />
     <Compile Include="TraceLogger.cs" />
     <Compile Include="UartLogger.cs" />
     <EmbeddedResource Include="ConfigForm.resx">

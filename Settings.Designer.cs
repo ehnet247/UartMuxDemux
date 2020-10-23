@@ -43,24 +43,24 @@ namespace UartMuxDemux {
   <string />
   <string />
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aDemuxPortsNames {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsNames {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsNames"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsNames"]));
             }
             set {
-                this["aDemuxPortsNames"] = value;
+                this["aSlavePortsNames"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MuxPortName {
+        public string MasterPortName {
             get {
-                return ((string)(this["MuxPortName"]));
+                return ((string)(this["MasterPortName"]));
             }
             set {
-                this["MuxPortName"] = value;
+                this["MasterPortName"] = value;
             }
         }
         
@@ -85,12 +85,12 @@ namespace UartMuxDemux {
   <string>ASCII</string>
   <string>ASCII</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aDemuxPortsLinkTypes {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsLinkTypes {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsLinkTypes"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsLinkTypes"]));
             }
             set {
-                this["aDemuxPortsLinkTypes"] = value;
+                this["aSlavePortsLinkTypes"] = value;
             }
         }
         
@@ -115,12 +115,12 @@ namespace UartMuxDemux {
   <string>Unknown</string>
   <string>Unknown</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aDemuxPortsEoFDetectionModes {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsEoFDetectionModes {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsEoFDetectionModes"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsEoFDetectionModes"]));
             }
             set {
-                this["aDemuxPortsEoFDetectionModes"] = value;
+                this["aSlavePortsEoFDetectionModes"] = value;
             }
         }
         
@@ -145,12 +145,12 @@ namespace UartMuxDemux {
   <string>0</string>
   <string>0</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aDemuxPortsTimeout {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsTimeout {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsTimeout"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsTimeout"]));
             }
             set {
-                this["aDemuxPortsTimeout"] = value;
+                this["aSlavePortsTimeout"] = value;
             }
         }
         
@@ -175,12 +175,12 @@ namespace UartMuxDemux {
   <string>0</string>
   <string>0</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aDemuxPortsPacketLength {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsPacketLength {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aDemuxPortsPacketLength"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsPacketLength"]));
             }
             set {
-                this["aDemuxPortsPacketLength"] = value;
+                this["aSlavePortsPacketLength"] = value;
             }
         }
     }
