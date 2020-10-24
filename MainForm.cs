@@ -21,7 +21,8 @@ namespace UartMuxDemux
         private string strDataReceivedDate;
         private string strDataReceivedTime;
         protected List<SlavePort> slavePortsList = new List<SlavePort>();
-        protected Mux muxPort;
+        protected Mux mux;
+        protected MasterPort masterPort;
         public MainForm()
         {
             InitializeComponent();
@@ -29,21 +30,21 @@ namespace UartMuxDemux
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Instanciate muxPort
-            muxPort = new Mux(slavePortsList);
-            LoadDemuxPortsList();
+            // Instanciate master port
+            masterPort = new MasterPort();
+            LoadSlavePortsList();
             // Load saved settings
             LoadSettings();
         }
 
-        private void LoadDemuxPortsList()
+        private void LoadSlavePortsList()
         {
             slavePortsList = new List<SlavePort>();
             foreach(string portName in Settings.Default.aSlavePortsNames)
             {
-                Demux NewDp = new Demux(this.muxPort);
-                NewDp.serialPort.PortName = portName;
-                slavePortsList.Add(NewDp);
+                SlavePort NewSp = new SlavePort();
+                NewSp.serialPort.PortName = portName;
+                slavePortsList.Add(NewSp);
             }
         }
 
@@ -67,86 +68,86 @@ namespace UartMuxDemux
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(muxPort, slavePortsList);
+            ConfigForm configForm = new ConfigForm(masterPort, slavePortsList);
             DialogResult result = configForm.ShowDialog();
         }
 
         private void buttonOpenPorts_Click(object sender, EventArgs e)
         {
-            // Open MUX port
-            OpenMuxPort();
-            if (muxPort.serialPort.IsOpen)
+            // Open master port
+            OpenMasterPort();
+            if (masterPort.serialPort.IsOpen)
             {
-                // Open demux ports
-                OpenDeMuxPorts();
+                // Open slave ports
+                OpenSlavePorts();
                 // Start the timer
                 timerDisplayRefresh.Start();
             }
         }
 
-        private void OpenMuxPort()
+        private void OpenMasterPort()
         {
-            if(muxPort.serialPort != null)
+            if(masterPort.serialPort != null)
             {
-                bool bPreviousState = muxPort.serialPort.IsOpen;
+                bool bPreviousState = masterPort.serialPort.IsOpen;
                 try
                 {
-                    muxPort.serialPort.Open();
+                    masterPort.serialPort.Open();
                 }
                 catch(Exception ex)
                 {
                     TraceLogger.ErrorTrace(ex.Message);
                 }
                 // If state has changed, notify it to refresh the port list
-                if(muxPort.serialPort.IsOpen != bPreviousState)
+                if(masterPort.serialPort.IsOpen != bPreviousState)
                 {
                     bPortsStateChanged = true;
                 }
             }
         }
 
-        private void CloseMuxPort()
+        private void CloseMasterPort()
         {
-            if ((muxPort.serialPort != null) && (muxPort.serialPort.IsOpen))
+            if ((masterPort.serialPort != null) && (masterPort.serialPort.IsOpen))
             {
                 try
                 {
-                    muxPort.serialPort.Close();
+                    masterPort.serialPort.Close();
                 }
                 catch (Exception ex)
                 {
                     TraceLogger.ErrorTrace(ex.Message);
                 }
-                if(muxPort.serialPort.IsOpen)
+                if(masterPort.serialPort.IsOpen)
                 {
-                    TraceLogger.ErrorTrace("Mux port couldn't be closed");
+                    TraceLogger.ErrorTrace("Master port couldn't be closed");
                 }
             }
         }
 
-        private void OpenDeMuxPorts()
+        private void OpenSlavePorts()
         {
-            foreach(SlavePort slavePort in slavePortsList)
+            foreach(SlavePort sp in slavePortsList)
             {
-                bool bPreviousState = dp.serialPort.IsOpen;
-                if ((dp.serialPort != null) && (dp.serialPort.IsOpen == false))
+                bool bPreviousState = sp.serialPort.IsOpen;
+                if ((sp.serialPort != null) && (sp.serialPort.IsOpen == false))
                 try
                 {
-                    dp.serialPort.Open();
+                    sp.serialPort.Open();
                 }
                 catch(Exception ex)
                 {
                         TraceLogger.ErrorTrace(ex.Message);
                 }
                 // If state has changed, notify it to refresh the port list
-                if (dp.serialPort.IsOpen != bPreviousState)
+                if (sp.serialPort.IsOpen != bPreviousState)
                 {
                     bPortsStateChanged = true;
                 }
             }
         }
 
-        private void CloseDeMuxPorts()
+        private void CloseSlavePorts()
         {
             foreach (SlavePort slavePort in slavePortsList)
             {
@@ -204,10 +205,10 @@ namespace UartMuxDemux
         private void RefreshCheckedListBoxes()
         {
             // MUX
-            // Set the name of the mux port
-            checkBoxMuxPort.Text = muxPort.serialPort.PortName;
-            // Set the state of the mux port
-            checkBoxMuxPort.Checked = muxPort.serialPort.IsOpen;
+            // Set the name of the master port
+            checkBoxMuxPort.Text = masterPort.serialPort.PortName;
+            // Set the state of the master port
+            checkBoxMuxPort.Checked = masterPort.serialPort.IsOpen;
 
             // DEMUX
             // Instanciate the demux open ports table
@@ -245,10 +246,10 @@ namespace UartMuxDemux
 
         private void CloseOpenPorts()
         {
-            // Close MUX port
-            CloseMuxPort();
-            // Close DEMUX ports
-            CloseDeMuxPorts();
+            // Close master port
+            CloseMasterPort();
+            // Close slave ports
+            CloseSlavePorts();
         }
     }
 }

@@ -7,20 +7,6 @@ using System.Threading.Tasks;
 
 namespace UartMuxDemux
 {
-    public static class LinkType
-    {
-        public const string Ascii = "Ascii";
-        public const string Binary = "Binary";
-        public static readonly string[] LinkTypes = { Ascii, Binary };
-    }
-
-    public static class EofDetection
-    {
-        public const string FixedSize = "Fixed size";
-        public const string FirstByte = "First byte defines size";
-        public const string Unknown = "Unknown";
-        public static readonly string[] EofDetections = { FixedSize, FirstByte, Unknown };
-    }
     public class SlavePort
     {
         private System.Windows.Forms.Timer timerPacketTimeout;
@@ -40,6 +26,16 @@ namespace UartMuxDemux
             this.linkType = LinkType.Ascii;
             this.timerPacketTimeout = new System.Windows.Forms.Timer();
             this.timerPacketTimeout.Tick += new System.EventHandler(this.timerPacketTimeout_Tick);
+        }
+
+        public void SendPacket()
+        {
+            //
+        }
+
+        private void UploadPacketToMux()
+        {
+            //
         }
 
         private void timerPacketTimeout_Tick(object sender, EventArgs e)
@@ -68,7 +64,7 @@ namespace UartMuxDemux
             this.linkType = strLinkType;
             if (strLinkType == LinkType.Ascii)
             {
-                serialPort.NewLine = this.strNewLineDef;
+                serialPort.NewLine = CustomDefs.strNewLineDef;
             }
         }
     }

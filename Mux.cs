@@ -23,10 +23,6 @@ namespace UartMuxDemux
     }
     public class Mux
     {
-        public const string strRxHeader = "Rx";
-        public const string strEndOfLine = "\n";
-        public const string strFieldSeparator = ":";
-        public const string strByteSeparator = ":";
         public SerialPort serialPort;
         public string linkType;
         private readonly BackgroundWorker readingbackgroundWorker;
@@ -64,20 +60,20 @@ namespace UartMuxDemux
                 if(serialPort.IsOpen && (lPackets.Count > 0))
                 {
                     // Create a string initialized with a header
-                    string strPacketToSend = strRxHeader;
+                    string strPacketToSend = CustomDefs.strRxHeader;
                     // Add the COM port number to the string to send
                     strPacketToSend += PortTools.GetPortNumber(lPackets[0].strPortSource).ToString();
                     // Add a field separator
-                    strPacketToSend += strFieldSeparator;
+                    strPacketToSend += CustomDefs.strFieldSeparator;
                     // Add the time
                     strPacketToSend += lPackets[0].strTime;
                     // Convert the packet data in ASCII chars
                     foreach (byte dataByte in lPackets[0].aData)
                     {
-                        strPacketToSend += dataByte.ToString("X2") + strByteSeparator;
+                        strPacketToSend += dataByte.ToString("X2") + CustomDefs.strByteSeparator;
                     }
                     // Add an end of line char
-                    strPacketToSend += strEndOfLine;
+                    strPacketToSend += CustomDefs.strEndOfLine;
                     // Send the packet
                     serialPort.Write(strPacketToSend);
                 }

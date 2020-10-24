@@ -15,21 +15,13 @@ namespace UartMuxDemux
 {
     public class Demux
     {
-        public string strNewLineDef = "\n";
         private readonly BackgroundWorker demuxBackgroundWorker;
-        private string strCurrentFrameDate = String.Empty;
-        private string strCurrentFrameTime = String.Empty;
-        private List<byte> lReadBuffer;
         private List<byte> lWriteBuffer;
-        private string strDataReceivedDate;
-        private string strDataReceivedTime;
-        private Mux muxPort;
+        private MasterPort masterPort;
 
-        public Demux(Mux muxPort)
+        public Demux(MasterPort masterPort)
         {
-            this.muxPort = muxPort;
-            this.lReadBuffer = new List<byte>();
-            this.lWriteBuffer = new List<byte>();
+            this.masterPort = masterPort;
             demuxBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             demuxBackgroundWorker.WorkerSupportsCancellation = true;
             demuxBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DemuxBackgroundWorker_DoWork);
@@ -45,7 +37,7 @@ namespace UartMuxDemux
         private void DemuxBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            while ((worker.CancellationPending == false) && (masterPort.IsOpen) && (masterPort.BytesToRead > 0))
+            while ((worker.CancellationPending == false) && (masterPort.serialPort.IsOpen) && (masterPort.serialPort.BytesToRead > 0))
             {
             }
             worker.CancelAsync();

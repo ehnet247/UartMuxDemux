@@ -13,7 +13,6 @@ namespace UartMuxDemux
 {
     public partial class ConfigForm : Form
     {
-        public const int MAX_NB_OF_DEMUX_PORT = 16;
         protected List<SlavePort> slavePortsList;
         protected MasterPort masterPort;
         private string strSelectedPort = string.Empty;
@@ -103,7 +102,7 @@ namespace UartMuxDemux
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             // We can add a port if there is one free
-            if(slavePortsList.Count < MAX_NB_OF_DEMUX_PORT)
+            if(slavePortsList.Count < CustomDefs.MAX_NB_OF_DEMUX_PORT)
             {
                 SlavePort slavePort = new SlavePort();
                 slavePort.serialPort.PortName = "COM" + ((int)(1 + GetLastPortNumberInList())).ToString();
@@ -172,7 +171,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
             {
                 if (slavePortsList[iPortIndex].GetLinkType() != comboBoxDemuxLinkType.Text)
                 {
@@ -210,7 +209,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
             {
                 if (slavePortsList[iPortIndex].eofDetection != comboBoxEofDetection.Text)
                 {
@@ -230,7 +229,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
             {
                 if (slavePortsList[iPortIndex].GetPacketTimeoutValue() != numericUpDownTimeout.Value)
                 {
@@ -250,7 +249,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
             {
                 if (slavePortsList[iPortIndex].iPacketLength != numericUpDownPacketLength.Value)
                 {
