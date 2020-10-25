@@ -11,9 +11,11 @@ namespace UartMuxDemux
     {
 
         public SerialPort serialPort;
+        private Demux demux;
 
-        public MasterPort()
+        public MasterPort(Demux demux)
         {
+            this.demux = demux;
             serialPort = new SerialPort();
         }
     }
