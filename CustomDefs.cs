@@ -10,9 +10,10 @@ namespace UartMuxDemux
     {
         public const string strNewLineDef = "\n";
         public const int MAX_NB_OF_DEMUX_PORT = 16;
-        public const string strRxHeader = "Rx";
-        public const string strEndOfLine = "\n";
-        public const string strFieldSeparator = ":";
+        public const string strMuxHeader = "Rx";
+        public const string strMuxFieldSeparator = ":";
+        public const string strMuxEndOfLine = "\n";
+        public const string strDemuxHeader = "Tx";
         public const string strByteSeparator = ":";
     }
     public static class LinkType

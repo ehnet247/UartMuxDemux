@@ -51,6 +51,7 @@
     <Compile Include="ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomDefs.cs" />
     <Compile Include="Demux.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
