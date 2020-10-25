@@ -15,9 +15,13 @@ namespace UartMuxDemux
     {
         protected List<SlavePort> slavePortsList;
         protected MasterPort masterPort;
+        protected Mux mux;
+        protected Demux demux;
         private string strSelectedPort = string.Empty;
-        public ConfigForm(MasterPort masterPort, List<SlavePort> slavePorts)
+        public ConfigForm(Mux mux, Demux demux, MasterPort masterPort, List<SlavePort> slavePorts)
         {
+            this.mux = mux;
+            this.demux = demux;
             this.slavePortsList = slavePorts;
             this.masterPort = masterPort;
             InitializeComponent();
@@ -104,7 +108,7 @@ namespace UartMuxDemux
             // We can add a port if there is one free
             if(slavePortsList.Count < CustomDefs.MAX_NB_OF_DEMUX_PORT)
             {
-                SlavePort slavePort = new SlavePort();
+                SlavePort slavePort = new SlavePort(mux);
                 slavePort.serialPort.PortName = "COM" + ((int)(1 + GetLastPortNumberInList())).ToString();
                 slavePortsList.Add(slavePort);
                 SortItemsInListBox();
