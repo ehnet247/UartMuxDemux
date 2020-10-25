@@ -22,6 +22,7 @@ namespace UartMuxDemux
         private string strDataReceivedTime;
         protected List<SlavePort> slavePortsList = new List<SlavePort>();
         protected Mux mux;
+        protected Demux demux;
         protected MasterPort masterPort;
         public MainForm()
         {
@@ -31,7 +32,12 @@ namespace UartMuxDemux
         private void Form1_Load(object sender, EventArgs e)
         {
             // Instanciate master port
-            masterPort = new MasterPort();
+            masterPort = new MasterPort(demux);
+            // Instanciate the DEMUX
+            demux = new Demux(masterPort);
+            // Instanciate the MUX
+            mux = new Mux(masterPort);
+            // Load the saved slave port list
             LoadSlavePortsList();
             // Load saved settings
             LoadSettings();
@@ -42,7 +48,7 @@ namespace UartMuxDemux
             slavePortsList = new List<SlavePort>();
             foreach(string portName in Settings.Default.aSlavePortsNames)
             {
-                SlavePort NewSp = new SlavePort();
+                SlavePort NewSp = new SlavePort(mux);
                 NewSp.serialPort.PortName = portName;
                 slavePortsList.Add(NewSp);
             }
@@ -68,7 +74,7 @@ namespace UartMuxDemux
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfigForm configForm = new ConfigForm(masterPort, slavePortsList);
+            ConfigForm configForm = new ConfigForm(mux, demux, masterPort, slavePortsList);
             DialogResult result = configForm.ShowDialog();
         }
 
@@ -133,7 +139,7 @@ namespace UartMuxDemux
                 if ((sp.serialPort != null) && (sp.serialPort.IsOpen == false))
                 try
                 {
-                    sp.serialPort.Open();
+                        sp.OpenPort();
                 }
                 catch(Exception ex)
                 {
