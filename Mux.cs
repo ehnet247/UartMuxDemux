@@ -23,61 +23,46 @@ namespace UartMuxDemux
     }
     public class Mux
     {
-        public SerialPort serialPort;
         public string linkType;
-        private readonly BackgroundWorker readingbackgroundWorker;
-        private System.ComponentModel.BackgroundWorker writingBackgroundWorker;
-        private List<Demux> demuxPorts;
-        private List<Packet> lPackets;
+        private readonly BackgroundWorker uploadPacketBackgroundWorker;
+        private MasterPort masterPort;
+        private List<Packet> lPacketsToUpload;
 
-        public Mux(List<Demux> demuxPorts)
+        public Mux(MasterPort masterPort)
         {
-            this.serialPort = new SerialPort();
-            this.lPackets = new List<Packet>();
-            this.demuxPorts = demuxPorts;
-            readingbackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            readingbackgroundWorker.WorkerSupportsCancellation = true;
-            readingbackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ReadingBackgroundWorker_DoWork);
-            writingBackgroundWorker = new BackgroundWorker();
-            writingBackgroundWorker.WorkerSupportsCancellation = true;
-            this.writingBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WritingBackgroundWorker_DoWork);
-            this.writingBackgroundWorker.RunWorkerAsync();
-        }
-        
-        private void WritingBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            while ((worker.CancellationPending == false) && (serialPort.IsOpen) && (serialPort.BytesToRead > 0))
-            {
-            }
+            this.masterPort = masterPort;
+            uploadPacketBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            uploadPacketBackgroundWorker.WorkerSupportsCancellation = true;
+            uploadPacketBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.uploadPacketBackgroundWorker_DoWork);
+            uploadPacketBackgroundWorker.RunWorkerAsync();
         }
 
-        private void ReadingBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void uploadPacketBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
             while (worker.CancellationPending == false)
             {
-                if(serialPort.IsOpen && (lPackets.Count > 0))
+                if(masterPort.serialPort.IsOpen && (lPacketsToUpload.Count > 0))
                 {
                     // Create a string initialized with a header
-                    string strPacketToSend = CustomDefs.strRxHeader;
+                    string strPacketToSend = CustomDefs.strMuxHeader;
                     // Add the COM port number to the string to send
-                    strPacketToSend += PortTools.GetPortNumber(lPackets[0].strPortSource).ToString();
+                    strPacketToSend += PortTools.GetPortNumber(lPacketsToUpload[0].strPortSource).ToString();
                     // Add a field separator
-                    strPacketToSend += CustomDefs.strFieldSeparator;
+                    strPacketToSend += CustomDefs.strMuxFieldSeparator;
                     // Add the time
-                    strPacketToSend += lPackets[0].strTime;
+                    strPacketToSend += lPacketsToUpload[0].strTime;
                     // Convert the packet data in ASCII chars
-                    foreach (byte dataByte in lPackets[0].aData)
+                    foreach (byte dataByte in lPacketsToUpload[0].aData)
                     {
                         strPacketToSend += dataByte.ToString("X2") + CustomDefs.strByteSeparator;
                     }
                     // Add an end of line char
-                    strPacketToSend += CustomDefs.strEndOfLine;
+                    strPacketToSend += CustomDefs.strMuxEndOfLine;
                     // Send the packet
-                    serialPort.Write(strPacketToSend);
+                    masterPort.serialPort.Write(strPacketToSend);
                 }
-                else if(serialPort.IsOpen == false)
+                else if(masterPort.serialPort.IsOpen == false)
                 {
                     // Pause thread for 100ms to breath
                     System.Threading.Thread.Sleep(100);
@@ -85,9 +70,21 @@ namespace UartMuxDemux
             }
         }
 
-        public void SendPacket(Packet packetToSend)
+        /**************************************************************/
+        /* Method: UploadPacket                                       */
+        /* Description: called by slave ports when they've received a */
+        /* packet that should be uploaded to the master port          */
+        /*                                                            */
+        /**************************************************************/
+        public void AddPacketToUpload(Packet packet)
         {
-            lPackets.Add(packetToSend);
+            // Create a string that will contain the packet
+            string strPacketToUpload = CustomDefs.strMuxHeader;
+            // Add the port number
+            strPacketToUpload += packet.strPortSource;
+            // Add the time code
+            strPacketToUpload += packet.strTime;
+            lPacketsToUpload.Add(packet);
         }
-    }
+}
 }
