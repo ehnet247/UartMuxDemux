@@ -18,5 +18,35 @@ namespace UartMuxDemux
             this.demux = demux;
             serialPort = new SerialPort();
         }
+
+        public void OpenPort()
+        {
+            if (serialPort.IsOpen == false)
+            {
+                try
+                {
+                    serialPort.Open();
+                }
+                catch (Exception ex)
+                {
+                    TraceLogger.ErrorTrace(ex.Message);
+                }
+            }
+        }
+
+        public void ClosePort()
+        {
+            if(serialPort.IsOpen)
+            {
+                try
+                {
+                    serialPort.Close();
+                }
+                catch(Exception ex)
+                {
+                    TraceLogger.ErrorTrace(ex.Message);
+}
+            }
+        }
     }
 }
