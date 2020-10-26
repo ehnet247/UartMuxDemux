@@ -93,17 +93,10 @@ namespace UartMuxDemux
 
         private void OpenMasterPort()
         {
-            if(masterPort.serialPort != null)
+            if(masterPort != null)
             {
                 bool bPreviousState = masterPort.serialPort.IsOpen;
-                try
-                {
-                    masterPort.serialPort.Open();
-                }
-                catch(Exception ex)
-                {
-                    TraceLogger.ErrorTrace(ex.Message);
-                }
+                masterPort.OpenPort();
                 // If state has changed, notify it to refresh the port list
                 if(masterPort.serialPort.IsOpen != bPreviousState)
                 {
@@ -116,14 +109,7 @@ namespace UartMuxDemux
         {
             if ((masterPort.serialPort != null) && (masterPort.serialPort.IsOpen))
             {
-                try
-                {
-                    masterPort.serialPort.Close();
-                }
-                catch (Exception ex)
-                {
-                    TraceLogger.ErrorTrace(ex.Message);
-                }
+                masterPort.ClosePort();
                 if(masterPort.serialPort.IsOpen)
                 {
                     TraceLogger.ErrorTrace("Master port couldn't be closed");
@@ -159,18 +145,13 @@ namespace UartMuxDemux
             {
                 bool bPreviousState = slavePort.serialPort.IsOpen;
                 if ((slavePort.serialPort != null) && (slavePort.serialPort.IsOpen == true))
-                    try
-                    {
-                        slavePort.serialPort.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        TraceLogger.ErrorTrace(ex.Message);
-                    }
-                // If state has changed, notify it to refresh the port list
-                if (slavePort.serialPort.IsOpen != bPreviousState)
                 {
-                    bPortsStateChanged = true;
+                    slavePort.ClosePort();
+                    // If state has changed, notify it to refresh the port list
+                    if (slavePort.serialPort.IsOpen != bPreviousState)
+                    {
+                        bPortsStateChanged = true;
+                    }
                 }
             }
         }
@@ -190,7 +171,7 @@ namespace UartMuxDemux
         {
             // Clear the list
             checkedListBoxDemuxPorts.Items.Clear();
-            // Add the demux ports
+            // Add the slave ports
             for(int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
             {
                 if (slavePortsList[iPortIndex].serialPort.IsOpen)
@@ -210,21 +191,21 @@ namespace UartMuxDemux
 
         private void RefreshCheckedListBoxes()
         {
-            // MUX
+            // Master port
             // Set the name of the master port
             checkBoxMuxPort.Text = masterPort.serialPort.PortName;
             // Set the state of the master port
             checkBoxMuxPort.Checked = masterPort.serialPort.IsOpen;
 
-            // DEMUX
-            // Instanciate the demux open ports table
+            // Slave ports
+            // Instanciate the slave open ports table
             bool[] aOpenPorts = new bool[slavePortsList.Count];
             if (bPortsStateChanged)
             {
                 // Clear the list
                 checkedListBoxDemuxPorts.Items.Clear();
             }
-                // Get the state of each demux port
+                // Get the state of each slave port
                 for (int iPortIndex = 0;iPortIndex < slavePortsList.Count;iPortIndex++)
             {
                 //
