@@ -5,6 +5,7 @@
 /********************************************************/
 
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Ports;
@@ -20,13 +21,14 @@ namespace UartMuxDemux
         public string strTime;
         public string strPortSource;
         public byte[] aData;
+        public string strData;
     }
     public class Mux
     {
         public string linkType;
         private readonly BackgroundWorker uploadPacketBackgroundWorker;
         private MasterPort masterPort;
-        private List<Packet> lPacketsToUpload;
+        private List<string> lPacketsToUpload;
 
         public Mux(MasterPort masterPort)
         {
@@ -35,7 +37,7 @@ namespace UartMuxDemux
             uploadPacketBackgroundWorker.WorkerSupportsCancellation = true;
             uploadPacketBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.uploadPacketBackgroundWorker_DoWork);
             uploadPacketBackgroundWorker.RunWorkerAsync();
-            lPacketsToUpload = new List<Packet>();
+            lPacketsToUpload = new List<string>();
         }
 
         private void uploadPacketBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -45,25 +47,17 @@ namespace UartMuxDemux
             {
                 if(masterPort.serialPort.IsOpen && (lPacketsToUpload.Count > 0))
                 {
-                    // Create a string initialized with a header
-                    string strPacketToSend = CustomDefs.strMuxHeader;
-                    // Add the COM port number to the string to send
-                    strPacketToSend += PortTools.GetPortNumber(lPacketsToUpload[0].strPortSource).ToString();
-                    // Add a field separator
-                    strPacketToSend += CustomDefs.strMuxFieldSeparator;
-                    // Add the time
-                    strPacketToSend += lPacketsToUpload[0].strTime;
-                    // Convert the packet data in ASCII chars
-                    foreach (byte dataByte in lPacketsToUpload[0].aData)
-                    {
-                        strPacketToSend += dataByte.ToString("X2") + CustomDefs.strByteSeparator;
-                    }
-                    // Add an end of line char
-                    strPacketToSend += CustomDefs.strMuxEndOfLine;
                     // Send the packet
-                    masterPort.serialPort.Write(strPacketToSend);
+                    masterPort.serialPort.Write(lPacketsToUpload[0]);
+                   // Remove the packet from the list
+                    lPacketsToUpload.RemoveAt(0);
                 }
                 else if(masterPort.serialPort.IsOpen == false)
+                {
+                    // Pause thread for 100ms to breath
+                    System.Threading.Thread.Sleep(100);
+                }
+                else if (lPacketsToUpload.Count == 0)
                 {
                     // Pause thread for 100ms to breath
                     System.Threading.Thread.Sleep(100);
@@ -85,7 +79,12 @@ namespace UartMuxDemux
             strPacketToUpload += packet.strPortSource;
             // Add the time code
             strPacketToUpload += packet.strTime;
-            lPacketsToUpload.Add(packet);
+            strPacketToUpload += CustomDefs.strMuxFieldSeparator;
+            // Add the data bytes
+            strPacketToUpload += packet.strData;
+            // Add the end-of-packet byte
+            strPacketToUpload += CustomDefs.strMuxEndOfLine;
+
         }
 }
 }
