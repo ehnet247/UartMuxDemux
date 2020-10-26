@@ -43,9 +43,16 @@ namespace UartMuxDemux
         {
             Packet packet = new Packet();
             packet.strPortSource = portSource;
-            packet.strTime = timeCode;
+            packet.strTime = "(" + timeCode + ")";
             packet.aData = data;
-            //
+            // Convert bytes in hex string values
+            packet.strData = string.Empty;
+            foreach (byte dataByte in data)
+            {
+                packet.strData += dataByte.ToString("X2");
+                packet.strData += CustomDefs.strMuxByteSeparator;
+            }
+            // Add the packet to the list of packets to be uploaded
             mux.AddPacketToUpload(packet);
         }
 
