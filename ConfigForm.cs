@@ -18,6 +18,7 @@ namespace UartMuxDemux
         protected Mux mux;
         protected Demux demux;
         private string strSelectedPort = string.Empty;
+        private int iSelectedPortIndex = 0;
         public ConfigForm(Mux mux, Demux demux, MasterPort masterPort, List<SlavePort> slavePorts)
         {
             this.mux = mux;
@@ -42,43 +43,53 @@ namespace UartMuxDemux
                 {
                     comboBoxMuxPortName.Items.AddRange(SerialPort.GetPortNames());
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     TraceLogger.ErrorTrace(ex.Message);
                 }
             }
-            // Load demux ports
+            // Load slave ports
             foreach (SlavePort slavePort in slavePortsList)
             {
-                listBoxDemuxPorts.Items.Add(slavePort.serialPort.PortName);
+                listBoxSlavePorts.Items.Add(slavePort.serialPort.PortName);
             }
             // Sort them
             SortItemsInListBox();
-            // Select the first demux port if any
-            if (listBoxDemuxPorts.Items.Count > 0)
+            // Select the first slave port if any
+            if (listBoxSlavePorts.Items.Count > 0)
             {
-                listBoxDemuxPorts.SelectedIndex = 0;
+                listBoxSlavePorts.SelectedIndex = 0;
             }
         }
 
         private void SortItemsInListBox()
         {
-            List<string> portNameList = new List<string>();
-
             // Clear the listbox
-            listBoxDemuxPorts.Items.Clear();
-                // Constitute a list of the ports names
-                foreach(SlavePort slavePort in slavePortsList)
+            listBoxSlavePorts.Items.Clear();
+            // Create a list of index sorted
+            List<int> lSortedIndexesList = new List<int>();
+            foreach( SlavePort sp in slavePortsList)
+            {
+                if (sp.serialPort.PortName.Length > 3)
                 {
-                    portNameList.Add(slavePort.serialPort.PortName);
-                    portNameList.Sort();
+                    lSortedIndexesList.Add(PortTools.GetPortNumber(sp.serialPort.PortName));
                 }
-                listBoxDemuxPorts.Items.AddRange(portNameList.ToArray());
+            }
+            lSortedIndexesList.Sort();
+            // Create the same list in string type, with "COM" added at the beginning
+            List<string> portNameList = new List<string>();
+            
+            foreach (int slavePort in lSortedIndexesList)
+            {
+                portNameList.Add("COM" + slavePort);
+            }
+            // Copy the list of sorted port names into listbox
+            listBoxSlavePorts.Items.AddRange(portNameList.ToArray());
         }
         private int GetPortIndexByNumber(int iPortNum)
         {
             int iPortIndex = 0;
-            while(iPortIndex < slavePortsList.Count)
+            while (iPortIndex < slavePortsList.Count)
             {
                 if (PortTools.GetPortNumber(slavePortsList[iPortIndex].serialPort.PortName) == iPortNum)
                 {
@@ -106,22 +117,25 @@ namespace UartMuxDemux
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             // We can add a port if there is one free
-            if(slavePortsList.Count < CustomDefs.MAX_NB_OF_DEMUX_PORT)
+            if (slavePortsList.Count < CustomDefs.MAX_NB_OF_DEMUX_PORT)
             {
                 SlavePort slavePort = new SlavePort(mux);
-                slavePort.serialPort.PortName = "COM" + ((int)(1 + GetLastPortNumberInList())).ToString();
+                int iPortNumber = 1 + GetLastPortNumberInList();
+                slavePort.serialPort.PortName = "COM" + iPortNumber;
                 slavePortsList.Add(slavePort);
                 SortItemsInListBox();
+                // Select the new port to edit it
+                listBoxSlavePorts.SelectedIndex = listBoxSlavePorts.Items.Count - 1;
             }
         }
 
         private int GetLastPortNumberInList()
         {
             // Get last index of list
-            int iLastIndex = listBoxDemuxPorts.Items.Count - 1;
+            int iLastIndex = listBoxSlavePorts.Items.Count - 1;
             int iLastPortNumber = 0;
             // Get the last port name
-            string strLastPortName = listBoxDemuxPorts.Items[iLastIndex].ToString();
+            string strLastPortName = listBoxSlavePorts.Items[iLastIndex].ToString();
             // Get the port number as a string
             string strLastPortNumber = strLastPortName.Substring(3);
             // try to convert it in an int
@@ -129,18 +143,25 @@ namespace UartMuxDemux
             {
                 iLastPortNumber = Convert.ToInt32(strLastPortNumber);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TraceLogger.ErrorTrace(ex.Message);
             }
             return iLastPortNumber;
         }
 
-        private void listBoxDemuxPorts_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxSlavePorts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            strSelectedPort = listBoxDemuxPorts.SelectedItem.ToString();
-            // Display port characteristics
-            DisplayPortCharacteristics();
+            if (listBoxSlavePorts.SelectedItem != null)
+            {
+                //MessageBox.Show("SelectedIndex: " + listBoxDemuxPorts.SelectedIndex);
+                // Save the selected port name
+                strSelectedPort = listBoxSlavePorts.SelectedItem.ToString();
+                // Save the selected port index
+                iSelectedPortIndex = listBoxSlavePorts.SelectedIndex;
+                // Display port characteristics
+                DisplayPortCharacteristics();
+            }
         }
 
         private void DisplayPortCharacteristics()
@@ -148,8 +169,8 @@ namespace UartMuxDemux
             if (strSelectedPort != String.Empty)
             {
                 SlavePort slavePort = slavePortsList[GetPortIndexByName(strSelectedPort)];
-                textBoxDemuxPortName.Text = slavePort.serialPort.PortName;
-                comboBoxDemuxLinkType.Text = slavePort.GetLinkType();
+                textBoxSlavePortName.Text = slavePort.serialPort.PortName;
+                comboBoxSlaveLinkType.Text = slavePort.GetLinkType();
             }
             else
             {
@@ -159,12 +180,10 @@ namespace UartMuxDemux
 
         private void textBoxPortName_TextChanged(object sender, EventArgs e)
         {
-            // Get index of the selected port
-            int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if(iPortIndex >= 0)
+            if (iSelectedPortIndex >= 0)
             {
-                if(slavePortsList[iPortIndex].serialPort.PortName != textBoxDemuxPortName.Text)
-                    slavePortsList[iPortIndex].serialPort.PortName = textBoxDemuxPortName.Text;
+                if (slavePortsList[iSelectedPortIndex].serialPort.PortName != textBoxSlavePortName.Text)
+                    slavePortsList[iSelectedPortIndex].serialPort.PortName = textBoxSlavePortName.Text;
                 // Refresh the list
                 SortItemsInListBox();
 
@@ -177,15 +196,15 @@ namespace UartMuxDemux
             int iPortIndex = GetPortIndexByName(strSelectedPort);
             if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
             {
-                if (slavePortsList[iPortIndex].GetLinkType() != comboBoxDemuxLinkType.Text)
+                if (slavePortsList[iPortIndex].GetLinkType() != comboBoxSlaveLinkType.Text)
                 {
-                    slavePortsList[iPortIndex].SetLinkType(comboBoxDemuxLinkType.Text);
-                    if(Settings.Default.aSlavePortsLinkTypes[iPortIndex] != slavePortsList[iPortIndex].GetLinkType())
+                    slavePortsList[iPortIndex].SetLinkType(comboBoxSlaveLinkType.Text);
+                    if (Settings.Default.aSlavePortsLinkTypes[iPortIndex] != slavePortsList[iPortIndex].GetLinkType())
                     {
                         Settings.Default.aSlavePortsLinkTypes[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
                     }
                     // Save the new value
-                    Settings.Default.aSlavePortsLinkTypes[iPortIndex] = comboBoxDemuxLinkType.Text;
+                    Settings.Default.aSlavePortsLinkTypes[iPortIndex] = comboBoxSlaveLinkType.Text;
                 }
 
             }
@@ -203,8 +222,10 @@ namespace UartMuxDemux
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
+            // Copy the selected port config in the structure
+            BufferizeSettingsBeforeClose();
             // Save the settings in the external config file
-            Settings.Default.Save();
+            SaveSettings();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -223,7 +244,7 @@ namespace UartMuxDemux
                         Settings.Default.aSlavePortsEoFDetectionModes[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
                     }
                     // Save the new value
-                    Settings.Default.aSlavePortsLinkTypes[iPortIndex] = comboBoxDemuxLinkType.Text;
+                    Settings.Default.aSlavePortsLinkTypes[iPortIndex] = comboBoxSlaveLinkType.Text;
                 }
 
             }
@@ -243,7 +264,7 @@ namespace UartMuxDemux
                     {
                         Settings.Default.aSlavePortsTimeout[iPortIndex] = numericUpDownTimeout.Value.ToString();
                     }
-                    
+
                 }
 
             }
@@ -267,6 +288,40 @@ namespace UartMuxDemux
                 }
 
             }
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            // Get the selected port index
+            int iPortIndex = GetPortIndexByName(strSelectedPort);
+            if (iPortIndex >= 0)
+            {
+                // Remove the port from the slavePortsList
+                slavePortsList.RemoveAt(iPortIndex);
+                // Refresh the list
+                SortItemsInListBox();
+
+            }
+        }
+
+        private void SaveSettings()
+        {
+            // Save the slave ports list
+            for(int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
+            {
+                Settings.Default.aSlavePortsNames[iPortIndex] = slavePortsList[iPortIndex].serialPort.PortName;
+            }
+            // Store the settings in a file
+            Settings.Default.Save();
+        }
+
+        private void BufferizeSettingsBeforeClose()
+        {
+            slavePortsList[iSelectedPortIndex].SetLinkType(comboBoxSlaveLinkType.Text);
+            slavePortsList[iSelectedPortIndex].serialPort.BaudRate = (int)numericUpDownMuxBaudrate.Value;
+            slavePortsList[iSelectedPortIndex].eofDetection = comboBoxEofDetection.Text;
+            slavePortsList[iSelectedPortIndex].SetPacketTimeoutValue((int)numericUpDownTimeout.Value);
+            slavePortsList[iSelectedPortIndex].iPacketLength = (int)numericUpDownPacketLength.Value;
         }
     }
 }
