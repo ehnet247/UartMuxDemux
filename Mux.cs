@@ -35,6 +35,7 @@ namespace UartMuxDemux
             uploadPacketBackgroundWorker.WorkerSupportsCancellation = true;
             uploadPacketBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.uploadPacketBackgroundWorker_DoWork);
             uploadPacketBackgroundWorker.RunWorkerAsync();
+            lPacketsToUpload = new List<Packet>();
         }
 
         private void uploadPacketBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
