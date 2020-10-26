@@ -57,7 +57,7 @@ namespace UartMuxDemux
                     // Convert the packet data in ASCII chars
                     foreach (byte dataByte in lPacketsToDownload[0].aData)
                     {
-                        strPacketToSend += dataByte.ToString("X2") + CustomDefs.strByteSeparator;
+                        strPacketToSend += dataByte.ToString("X2") + CustomDefs.strDemuxByteSeparator;
                     }
                     // Add an end of line char
                     strPacketToSend += CustomDefs.strMuxEndOfLine;
@@ -90,7 +90,7 @@ namespace UartMuxDemux
                     // Convert the packet data in ASCII chars
                     foreach (byte dataByte in lPacketsToDownload[0].aData)
                     {
-                        strPacketToSend += dataByte.ToString("X2") + CustomDefs.strByteSeparator;
+                        strPacketToSend += dataByte.ToString("X2") + CustomDefs.strDemuxByteSeparator;
                     }
                     // Add an end of line char
                     strPacketToSend += CustomDefs.strMuxEndOfLine;
