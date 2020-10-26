@@ -34,12 +34,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxMuxPortName = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxSlavePorts = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDownPacketLength = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownDemuxBaudrate = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownTimeout = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxDemuxLinkType = new System.Windows.Forms.ComboBox();
-            this.textBoxDemuxPortName = new System.Windows.Forms.TextBox();
+            this.comboBoxSlaveLinkType = new System.Windows.Forms.ComboBox();
+            this.textBoxSlavePortName = new System.Windows.Forms.TextBox();
             this.buttonRemove = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.comboBoxEofDetection = new System.Windows.Forms.ComboBox();
@@ -47,17 +49,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.listBoxDemuxPorts = new System.Windows.Forms.ListBox();
+            this.listBoxSlavePorts = new System.Windows.Forms.ListBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.numericUpDownPacketLength = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBoxMux.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxSlavePorts.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDemuxBaudrate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketLength)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMux
@@ -71,7 +71,7 @@
             this.groupBoxMux.Size = new System.Drawing.Size(346, 388);
             this.groupBoxMux.TabIndex = 0;
             this.groupBoxMux.TabStop = false;
-            this.groupBoxMux.Text = "Mux";
+            this.groupBoxMux.Text = "Master port";
             // 
             // numericUpDownMuxBaudrate
             // 
@@ -128,29 +128,51 @@
             this.comboBoxMuxPortName.TabIndex = 0;
             this.comboBoxMuxPortName.SelectedIndexChanged += new System.EventHandler(this.comboBoxMuxPortName_SelectedIndexChanged);
             // 
-            // groupBox2
+            // groupBoxSlavePorts
             // 
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.numericUpDownPacketLength);
-            this.groupBox2.Controls.Add(this.numericUpDownDemuxBaudrate);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.numericUpDownTimeout);
-            this.groupBox2.Controls.Add(this.comboBoxDemuxLinkType);
-            this.groupBox2.Controls.Add(this.textBoxDemuxPortName);
-            this.groupBox2.Controls.Add(this.buttonRemove);
-            this.groupBox2.Controls.Add(this.buttonAdd);
-            this.groupBox2.Controls.Add(this.comboBoxEofDetection);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.listBoxDemuxPorts);
-            this.groupBox2.Location = new System.Drawing.Point(407, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(381, 388);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Demux";
+            this.groupBoxSlavePorts.Controls.Add(this.label7);
+            this.groupBoxSlavePorts.Controls.Add(this.numericUpDownPacketLength);
+            this.groupBoxSlavePorts.Controls.Add(this.numericUpDownDemuxBaudrate);
+            this.groupBoxSlavePorts.Controls.Add(this.label6);
+            this.groupBoxSlavePorts.Controls.Add(this.numericUpDownTimeout);
+            this.groupBoxSlavePorts.Controls.Add(this.comboBoxSlaveLinkType);
+            this.groupBoxSlavePorts.Controls.Add(this.textBoxSlavePortName);
+            this.groupBoxSlavePorts.Controls.Add(this.buttonRemove);
+            this.groupBoxSlavePorts.Controls.Add(this.buttonAdd);
+            this.groupBoxSlavePorts.Controls.Add(this.comboBoxEofDetection);
+            this.groupBoxSlavePorts.Controls.Add(this.label4);
+            this.groupBoxSlavePorts.Controls.Add(this.label3);
+            this.groupBoxSlavePorts.Controls.Add(this.label2);
+            this.groupBoxSlavePorts.Controls.Add(this.label1);
+            this.groupBoxSlavePorts.Controls.Add(this.listBoxSlavePorts);
+            this.groupBoxSlavePorts.Location = new System.Drawing.Point(407, 13);
+            this.groupBoxSlavePorts.Name = "groupBoxSlavePorts";
+            this.groupBoxSlavePorts.Size = new System.Drawing.Size(381, 388);
+            this.groupBoxSlavePorts.TabIndex = 1;
+            this.groupBoxSlavePorts.TabStop = false;
+            this.groupBoxSlavePorts.Text = "Slave ports";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(188, 318);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(146, 17);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Packet length (bytes):";
+            // 
+            // numericUpDownPacketLength
+            // 
+            this.numericUpDownPacketLength.Location = new System.Drawing.Point(188, 338);
+            this.numericUpDownPacketLength.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDownPacketLength.Name = "numericUpDownPacketLength";
+            this.numericUpDownPacketLength.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownPacketLength.TabIndex = 13;
+            this.numericUpDownPacketLength.ValueChanged += new System.EventHandler(this.numericUpDownPacketLength_ValueChanged);
             // 
             // numericUpDownDemuxBaudrate
             // 
@@ -196,26 +218,26 @@
             this.numericUpDownTimeout.TabIndex = 10;
             this.numericUpDownTimeout.ValueChanged += new System.EventHandler(this.numericUpDownTimeout_ValueChanged);
             // 
-            // comboBoxDemuxLinkType
+            // comboBoxSlaveLinkType
             // 
-            this.comboBoxDemuxLinkType.FormattingEnabled = true;
-            /*this.comboBoxDemuxLinkType.Items.AddRange(new object[] {
-            "Ascii",
-            "Binary"});*/
-            this.comboBoxDemuxLinkType.Items.AddRange(EofDetection.EofDetections);
-            this.comboBoxDemuxLinkType.Location = new System.Drawing.Point(188, 120);
-            this.comboBoxDemuxLinkType.Name = "comboBoxDemuxLinkType";
-            this.comboBoxDemuxLinkType.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxDemuxLinkType.TabIndex = 9;
-            this.comboBoxDemuxLinkType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDemuxLinkType_SelectedIndexChanged);
+            this.comboBoxSlaveLinkType.FormattingEnabled = true;
+            this.comboBoxSlaveLinkType.Items.AddRange(new object[] {
+            "Fixed size",
+            "First byte defines size",
+            "Unknown"});
+            this.comboBoxSlaveLinkType.Location = new System.Drawing.Point(188, 120);
+            this.comboBoxSlaveLinkType.Name = "comboBoxSlaveLinkType";
+            this.comboBoxSlaveLinkType.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxSlaveLinkType.TabIndex = 9;
+            this.comboBoxSlaveLinkType.SelectedIndexChanged += new System.EventHandler(this.comboBoxDemuxLinkType_SelectedIndexChanged);
             // 
-            // textBoxDemuxPortName
+            // textBoxSlavePortName
             // 
-            this.textBoxDemuxPortName.Location = new System.Drawing.Point(188, 75);
-            this.textBoxDemuxPortName.Name = "textBoxDemuxPortName";
-            this.textBoxDemuxPortName.Size = new System.Drawing.Size(100, 22);
-            this.textBoxDemuxPortName.TabIndex = 8;
-            this.textBoxDemuxPortName.TextChanged += new System.EventHandler(this.textBoxPortName_TextChanged);
+            this.textBoxSlavePortName.Location = new System.Drawing.Point(188, 75);
+            this.textBoxSlavePortName.Name = "textBoxSlavePortName";
+            this.textBoxSlavePortName.Size = new System.Drawing.Size(100, 22);
+            this.textBoxSlavePortName.TabIndex = 8;
+            this.textBoxSlavePortName.TextChanged += new System.EventHandler(this.textBoxPortName_TextChanged);
             // 
             // buttonRemove
             // 
@@ -225,6 +247,7 @@
             this.buttonRemove.TabIndex = 7;
             this.buttonRemove.Text = "-";
             this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonAdd
             // 
@@ -285,15 +308,15 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Port name:";
             // 
-            // listBoxDemuxPorts
+            // listBoxSlavePorts
             // 
-            this.listBoxDemuxPorts.FormattingEnabled = true;
-            this.listBoxDemuxPorts.ItemHeight = 16;
-            this.listBoxDemuxPorts.Location = new System.Drawing.Point(7, 54);
-            this.listBoxDemuxPorts.Name = "listBoxDemuxPorts";
-            this.listBoxDemuxPorts.Size = new System.Drawing.Size(120, 212);
-            this.listBoxDemuxPorts.TabIndex = 0;
-            this.listBoxDemuxPorts.SelectedIndexChanged += new System.EventHandler(this.listBoxDemuxPorts_SelectedIndexChanged);
+            this.listBoxSlavePorts.FormattingEnabled = true;
+            this.listBoxSlavePorts.ItemHeight = 16;
+            this.listBoxSlavePorts.Location = new System.Drawing.Point(7, 54);
+            this.listBoxSlavePorts.Name = "listBoxSlavePorts";
+            this.listBoxSlavePorts.Size = new System.Drawing.Size(120, 212);
+            this.listBoxSlavePorts.TabIndex = 0;
+            this.listBoxSlavePorts.SelectedIndexChanged += new System.EventHandler(this.listBoxSlavePorts_SelectedIndexChanged);
             // 
             // buttonOk
             // 
@@ -315,28 +338,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // numericUpDownPacketLength
-            // 
-            this.numericUpDownPacketLength.Location = new System.Drawing.Point(188, 338);
-            this.numericUpDownPacketLength.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericUpDownPacketLength.Name = "numericUpDownPacketSize";
-            this.numericUpDownPacketLength.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDownPacketLength.TabIndex = 13;
-            this.numericUpDownPacketLength.ValueChanged += new System.EventHandler(this.numericUpDownPacketLength_ValueChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(188, 318);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 17);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Packet size (bytes):";
-            // 
             // ConfigForm
             // 
             this.AcceptButton = this.buttonOk;
@@ -346,7 +347,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxSlavePorts);
             this.Controls.Add(this.groupBoxMux);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConfigForm";
@@ -355,11 +356,11 @@
             this.groupBoxMux.ResumeLayout(false);
             this.groupBoxMux.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMuxBaudrate)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxSlavePorts.ResumeLayout(false);
+            this.groupBoxSlavePorts.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDemuxBaudrate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTimeout)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPacketLength)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -367,7 +368,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxMux;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxSlavePorts;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ComboBox comboBoxEofDetection;
@@ -375,11 +376,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox listBoxDemuxPorts;
+        private System.Windows.Forms.ListBox listBoxSlavePorts;
         private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.TextBox textBoxDemuxPortName;
-        private System.Windows.Forms.ComboBox comboBoxDemuxLinkType;
+        private System.Windows.Forms.TextBox textBoxSlavePortName;
+        private System.Windows.Forms.ComboBox comboBoxSlaveLinkType;
         private System.Windows.Forms.NumericUpDown numericUpDownTimeout;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxMuxPortName;
