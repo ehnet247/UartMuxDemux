@@ -90,6 +90,7 @@ namespace UartMuxDemux
         {
             return u8PacketTimeoutValue;
         }
+
         public void OpenPort()
         {
             if(SerialPort.GetPortNames().Contains(serialPort.PortName))
@@ -110,10 +111,37 @@ namespace UartMuxDemux
             }
         }
 
+        public void ClosePort()
+        {
+            if(serialPort.IsOpen)
+            {
+                try
+                {
+                    serialPort.Open();
+                }
+                catch (Exception ex)
+                {
+                    TraceLogger.ErrorTrace(ex.Message);
+                }
+                if (serialPort.IsOpen)
+                {
+                    TraceLogger.ErrorTrace("Could not close port " + serialPort.PortName);
+                }
+                else
+                {
+                    TraceLogger.EventTrace("Port " + serialPort.PortName + "closed");
+                    dataReceptionBackgroundWorker.CancelAsync();
+                }
+            }
+        }
+
         public void SetPacketTimeoutValue(int iTimeoutValue)
         {
-            timerPacketTimeout.Interval = iTimeoutValue;
-            u8PacketTimeoutValue = (byte)iTimeoutValue;
+            if (iTimeoutValue > 0)
+            {
+                timerPacketTimeout.Interval = iTimeoutValue;
+                u8PacketTimeoutValue = (byte)iTimeoutValue;
+            }
         }
         public string GetLinkType()
         {
