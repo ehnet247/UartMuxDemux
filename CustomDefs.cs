@@ -14,7 +14,8 @@ namespace UartMuxDemux
         public const string strMuxFieldSeparator = ":";
         public const string strMuxEndOfLine = "\n";
         public const string strDemuxHeader = "Tx";
-        public const string strByteSeparator = ":";
+        public const string strMuxByteSeparator = " ";
+        public const string strDemuxByteSeparator = ":";
     }
     public static class LinkType
     {
