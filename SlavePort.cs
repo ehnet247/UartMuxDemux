@@ -20,6 +20,8 @@ namespace UartMuxDemux
         private bool bPacketTimeout = false;
         private byte u8PacketTimeoutValue = 0;
         private string linkType;
+        private List<byte> RxCurrentPacket = null;
+        private string strCurrentPacketTimecode;
         private Mux mux;
 
         public SlavePort(Mux mux)
@@ -65,16 +67,55 @@ namespace UartMuxDemux
                 {
                     string strReceptionTime = PortTools.GetTimeString();
                     int iBytesToRead = serialPort.BytesToRead;
-                    // Create a reading buffer
-                    byte[] rxBuffer = new byte[iBytesToRead];
-                    if (linkType == LinkType.Binary)
+                    // Are we already receiving a packet?
+                    if (RxCurrentPacket == null)
                     {
-                        //
-                        serialPort.Read(rxBuffer, 0, iBytesToRead);
+                        // No: instanciate a new packet
+                        RxCurrentPacket = new List<byte>();
+                        // Get the timecode
+                        strCurrentPacketTimecode = PortTools.GetTimeString();
+                        // Start the timer if necessary
+                        if (eofDetection == EofDetection.Unknown)
+                        {
+                            timerPacketTimeout.Start();
+                        }
                     }
-                    else if(linkType == LinkType.Ascii)
+                    else
                     {
-                        //
+                        // Yes, a packet is currently being received
+                    }
+                    // Now read the received bytes 
+                    // Create a temporary reading buffer
+                    byte[] rxBuffer = new byte[iBytesToRead];
+                    // Read the received bytes 
+                    serialPort.Read(rxBuffer, 0, iBytesToRead);
+                    // Copy the received bytes to the current packet
+                    RxCurrentPacket.AddRange(rxBuffer);
+                    // Check if the packet is complete
+                    switch (eofDetection)
+                    {
+                        case EofDetection.FixedSize:
+                            if (RxCurrentPacket.Count >= this.iPacketLength)
+                            {
+                                // Upload the packet
+                                UploadDataToMux(serialPort.PortName,
+                                    strCurrentPacketTimecode,
+                                    RxCurrentPacket.ToArray());
+                            }
+                            break;
+                        case EofDetection.FirstByte:
+                            // Get the packet size
+                            int iPacketSize = (int)RxCurrentPacket[0];
+                            if (RxCurrentPacket.Count >= iPacketSize)
+                            {
+                                // Upload the packet
+                                UploadDataToMux(serialPort.PortName,
+                                    strCurrentPacketTimecode,
+                                    RxCurrentPacket.ToArray());
+                            }
+                            break;
+                            //
+                            break;
                     }
                     // Upload the received data to MUX
                     UploadDataToMux(serialPort.PortName, strReceptionTime, rxBuffer);
