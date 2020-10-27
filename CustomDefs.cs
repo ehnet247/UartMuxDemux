@@ -11,7 +11,9 @@ namespace UartMuxDemux
         public const string strNewLineDef = "\n";
         public const int MAX_NB_OF_DEMUX_PORT = 16;
         public const string strMuxHeader = "Rx";
-        public const string strMuxFieldSeparator = ":";
+        public const string strMuxFieldSeparator = " : ";
+        public const string strDeMuxFieldSeparator = " : ";
+        public const string strMuxTimecodePrefix = " ";
         public const string strMuxEndOfLine = "\n";
         public const string strDemuxHeader = "Tx";
         public const string strMuxByteSeparator = " ";
