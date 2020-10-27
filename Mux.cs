@@ -49,7 +49,7 @@ namespace UartMuxDemux
                 {
                     // Send the packet
                     masterPort.serialPort.Write(lPacketsToUpload[0]);
-                   // Remove the packet from the list
+                   // Remove the packet from the FIFO
                     lPacketsToUpload.RemoveAt(0);
                 }
                 else if(masterPort.serialPort.IsOpen == false)
@@ -76,14 +76,18 @@ namespace UartMuxDemux
             // Create a string that will contain the packet
             string strPacketToUpload = CustomDefs.strMuxHeader;
             // Add the port number
-            strPacketToUpload += packet.strPortSource;
-            // Add the time code
+            strPacketToUpload += packet.strPortSource.Substring(3);
+            // Add the timecode prefix
+            strPacketToUpload += CustomDefs.strMuxTimecodePrefix;
+            // Add the timecode
             strPacketToUpload += packet.strTime;
             strPacketToUpload += CustomDefs.strMuxFieldSeparator;
             // Add the data bytes
             strPacketToUpload += packet.strData;
             // Add the end-of-packet byte
             strPacketToUpload += CustomDefs.strMuxEndOfLine;
+            // Now add the packet string to the list
+            lPacketsToUpload.Add(strPacketToUpload);
 
         }
 }
