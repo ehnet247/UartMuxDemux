@@ -132,7 +132,11 @@ namespace UartMuxDemux
         private int GetLastPortNumberInList()
         {
             // Get last index of list
-            int iLastIndex = listBoxSlavePorts.Items.Count - 1;
+            int iLastIndex = 0;
+            if (listBoxSlavePorts.Items.Count > 0)
+            {
+                iLastIndex = listBoxSlavePorts.Items.Count - 1;
+            }
             int iLastPortNumber = 0;
             // Get the last port name
             string strLastPortName = listBoxSlavePorts.Items[iLastIndex].ToString();
