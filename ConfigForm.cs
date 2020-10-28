@@ -31,10 +31,9 @@ namespace UartMuxDemux
         private void ConfigForm_Load(object sender, EventArgs e)
         {
             // Select the saved setting
-            if ((Settings.Default.MasterPortName != String.Empty) &&
-                (SerialPort.GetPortNames().Contains(Settings.Default.MasterPortName)))
+            if (SerialPort.GetPortNames().Contains(masterPort.serialPort.PortName))
             {
-                comboBoxMuxPortName.SelectedItem = Settings.Default.MasterPortName;
+                comboBoxMuxPortName.SelectedItem = masterPort.serialPort.PortName;
             }
             else
             {
@@ -203,12 +202,6 @@ namespace UartMuxDemux
                 if (slavePortsList[iPortIndex].GetLinkType() != comboBoxSlaveLinkType.Text)
                 {
                     slavePortsList[iPortIndex].SetLinkType(comboBoxSlaveLinkType.Text);
-                    if (Settings.Default.aSlavePortsLinkTypes[iPortIndex] != slavePortsList[iPortIndex].GetLinkType())
-                    {
-                        Settings.Default.aSlavePortsLinkTypes[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
-                    }
-                    // Save the new value
-                    Settings.Default.aSlavePortsLinkTypes[iPortIndex] = comboBoxSlaveLinkType.Text;
                 }
 
             }
@@ -228,8 +221,6 @@ namespace UartMuxDemux
         {
             // Copy the selected port config in the structure
             BufferizeSettingsBeforeClose();
-            // Save the settings in the external config file
-            SaveSettings();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -243,12 +234,6 @@ namespace UartMuxDemux
                 if (slavePortsList[iPortIndex].eofDetection != comboBoxEofDetection.Text)
                 {
                     slavePortsList[iPortIndex].eofDetection = comboBoxEofDetection.Text;
-                    if (Settings.Default.aSlavePortsEoFDetectionModes[iPortIndex] != slavePortsList[iPortIndex].GetLinkType())
-                    {
-                        Settings.Default.aSlavePortsEoFDetectionModes[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
-                    }
-                    // Save the new value
-                    Settings.Default.aSlavePortsLinkTypes[iPortIndex] = comboBoxSlaveLinkType.Text;
                 }
 
             }
@@ -263,11 +248,6 @@ namespace UartMuxDemux
                 if (slavePortsList[iPortIndex].GetPacketTimeoutValue() != numericUpDownTimeout.Value)
                 {
                     slavePortsList[iPortIndex].SetPacketTimeoutValue((int)numericUpDownTimeout.Value);
-                    // Save the setting if necessary
-                    if (Convert.ToByte(Settings.Default.aSlavePortsTimeout[iPortIndex]) != slavePortsList[iPortIndex].GetPacketTimeoutValue())
-                    {
-                        Settings.Default.aSlavePortsTimeout[iPortIndex] = numericUpDownTimeout.Value.ToString();
-                    }
 
                 }
 
@@ -283,11 +263,6 @@ namespace UartMuxDemux
                 if (slavePortsList[iPortIndex].iPacketLength != numericUpDownPacketLength.Value)
                 {
                     slavePortsList[iPortIndex].iPacketLength = (int)numericUpDownPacketLength.Value;
-                    // Save the setting if necessary
-                    if (Convert.ToByte(Settings.Default.aSlavePortsPacketLength[iPortIndex]) != slavePortsList[iPortIndex].iPacketLength)
-                    {
-                        Settings.Default.aSlavePortsPacketLength[iPortIndex] = numericUpDownPacketLength.Value.ToString();
-                    }
 
                 }
 
@@ -306,17 +281,6 @@ namespace UartMuxDemux
                 SortItemsInListBox();
 
             }
-        }
-
-        private void SaveSettings()
-        {
-            // Save the slave ports list
-            for(int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
-            {
-                Settings.Default.aSlavePortsNames[iPortIndex] = slavePortsList[iPortIndex].serialPort.PortName;
-            }
-            // Store the settings in a file
-            Settings.Default.Save();
         }
 
         private void BufferizeSettingsBeforeClose()
