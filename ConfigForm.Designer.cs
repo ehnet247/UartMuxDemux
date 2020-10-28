@@ -95,7 +95,7 @@
             this.numericUpDownMuxBaudrate.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownMuxBaudrate.TabIndex = 14;
             this.numericUpDownMuxBaudrate.Value = new decimal(new int[] {
-            1200,
+            9600,
             0,
             0,
             0});
@@ -196,7 +196,7 @@
             this.numericUpDownDemuxBaudrate.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownDemuxBaudrate.TabIndex = 12;
             this.numericUpDownDemuxBaudrate.Value = new decimal(new int[] {
-            1200,
+            9600,
             0,
             0,
             0});
@@ -262,7 +262,10 @@
             // comboBoxEofDetection
             // 
             this.comboBoxEofDetection.FormattingEnabled = true;
-            this.comboBoxEofDetection.Items.AddRange(EofDetection.EofDetections);
+            this.comboBoxEofDetection.Items.AddRange(new object[] {
+            "Fixed size",
+            "First byte defines size",
+            "Unknown"});
             this.comboBoxEofDetection.Location = new System.Drawing.Point(191, 226);
             this.comboBoxEofDetection.Name = "comboBoxEofDetection";
             this.comboBoxEofDetection.Size = new System.Drawing.Size(152, 24);
