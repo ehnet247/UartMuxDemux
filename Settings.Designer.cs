@@ -30,8 +30,19 @@ namespace UartMuxDemux {
   <string>COM1</string>
   <string>COM2</string>
   <string>COM3</string>
-  <string />
-  <string />
+  <string>COM4</string>
+  <string>COM5</string>
+  <string>COM6</string>
+  <string>COM7</string>
+  <string>COM8</string>
+  <string>COM9</string>
+  <string>COM10</string>
+  <string>COM11</string>
+  <string>COM12</string>
+  <string>COM13</string>
+  <string>COM14</string>
+  <string>COM15</string>
+  <string>COM16</string>
   <string />
   <string />
   <string />
@@ -55,12 +66,12 @@ namespace UartMuxDemux {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MasterPortName {
+        public string strMasterPortName {
             get {
-                return ((string)(this["MasterPortName"]));
+                return ((string)(this["strMasterPortName"]));
             }
             set {
-                this["MasterPortName"] = value;
+                this["strMasterPortName"] = value;
             }
         }
         
@@ -85,12 +96,12 @@ namespace UartMuxDemux {
   <string>ASCII</string>
   <string>ASCII</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aSlavePortsLinkTypes {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsLinkType {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsLinkTypes"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsLinkType"]));
             }
             set {
-                this["aSlavePortsLinkTypes"] = value;
+                this["aSlavePortsLinkType"] = value;
             }
         }
         
@@ -115,12 +126,12 @@ namespace UartMuxDemux {
   <string>Unknown</string>
   <string>Unknown</string>
 </ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection aSlavePortsEoFDetectionModes {
+        public global::System.Collections.Specialized.StringCollection aSlavePortsEoFDetectionMode {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsEoFDetectionModes"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["aSlavePortsEoFDetectionMode"]));
             }
             set {
-                this["aSlavePortsEoFDetectionModes"] = value;
+                this["aSlavePortsEoFDetectionMode"] = value;
             }
         }
         
@@ -181,6 +192,18 @@ namespace UartMuxDemux {
             }
             set {
                 this["aSlavePortsPacketLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        public int iMasterPortBaudrate {
+            get {
+                return ((int)(this["iMasterPortBaudrate"]));
+            }
+            set {
+                this["iMasterPortBaudrate"] = value;
             }
         }
     }

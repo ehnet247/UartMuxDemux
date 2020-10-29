@@ -9,7 +9,7 @@ namespace UartMuxDemux
     public static class CustomDefs
     {
         public const string strNewLineDef = "\n";
-        public const int MAX_NB_OF_DEMUX_PORT = 16;
+        public const int MAX_NB_OF_DEMUX_PORT = 15;
         public const string strMuxHeader = "Rx";
         public const string strMuxFieldSeparator = " : ";
         public const string strDeMuxFieldSeparator = " : ";

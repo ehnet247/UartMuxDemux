@@ -29,7 +29,7 @@ namespace UartMuxDemux
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             // Instanciate master port
             masterPort = new MasterPort(demux);
@@ -37,25 +37,48 @@ namespace UartMuxDemux
             demux = new Demux(masterPort);
             // Instanciate the MUX
             mux = new Mux(masterPort);
+            // Restore the saved settings
+            try
+            {
+                Settings.Default.Reload();
+            }
+            catch (Exception ex)
+            {
+                TraceLogger.ErrorTrace(ex.Message);
+            }
+            // Load master port saved config
+            LoadMasterPort();
             // Load the saved slave port list
             LoadSlavePortsList();
-            // Load saved settings
-            LoadSettings();
+            //
+            RefreshCheckedListBoxes();
+        }
+
+        private void LoadMasterPort()
+        {
+            masterPort.serialPort.PortName = Settings.Default.strMasterPortName;
+            masterPort.serialPort.BaudRate = Settings.Default.iMasterPortBaudrate;
         }
 
         private void LoadSlavePortsList()
         {
             slavePortsList = new List<SlavePort>();
-            foreach(string portName in Settings.Default.aSlavePortsNames)
+            for(int iPortIndex = 0; iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT; iPortIndex++)
             {
-                SlavePort NewSp = new SlavePort(mux);
-                NewSp.serialPort.PortName = portName;
-                slavePortsList.Add(NewSp);
-            }
-        }
+                string strStoredPortName = Settings.Default.aSlavePortsNames[iPortIndex];
+                if (strStoredPortName.StartsWith("COM"))
+                {
+                    SlavePort NewSp = new SlavePort(mux);
+                    NewSp.serialPort.PortName = Settings.Default.aSlavePortsNames[iPortIndex];
+                    NewSp.SetLinkType(Settings.Default.aSlavePortsLinkType[iPortIndex]);
+                    NewSp.eofDetection = Settings.Default.aSlavePortsEoFDetectionMode[iPortIndex];
+                    NewSp.SetPacketTimeoutValue(Convert.ToInt32(Settings.Default.aSlavePortsTimeout[iPortIndex]));
+                    NewSp.iPacketLength = Convert.ToInt32(Settings.Default.aSlavePortsPacketLength[iPortIndex]);
 
-        private void LoadSettings()
-        {
+                    slavePortsList.Add(NewSp);
+                }
+            }
+            TraceLogger.EventTrace("SlavePortsList loaded");
         }
 
         private void comPortName1_SelectedIndexChanged(object sender, EventArgs e)
@@ -67,20 +90,42 @@ namespace UartMuxDemux
             slavePortsList[portNumber].serialPort.PortName = ((ComboBox)sender).Text;
         }
 
-        private void timerFrameTimeout_Tick(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonConfig_Click(object sender, EventArgs e)
         {
             ConfigForm configForm = new ConfigForm(mux, demux, masterPort, slavePortsList);
             DialogResult result = configForm.ShowDialog();
             if (result == DialogResult.OK)
             {
+                // Store the ports configuration in non volatile memory
+                StoreSettings();
                 // Force the refresh of slave ports
                 bPortsStateChanged = true;
                 RefreshCheckedListBoxes();
+            }
+        }
+
+        private void StoreSettings()
+        {
+            /////// MASTER PORT   //////////////////////
+            Settings.Default.strMasterPortName = masterPort.serialPort.PortName;
+            Settings.Default.iMasterPortBaudrate = masterPort.serialPort.BaudRate;
+            /////// SLAVE PORTS   //////////////////////
+            for (int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
+            {
+                Settings.Default.aSlavePortsNames[iPortIndex] = slavePortsList[iPortIndex].serialPort.PortName;
+                Settings.Default.aSlavePortsLinkType[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
+                Settings.Default.aSlavePortsEoFDetectionMode[iPortIndex] = slavePortsList[iPortIndex].eofDetection;
+                Settings.Default.aSlavePortsTimeout[iPortIndex] = slavePortsList[iPortIndex].GetPacketTimeoutValue().ToString();
+                Settings.Default.aSlavePortsPacketLength[iPortIndex] = slavePortsList[iPortIndex].iPacketLength.ToString();
+            }
+            // Now store the settings in non volatile memory
+            try
+            {
+                Settings.Default.Save();
+            }
+            catch (Exception ex)
+            {
+                TraceLogger.ErrorTrace(ex.Message);
             }
         }
 
@@ -185,7 +230,7 @@ namespace UartMuxDemux
                 {
                     checkedListBoxSlavePorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Checked);
                 }
-                else if (System.IO.Ports.SerialPort.GetPortNames().Contains(slavePortsList[iPortIndex].serialPort.PortName))
+                else if (true /*System.IO.Ports.SerialPort.GetPortNames().Contains(slavePortsList[iPortIndex].serialPort.PortName)*/)
                 {
                     checkedListBoxSlavePorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Unchecked);
                 }
@@ -199,13 +244,13 @@ namespace UartMuxDemux
 
         private void RefreshCheckedListBoxes()
         {
-            /////// MASTER   //////////////////////
+            /////// MASTER PORT   //////////////////////
             // Set the name of the master port
             checkBoxMasterPort.Text = masterPort.serialPort.PortName;
             // Set the state of the master port
             checkBoxMasterPort.Checked = masterPort.serialPort.IsOpen;
 
-            /////// SLAVES   //////////////////////
+            /////// SLAVE PORTS   //////////////////////
             // Instanciate the slave open ports table
             bool[] aOpenPorts = new bool[slavePortsList.Count];
             if (bPortsStateChanged)

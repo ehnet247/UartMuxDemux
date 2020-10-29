@@ -137,9 +137,8 @@
             this.checkBoxMasterPort.AutoSize = true;
             this.checkBoxMasterPort.Location = new System.Drawing.Point(7, 22);
             this.checkBoxMasterPort.Name = "checkBoxMasterPort";
-            this.checkBoxMasterPort.Size = new System.Drawing.Size(102, 21);
+            this.checkBoxMasterPort.Size = new System.Drawing.Size(18, 17);
             this.checkBoxMasterPort.TabIndex = 0;
-            this.checkBoxMasterPort.Text = "Master port";
             this.checkBoxMasterPort.UseVisualStyleBackColor = true;
             // 
             // button1
@@ -174,7 +173,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "UartMuxDemux";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBoxSlavePorts.ResumeLayout(false);
             this.groupBoxMasterPort.ResumeLayout(false);
             this.groupBoxMasterPort.PerformLayout();
