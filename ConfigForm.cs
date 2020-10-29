@@ -120,7 +120,7 @@ namespace UartMuxDemux
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             // We can add a port if there is one free
-            if (slavePortsList.Count < CustomDefs.MAX_NB_OF_DEMUX_PORT)
+            if (slavePortsList.Count < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1)
             {
                 SlavePort slavePort = new SlavePort(mux);
                 int iPortNumber = 1 + GetLastPortNumberInList();
@@ -194,7 +194,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1))
             {
                 if (slavePortsList[iPortIndex].GetLinkType() != comboBoxSlaveLinkType.Text)
                 {
@@ -226,7 +226,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1))
             {
                 if (slavePortsList[iPortIndex].eofDetection != comboBoxSlavePortEofDetection.Text)
                 {
@@ -240,7 +240,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1))
             {
                 if (slavePortsList[iPortIndex].GetPacketTimeoutValue() != numericUpDownSlavePortTimeout.Value)
                 {
@@ -255,7 +255,7 @@ namespace UartMuxDemux
         {
             // Get index of the selected port
             int iPortIndex = GetPortIndexByName(strSelectedPort);
-            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT))
+            if ((iPortIndex >= 0) && (iPortIndex < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1))
             {
                 if (slavePortsList[iPortIndex].iPacketLength != numericUpDownSlavePortPacketLength.Value)
                 {

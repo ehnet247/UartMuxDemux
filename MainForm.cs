@@ -63,7 +63,7 @@ namespace UartMuxDemux
         private void LoadSlavePortsList()
         {
             slavePortsList = new List<SlavePort>();
-            for(int iPortIndex = 0; iPortIndex < CustomDefs.MAX_NB_OF_DEMUX_PORT; iPortIndex++)
+            for(int iPortIndex = 0; iPortIndex < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1; iPortIndex++)
             {
                 string strStoredPortName = Settings.Default.aSlavePortsNames[iPortIndex];
                 if (strStoredPortName.StartsWith("COM"))
@@ -110,13 +110,24 @@ namespace UartMuxDemux
             Settings.Default.strMasterPortName = masterPort.serialPort.PortName;
             Settings.Default.iMasterPortBaudrate = masterPort.serialPort.BaudRate;
             /////// SLAVE PORTS   //////////////////////
-            for (int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
+            for (int iPortIndex = 0; iPortIndex < CustomDefs.MAX_NB_OF_SLAVE_PORTS - 1; iPortIndex++)
             {
-                Settings.Default.aSlavePortsNames[iPortIndex] = slavePortsList[iPortIndex].serialPort.PortName;
-                Settings.Default.aSlavePortsLinkType[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
-                Settings.Default.aSlavePortsEoFDetectionMode[iPortIndex] = slavePortsList[iPortIndex].eofDetection;
-                Settings.Default.aSlavePortsTimeout[iPortIndex] = slavePortsList[iPortIndex].GetPacketTimeoutValue().ToString();
-                Settings.Default.aSlavePortsPacketLength[iPortIndex] = slavePortsList[iPortIndex].iPacketLength.ToString();
+                if (slavePortsList.Count > iPortIndex)
+                {
+                    Settings.Default.aSlavePortsNames[iPortIndex] = slavePortsList[iPortIndex].serialPort.PortName;
+                    Settings.Default.aSlavePortsLinkType[iPortIndex] = slavePortsList[iPortIndex].GetLinkType();
+                    Settings.Default.aSlavePortsEoFDetectionMode[iPortIndex] = slavePortsList[iPortIndex].eofDetection;
+                    Settings.Default.aSlavePortsTimeout[iPortIndex] = slavePortsList[iPortIndex].GetPacketTimeoutValue().ToString();
+                    Settings.Default.aSlavePortsPacketLength[iPortIndex] = slavePortsList[iPortIndex].iPacketLength.ToString();
+                }
+                else
+                {
+                    Settings.Default.aSlavePortsNames[iPortIndex] = string.Empty;
+                    Settings.Default.aSlavePortsLinkType[iPortIndex] = string.Empty;
+                    Settings.Default.aSlavePortsEoFDetectionMode[iPortIndex] = string.Empty;
+                    Settings.Default.aSlavePortsTimeout[iPortIndex] = string.Empty;
+                    Settings.Default.aSlavePortsPacketLength[iPortIndex] = string.Empty;
+                }
             }
             // Now store the settings in non volatile memory
             try
