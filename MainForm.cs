@@ -78,6 +78,8 @@ namespace UartMuxDemux
             DialogResult result = configForm.ShowDialog();
             if (result == DialogResult.OK)
             {
+                // Force the refresh of slave ports
+                bPortsStateChanged = true;
                 RefreshCheckedListBoxes();
             }
         }
