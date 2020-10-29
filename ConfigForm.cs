@@ -137,18 +137,21 @@ namespace UartMuxDemux
                 iLastIndex = listBoxSlavePorts.Items.Count - 1;
             }
             int iLastPortNumber = 0;
-            // Get the last port name
-            string strLastPortName = listBoxSlavePorts.Items[iLastIndex].ToString();
-            // Get the port number as a string
-            string strLastPortNumber = strLastPortName.Substring(3);
-            // try to convert it in an int
-            try
+            if (listBoxSlavePorts.Items.Count > 0)
             {
-                iLastPortNumber = Convert.ToInt32(strLastPortNumber);
-            }
-            catch (Exception ex)
-            {
-                TraceLogger.ErrorTrace(ex.Message);
+                // Get the last port name
+                string strLastPortName = listBoxSlavePorts.Items[iLastIndex].ToString();
+                // Get the port number as a string
+                string strLastPortNumber = strLastPortName.Substring(3);
+                // try to convert it in an int
+                try
+                {
+                    iLastPortNumber = Convert.ToInt32(strLastPortNumber);
+                }
+                catch (Exception ex)
+                {
+                    TraceLogger.ErrorTrace(ex.Message);
+                }
             }
             return iLastPortNumber;
         }
@@ -220,7 +223,7 @@ namespace UartMuxDemux
         private void buttonOk_Click(object sender, EventArgs e)
         {
             // Copy the selected port config in the structure
-            BufferizeSettingsBeforeClose();
+            //BufferizeSettingsBeforeClose();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
