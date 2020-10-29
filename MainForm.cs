@@ -76,6 +76,10 @@ namespace UartMuxDemux
         {
             ConfigForm configForm = new ConfigForm(mux, demux, masterPort, slavePortsList);
             DialogResult result = configForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                RefreshCheckedListBoxes();
+            }
         }
 
         private void buttonOpenPorts_Click(object sender, EventArgs e)
@@ -169,41 +173,43 @@ namespace UartMuxDemux
 
         private void SetupListBoxPorts()
         {
+            /////// SLAVES   //////////////////////
             // Clear the list
-            checkedListBoxDemuxPorts.Items.Clear();
+            checkedListBoxSlavePorts.Items.Clear();
             // Add the slave ports
             for(int iPortIndex = 0; iPortIndex < slavePortsList.Count; iPortIndex++)
             {
                 if (slavePortsList[iPortIndex].serialPort.IsOpen)
                 {
-                    checkedListBoxDemuxPorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Checked);
+                    checkedListBoxSlavePorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Checked);
                 }
                 else if (System.IO.Ports.SerialPort.GetPortNames().Contains(slavePortsList[iPortIndex].serialPort.PortName))
                 {
-                    checkedListBoxDemuxPorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Unchecked);
+                    checkedListBoxSlavePorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Unchecked);
                 }
                 else
                 {
-                    checkedListBoxDemuxPorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Indeterminate);
+                    checkedListBoxSlavePorts.Items.Add(slavePortsList[iPortIndex].serialPort.PortName, CheckState.Indeterminate);
                 }
             }
+
         }
 
         private void RefreshCheckedListBoxes()
         {
-            // Master port
+            /////// MASTER   //////////////////////
             // Set the name of the master port
-            checkBoxMuxPort.Text = masterPort.serialPort.PortName;
+            checkBoxMasterPort.Text = masterPort.serialPort.PortName;
             // Set the state of the master port
-            checkBoxMuxPort.Checked = masterPort.serialPort.IsOpen;
+            checkBoxMasterPort.Checked = masterPort.serialPort.IsOpen;
 
-            // Slave ports
+            /////// SLAVES   //////////////////////
             // Instanciate the slave open ports table
             bool[] aOpenPorts = new bool[slavePortsList.Count];
             if (bPortsStateChanged)
             {
                 // Clear the list
-                checkedListBoxDemuxPorts.Items.Clear();
+                checkedListBoxSlavePorts.Items.Clear();
             }
                 // Get the state of each slave port
                 for (int iPortIndex = 0;iPortIndex < slavePortsList.Count;iPortIndex++)
