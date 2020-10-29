@@ -33,18 +33,19 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.baudrateComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.timerDisplayRefresh = new System.Windows.Forms.Timer(this.components);
-            this.groupBoxDemuxPorts = new System.Windows.Forms.GroupBox();
-            this.checkedListBoxDemuxPorts = new System.Windows.Forms.CheckedListBox();
+            this.groupBoxSlavePorts = new System.Windows.Forms.GroupBox();
+            this.checkedListBoxSlavePorts = new System.Windows.Forms.CheckedListBox();
             this.serialPortSource = new System.IO.Ports.SerialPort(this.components);
             this.backgroundWorkerSource = new System.ComponentModel.BackgroundWorker();
             this.buttonConfig = new System.Windows.Forms.Button();
             this.buttonOpenPorts = new System.Windows.Forms.Button();
             this.buttonClosePorts = new System.Windows.Forms.Button();
-            this.groupBoxMuxPort = new System.Windows.Forms.GroupBox();
-            this.checkBoxMuxPort = new System.Windows.Forms.CheckBox();
+            this.groupBoxMasterPort = new System.Windows.Forms.GroupBox();
+            this.checkBoxMasterPort = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBoxDemuxPorts.SuspendLayout();
-            this.groupBoxMuxPort.SuspendLayout();
+            this.checkBoxMuxPort = new System.Windows.Forms.CheckBox();
+            this.groupBoxSlavePorts.SuspendLayout();
+            this.groupBoxMasterPort.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -71,23 +72,23 @@
             // 
             this.timerDisplayRefresh.Tick += new System.EventHandler(this.timerDisplayRefresh_Tick_);
             // 
-            // groupBoxDemuxPorts
+            // groupBoxSlavePorts
             // 
-            this.groupBoxDemuxPorts.Controls.Add(this.checkedListBoxDemuxPorts);
-            this.groupBoxDemuxPorts.Location = new System.Drawing.Point(12, 187);
-            this.groupBoxDemuxPorts.Name = "groupBoxDemuxPorts";
-            this.groupBoxDemuxPorts.Size = new System.Drawing.Size(340, 222);
-            this.groupBoxDemuxPorts.TabIndex = 23;
-            this.groupBoxDemuxPorts.TabStop = false;
-            this.groupBoxDemuxPorts.Text = "DEMUX";
+            this.groupBoxSlavePorts.Controls.Add(this.checkedListBoxSlavePorts);
+            this.groupBoxSlavePorts.Location = new System.Drawing.Point(12, 187);
+            this.groupBoxSlavePorts.Name = "groupBoxSlavePorts";
+            this.groupBoxSlavePorts.Size = new System.Drawing.Size(340, 222);
+            this.groupBoxSlavePorts.TabIndex = 23;
+            this.groupBoxSlavePorts.TabStop = false;
+            this.groupBoxSlavePorts.Text = "Slaves";
             // 
-            // checkedListBoxDemuxPorts
+            // checkedListBoxSlavePorts
             // 
-            this.checkedListBoxDemuxPorts.FormattingEnabled = true;
-            this.checkedListBoxDemuxPorts.Location = new System.Drawing.Point(6, 21);
-            this.checkedListBoxDemuxPorts.Name = "checkedListBoxDemuxPorts";
-            this.checkedListBoxDemuxPorts.Size = new System.Drawing.Size(323, 174);
-            this.checkedListBoxDemuxPorts.TabIndex = 0;
+            this.checkedListBoxSlavePorts.FormattingEnabled = true;
+            this.checkedListBoxSlavePorts.Location = new System.Drawing.Point(6, 21);
+            this.checkedListBoxSlavePorts.Name = "checkedListBoxSlavePorts";
+            this.checkedListBoxSlavePorts.Size = new System.Drawing.Size(323, 174);
+            this.checkedListBoxSlavePorts.TabIndex = 0;
             // 
             // buttonConfig
             // 
@@ -121,15 +122,32 @@
             this.buttonClosePorts.UseVisualStyleBackColor = false;
             this.buttonClosePorts.Click += new System.EventHandler(this.buttonClosePorts_Click);
             // 
-            // groupBoxMuxPort
+            // groupBoxMasterPort
             // 
-            this.groupBoxMuxPort.Controls.Add(this.checkBoxMuxPort);
-            this.groupBoxMuxPort.Location = new System.Drawing.Point(12, 12);
-            this.groupBoxMuxPort.Name = "groupBoxMuxPort";
-            this.groupBoxMuxPort.Size = new System.Drawing.Size(340, 156);
-            this.groupBoxMuxPort.TabIndex = 30;
-            this.groupBoxMuxPort.TabStop = false;
-            this.groupBoxMuxPort.Text = "MUX";
+            this.groupBoxMasterPort.Controls.Add(this.checkBoxMasterPort);
+            this.groupBoxMasterPort.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxMasterPort.Name = "groupBoxMasterPort";
+            this.groupBoxMasterPort.Size = new System.Drawing.Size(340, 156);
+            this.groupBoxMasterPort.TabIndex = 30;
+            this.groupBoxMasterPort.TabStop = false;
+            this.groupBoxMasterPort.Text = "Master";
+            // 
+            // checkBoxMasterPort
+            // 
+            this.checkBoxMasterPort.AutoSize = true;
+            this.checkBoxMasterPort.Location = new System.Drawing.Point(7, 22);
+            this.checkBoxMasterPort.Name = "checkBoxMasterPort";
+            this.checkBoxMasterPort.Size = new System.Drawing.Size(102, 21);
+            this.checkBoxMasterPort.TabIndex = 0;
+            this.checkBoxMasterPort.Text = "Master port";
+            this.checkBoxMasterPort.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
             // 
             // checkBoxMuxPort
             // 
@@ -141,35 +159,25 @@
             this.checkBoxMuxPort.Text = "MUX port";
             this.checkBoxMuxPort.UseVisualStyleBackColor = true;
             // 
-            // buttonConfig
-            // 
-            this.buttonConfig.Location = new System.Drawing.Point(32, 443);
-            this.buttonConfig.Name = "buttonConfig";
-            this.buttonConfig.Size = new System.Drawing.Size(73, 29);
-            this.buttonConfig.TabIndex = 26;
-            this.buttonConfig.Text = "Config";
-            this.buttonConfig.UseVisualStyleBackColor = true;
-            this.buttonConfig.Click += new System.EventHandler(this.buttonConfig_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(388, 484);
-            this.Controls.Add(this.groupBoxMuxPort);
+            this.Controls.Add(this.groupBoxMasterPort);
             this.Controls.Add(this.buttonClosePorts);
             this.Controls.Add(this.buttonOpenPorts);
             this.Controls.Add(this.buttonConfig);
-            this.Controls.Add(this.groupBoxDemuxPorts);
+            this.Controls.Add(this.groupBoxSlavePorts);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "UartMuxDemux";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBoxDemuxPorts.ResumeLayout(false);
-            this.groupBoxMuxPort.ResumeLayout(false);
-            this.groupBoxMuxPort.PerformLayout();
+            this.groupBoxSlavePorts.ResumeLayout(false);
+            this.groupBoxMasterPort.ResumeLayout(false);
+            this.groupBoxMasterPort.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,16 +187,17 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripComboBox baudrateComboBox;
         private System.Windows.Forms.Timer timerDisplayRefresh;
-        private System.Windows.Forms.GroupBox groupBoxDemuxPorts;
+        private System.Windows.Forms.GroupBox groupBoxSlavePorts;
         private System.IO.Ports.SerialPort serialPortSource;
         private System.ComponentModel.BackgroundWorker backgroundWorkerSource;
         private System.Windows.Forms.Button buttonConfig;
         private System.Windows.Forms.Button buttonOpenPorts;
         private System.Windows.Forms.Button buttonClosePorts;
-        private System.Windows.Forms.CheckedListBox checkedListBoxDemuxPorts;
-        private System.Windows.Forms.GroupBox groupBoxMuxPort;
-        private System.Windows.Forms.CheckBox checkBoxMuxPort;
+        private System.Windows.Forms.CheckedListBox checkedListBoxSlavePorts;
+        private System.Windows.Forms.GroupBox groupBoxMasterPort;
+        private System.Windows.Forms.CheckBox checkBoxMasterPort;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBoxMuxPort;
     }
 }
 
