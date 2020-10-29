@@ -37,11 +37,12 @@
             this.checkedListBoxDemuxPorts = new System.Windows.Forms.CheckedListBox();
             this.serialPortSource = new System.IO.Ports.SerialPort(this.components);
             this.backgroundWorkerSource = new System.ComponentModel.BackgroundWorker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonConfig = new System.Windows.Forms.Button();
             this.buttonOpenPorts = new System.Windows.Forms.Button();
             this.buttonClosePorts = new System.Windows.Forms.Button();
             this.groupBoxMuxPort = new System.Windows.Forms.GroupBox();
             this.checkBoxMuxPort = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxDemuxPorts.SuspendLayout();
             this.groupBoxMuxPort.SuspendLayout();
             this.SuspendLayout();
@@ -87,15 +88,16 @@
             this.checkedListBoxDemuxPorts.Name = "checkedListBoxDemuxPorts";
             this.checkedListBoxDemuxPorts.Size = new System.Drawing.Size(323, 174);
             this.checkedListBoxDemuxPorts.TabIndex = 0;
-            // button1
             // 
-            this.button1.Location = new System.Drawing.Point(32, 443);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(73, 29);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Config";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // buttonConfig
+            // 
+            this.buttonConfig.Location = new System.Drawing.Point(32, 443);
+            this.buttonConfig.Name = "buttonConfig";
+            this.buttonConfig.Size = new System.Drawing.Size(73, 29);
+            this.buttonConfig.TabIndex = 26;
+            this.buttonConfig.Text = "Config";
+            this.buttonConfig.UseVisualStyleBackColor = true;
+            this.buttonConfig.Click += new System.EventHandler(this.buttonConfig_Click);
             // 
             // buttonOpenPorts
             // 
@@ -139,6 +141,16 @@
             this.checkBoxMuxPort.Text = "MUX port";
             this.checkBoxMuxPort.UseVisualStyleBackColor = true;
             // 
+            // buttonConfig
+            // 
+            this.buttonConfig.Location = new System.Drawing.Point(32, 443);
+            this.buttonConfig.Name = "buttonConfig";
+            this.buttonConfig.Size = new System.Drawing.Size(73, 29);
+            this.buttonConfig.TabIndex = 26;
+            this.buttonConfig.Text = "Config";
+            this.buttonConfig.UseVisualStyleBackColor = true;
+            this.buttonConfig.Click += new System.EventHandler(this.buttonConfig_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -148,7 +160,7 @@
             this.Controls.Add(this.groupBoxMuxPort);
             this.Controls.Add(this.buttonClosePorts);
             this.Controls.Add(this.buttonOpenPorts);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonConfig);
             this.Controls.Add(this.groupBoxDemuxPorts);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -170,12 +182,13 @@
         private System.Windows.Forms.GroupBox groupBoxDemuxPorts;
         private System.IO.Ports.SerialPort serialPortSource;
         private System.ComponentModel.BackgroundWorker backgroundWorkerSource;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonConfig;
         private System.Windows.Forms.Button buttonOpenPorts;
         private System.Windows.Forms.Button buttonClosePorts;
         private System.Windows.Forms.CheckedListBox checkedListBoxDemuxPorts;
         private System.Windows.Forms.GroupBox groupBoxMuxPort;
         private System.Windows.Forms.CheckBox checkBoxMuxPort;
+        private System.Windows.Forms.Button button1;
     }
 }
 

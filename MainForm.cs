@@ -72,7 +72,7 @@ namespace UartMuxDemux
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonConfig_Click(object sender, EventArgs e)
         {
             ConfigForm configForm = new ConfigForm(mux, demux, masterPort, slavePortsList);
             DialogResult result = configForm.ShowDialog();
