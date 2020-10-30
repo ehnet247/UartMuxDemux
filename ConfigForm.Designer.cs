@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
-            this.groupBoxMux = new System.Windows.Forms.GroupBox();
+            this.groupBoxMasterPort = new System.Windows.Forms.GroupBox();
             this.numericUpDownMasterPortBaudrate = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@
             this.listBoxSlavePorts = new System.Windows.Forms.ListBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.groupBoxMux.SuspendLayout();
+            this.groupBoxMasterPort.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMasterPortBaudrate)).BeginInit();
             this.groupBoxSlavePorts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSlavePortPacketLength)).BeginInit();
@@ -62,18 +62,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSlavePortTimeout)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBoxMux
+            // groupBoxMasterPort
             // 
-            this.groupBoxMux.Controls.Add(this.numericUpDownMasterPortBaudrate);
-            this.groupBoxMux.Controls.Add(this.label8);
-            this.groupBoxMux.Controls.Add(this.label5);
-            this.groupBoxMux.Controls.Add(this.comboBoxMasterPortName);
-            this.groupBoxMux.Location = new System.Drawing.Point(13, 13);
-            this.groupBoxMux.Name = "groupBoxMux";
-            this.groupBoxMux.Size = new System.Drawing.Size(346, 388);
-            this.groupBoxMux.TabIndex = 0;
-            this.groupBoxMux.TabStop = false;
-            this.groupBoxMux.Text = "Master port";
+            this.groupBoxMasterPort.Controls.Add(this.numericUpDownMasterPortBaudrate);
+            this.groupBoxMasterPort.Controls.Add(this.label8);
+            this.groupBoxMasterPort.Controls.Add(this.label5);
+            this.groupBoxMasterPort.Controls.Add(this.comboBoxMasterPortName);
+            this.groupBoxMasterPort.Location = new System.Drawing.Point(13, 13);
+            this.groupBoxMasterPort.Name = "groupBoxMasterPort";
+            this.groupBoxMasterPort.Size = new System.Drawing.Size(346, 388);
+            this.groupBoxMasterPort.TabIndex = 0;
+            this.groupBoxMasterPort.TabStop = false;
+            this.groupBoxMasterPort.Text = "Master port";
             // 
             // numericUpDownMasterPortBaudrate
             // 
@@ -370,13 +370,13 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.groupBoxSlavePorts);
-            this.Controls.Add(this.groupBoxMux);
+            this.Controls.Add(this.groupBoxMasterPort);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConfigForm";
             this.Text = "ConfigForm";
             this.Load += new System.EventHandler(this.ConfigForm_Load);
-            this.groupBoxMux.ResumeLayout(false);
-            this.groupBoxMux.PerformLayout();
+            this.groupBoxMasterPort.ResumeLayout(false);
+            this.groupBoxMasterPort.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMasterPortBaudrate)).EndInit();
             this.groupBoxSlavePorts.ResumeLayout(false);
             this.groupBoxSlavePorts.PerformLayout();
@@ -389,7 +389,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBoxMux;
+        private System.Windows.Forms.GroupBox groupBoxMasterPort;
         private System.Windows.Forms.GroupBox groupBoxSlavePorts;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
