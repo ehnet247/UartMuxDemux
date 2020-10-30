@@ -259,7 +259,8 @@
             this.textBoxSlavePortName.Name = "textBoxSlavePortName";
             this.textBoxSlavePortName.Size = new System.Drawing.Size(100, 22);
             this.textBoxSlavePortName.TabIndex = 8;
-            this.textBoxSlavePortName.TextChanged += new System.EventHandler(this.textBoxPortName_TextChanged);
+            this.textBoxSlavePortName.TextChanged += new System.EventHandler(this.textBoxSlavePortName_TextChanged);
+            this.textBoxSlavePortName.Leave += new System.EventHandler(this.textBoxSlavePortName_Leave);
             // 
             // buttonRemove
             // 

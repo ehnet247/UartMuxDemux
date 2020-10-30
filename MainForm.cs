@@ -50,8 +50,10 @@ namespace UartMuxDemux
             LoadMasterPort();
             // Load the saved slave port list
             LoadSlavePortsList();
-            //
-            RefreshCheckedListBoxes();
+
+            // Display the ports status
+            SetupPortsListBoxes();
+
         }
 
         private void LoadMasterPort()
@@ -205,12 +207,11 @@ namespace UartMuxDemux
         {
             foreach (SlavePort slavePort in slavePortsList)
             {
-                bool bPreviousState = slavePort.serialPort.IsOpen;
                 if ((slavePort.serialPort != null) && (slavePort.serialPort.IsOpen == true))
                 {
                     slavePort.ClosePort();
                     // If state has changed, notify it to refresh the port list
-                    if (slavePort.serialPort.IsOpen != bPreviousState)
+                    if (slavePort.serialPort.IsOpen == false)
                     {
                         bPortsStateChanged = true;
                     }
@@ -229,9 +230,14 @@ namespace UartMuxDemux
             CloseOpenPorts();
         }
 
-        private void SetupListBoxPorts()
+        private void SetupPortsListBoxes()
         {
-            /////// SLAVES   //////////////////////
+            /////// MASTER /////////////////////////
+            if (masterPort != null)
+            {
+                checkBoxMasterPort.Text = masterPort.serialPort.PortName;
+            }
+            /////// SLAVES //////////////////////
             // Clear the list
             checkedListBoxSlavePorts.Items.Clear();
             // Add the slave ports
@@ -289,7 +295,7 @@ namespace UartMuxDemux
                 if (bPortsStateChanged)
                 {
                     // Rebuild the list
-                    SetupListBoxPorts();
+                    SetupPortsListBoxes();
                     bPortsStateChanged = false;
                 }
             }

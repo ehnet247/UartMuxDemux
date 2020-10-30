@@ -165,7 +165,7 @@ namespace UartMuxDemux
             {
                 try
                 {
-                    serialPort.Open();
+                    serialPort.Close();
                 }
                 catch (Exception ex)
                 {

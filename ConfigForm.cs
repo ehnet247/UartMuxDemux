@@ -30,23 +30,20 @@ namespace UartMuxDemux
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
+            // Load the available com port in comboBoxMasterPortName
+            try
+            {
+                comboBoxMasterPortName.Items.AddRange(SerialPort.GetPortNames());
+            }
+            catch (Exception ex)
+            {
+                TraceLogger.ErrorTrace(ex.Message);
+            }
             // Get the master port config
             if (true /*SerialPort.GetPortNames().Contains(masterPort.serialPort.PortName)*/)
             {
                 comboBoxMasterPortName.Text = masterPort.serialPort.PortName;
                 numericUpDownMasterPortBaudrate.Value = masterPort.serialPort.BaudRate;
-            }
-            else
-            {
-                // Load the available com port in comboBoxMuxPortName
-                try
-                {
-                    comboBoxMasterPortName.Items.AddRange(SerialPort.GetPortNames());
-                }
-                catch (Exception ex)
-                {
-                    TraceLogger.ErrorTrace(ex.Message);
-                }
             }
             // Get the slave ports config
             foreach (SlavePort slavePort in slavePortsList)
@@ -165,7 +162,9 @@ namespace UartMuxDemux
             if (strSelectedPort != String.Empty)
             {
                 SlavePort slavePort = slavePortsList[GetPortIndexByName(strSelectedPort)];
+                textBoxSlavePortName.TextChanged -= new System.EventHandler(textBoxSlavePortName_TextChanged);
                 textBoxSlavePortName.Text = slavePort.serialPort.PortName;
+                textBoxSlavePortName.TextChanged += new System.EventHandler(textBoxSlavePortName_TextChanged);
                 comboBoxSlaveLinkType.Text = slavePort.GetLinkType();
             }
             else
@@ -174,20 +173,8 @@ namespace UartMuxDemux
             }
         }
 
-        private void textBoxPortName_TextChanged(object sender, EventArgs e)
+        private void textBoxSlavePortName_TextChanged(object sender, EventArgs e)
         {
-            if ((iSelectedPortIndex >= 0) && (slavePortsList.Count > (iSelectedPortIndex +1)))
-            {
-                if (slavePortsList[iSelectedPortIndex].serialPort.PortName != textBoxSlavePortName.Text)
-                {
-                    slavePortsList[iSelectedPortIndex].serialPort.PortName = textBoxSlavePortName.Text;
-                    // Refresh the ComboBox
-                    comboBoxSlavePortEdit.Text = textBoxSlavePortName.Text;
-                    // Refresh the list
-                    SortPortsInBoxes();
-                }
-
-            }
         }
 
         private void comboBoxDemuxLinkType_SelectedIndexChanged(object sender, EventArgs e)
@@ -308,6 +295,22 @@ namespace UartMuxDemux
                 }
                 // Display port characteristics
                 DisplayPortCharacteristics();
+            }
+        }
+
+        private void textBoxSlavePortName_Leave(object sender, EventArgs e)
+        {
+            if ((iSelectedPortIndex >= 0) && (slavePortsList.Count >= (iSelectedPortIndex + 1)))
+            {
+                if (slavePortsList[iSelectedPortIndex].serialPort.PortName != textBoxSlavePortName.Text)
+                {
+                    slavePortsList[iSelectedPortIndex].serialPort.PortName = textBoxSlavePortName.Text;
+                    // Refresh the ComboBox
+                    comboBoxSlavePortEdit.Text = textBoxSlavePortName.Text;
+                    // Refresh the list
+                    SortPortsInBoxes();
+                }
+
             }
         }
     }
