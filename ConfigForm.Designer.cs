@@ -222,6 +222,7 @@
             0,
             0,
             0});
+            this.numericUpDownSlavePortBaudrate.ValueChanged += new System.EventHandler(this.numericUpDownSlavePortBaudrate_ValueChanged);
             // 
             // label6
             // 
@@ -243,10 +244,7 @@
             // comboBoxSlaveLinkType
             // 
             this.comboBoxSlaveLinkType.FormattingEnabled = true;
-            this.comboBoxSlaveLinkType.Items.AddRange(new object[] {
-            "Fixed size",
-            "First byte defines size",
-            "Unknown"});
+            this.comboBoxSlaveLinkType.Items.AddRange(LinkType.LinkTypes);
             this.comboBoxSlaveLinkType.Location = new System.Drawing.Point(187, 144);
             this.comboBoxSlaveLinkType.Name = "comboBoxSlaveLinkType";
             this.comboBoxSlaveLinkType.Size = new System.Drawing.Size(121, 24);
@@ -264,9 +262,10 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(318, 54);
+            this.buttonRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemove.Location = new System.Drawing.Point(48, 272);
             this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(26, 23);
+            this.buttonRemove.Size = new System.Drawing.Size(33, 34);
             this.buttonRemove.TabIndex = 7;
             this.buttonRemove.Text = "-";
             this.buttonRemove.UseVisualStyleBackColor = true;
@@ -274,9 +273,10 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(159, 52);
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAdd.Location = new System.Drawing.Point(87, 272);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(26, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(40, 34);
             this.buttonAdd.TabIndex = 6;
             this.buttonAdd.Text = "+";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -337,9 +337,9 @@
             this.listBoxSlavePorts.ItemHeight = 16;
             this.listBoxSlavePorts.Location = new System.Drawing.Point(7, 54);
             this.listBoxSlavePorts.Name = "listBoxSlavePorts";
-            this.listBoxSlavePorts.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBoxSlavePorts.Size = new System.Drawing.Size(120, 212);
             this.listBoxSlavePorts.TabIndex = 0;
+            this.listBoxSlavePorts.SelectedValueChanged += new System.EventHandler(this.listBoxSlavePorts_SelectedValueChanged);
             // 
             // buttonOk
             // 
