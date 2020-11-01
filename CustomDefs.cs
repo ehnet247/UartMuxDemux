@@ -21,7 +21,7 @@ namespace UartMuxDemux
     }
     public static class LinkType
     {
-        public const string Ascii = "Ascii";
+        public const string Ascii = "ASCII";
         public const string Binary = "Binary";
         public static readonly string[] LinkTypes = { Ascii, Binary };
     }
