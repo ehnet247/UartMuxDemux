@@ -77,6 +77,7 @@ namespace UartMuxDemux
                         // Start the timer if necessary
                         if (eofDetection == EofDetection.Unknown)
                         {
+                            timerPacketTimeout.Interval = this.GetPacketTimeoutValue();
                             timerPacketTimeout.Start();
                         }
                     }
@@ -114,14 +115,16 @@ namespace UartMuxDemux
                                     RxCurrentPacket.ToArray());
                             }
                             break;
-                            //
-                            break;
                     }
                     // Upload the received data to MUX
                     UploadDataToMux(serialPort.PortName, strReceptionTime, rxBuffer);
                 }
                 else
                 {
+                    if (serialPort.IsOpen == false)
+                    {
+                        dataReceptionBackgroundWorker.CancelAsync();
+                    }
                     // Pause thread for 100ms to breath
                     System.Threading.Thread.Sleep(100);
                 }
