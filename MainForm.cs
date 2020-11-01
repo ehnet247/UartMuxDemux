@@ -13,13 +13,10 @@ namespace UartMuxDemux
 {
     public partial class MainForm : Form
     {
-        private bool bFrameStarted = false;
         private bool bPortsStateChanged = false;
         public bool bFrameTimeout = false;
         private string strCurrentFrameDate = String.Empty;
         private string strCurrentFrameTime = String.Empty;
-        private string strDataReceivedDate;
-        private string strDataReceivedTime;
         protected List<SlavePort> slavePortsList = new List<SlavePort>();
         protected Mux mux;
         protected Demux demux;
@@ -58,8 +55,14 @@ namespace UartMuxDemux
 
         private void LoadMasterPort()
         {
-            masterPort.serialPort.PortName = Settings.Default.strMasterPortName;
-            masterPort.serialPort.BaudRate = Settings.Default.iMasterPortBaudrate;
+            if (Settings.Default.strMasterPortName != string.Empty)
+            {
+                masterPort.serialPort.PortName = Settings.Default.strMasterPortName;
+            }
+            if (Settings.Default.iMasterPortBaudrate > 0)
+            {
+                masterPort.serialPort.BaudRate = Settings.Default.iMasterPortBaudrate;
+            }
         }
 
         private void LoadSlavePortsList()
