@@ -19,6 +19,7 @@ namespace UartMuxDemux
         private readonly BackgroundWorker processReceivedPacketsBackgroundWorker;
         private List<Packet> lPacketsToDownload;
         private MasterPort masterPort;
+        private List<SlavePort> slavePortsList;
 
         public Demux(MasterPort masterPort)
         {
@@ -105,8 +106,34 @@ namespace UartMuxDemux
             }
         }
 
-        private void WriteFrameToSlaves()
+        public void SetSlavePortList(List<SlavePort> slavePortsList)
         {
+            this.slavePortsList = slavePortsList;
+        }
+
+        public void WritePacketToSlave(string strPortName, string strPacket)
+        {
+            int iPortIndex = -1;
+            // Check the port number exists in slavePortsList
+            for (int i = 0; i < slavePortsList.Count; i++)
+            {
+                if (slavePortsList[i].serialPort.PortName == strPortName)
+                {
+                    iPortIndex = i;
+                    // Break the for loop
+                    i = slavePortsList.Count;
+                }
+            }
+
+            // If the port number exists in slavePortsList
+            if (iPortIndex >= 0)
+            {
+                // Add the End of packet char as it has been
+                // removed during string manipulation
+                strPacket += CustomDefs.cDemuxEndOfLine.ToString();
+                slavePortsList[iPortIndex].SendPacket(strPacket);
+            }
+
         }
     }
 }
