@@ -36,9 +36,10 @@ namespace UartMuxDemux
             this.timerPacketTimeout.Tick += new System.EventHandler(this.timerPacketTimeout_Tick);
         }
 
-        public void SendPacket()
+        public void SendPacket(string strPacket)
         {
             //
+            serialPort.Write(strPacket);
         }
 
         private void UploadDataToMux(string portSource, string timeCode, byte[] data)
