@@ -29,9 +29,11 @@ namespace UartMuxDemux
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Instanciate master port
-            masterPort = new MasterPort(demux);
+            masterPort = new MasterPort();
             // Instanciate the DEMUX
             demux = new Demux(masterPort);
+            // Share the Demux instance with MasterPort
+            masterPort.SetDemux(demux);
             // Instanciate the MUX
             mux = new Mux(masterPort);
             // Restore the saved settings
@@ -47,6 +49,8 @@ namespace UartMuxDemux
             LoadMasterPort();
             // Load the saved slave port list
             LoadSlavePortsList();
+            // Share the  slave port list with the demux
+            demux.SetSlavePortList(slavePortsList);
 
             // Display the ports status
             SetupPortsListBoxes();
