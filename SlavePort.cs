@@ -47,15 +47,27 @@ namespace UartMuxDemux
             packet.strPortSource = portSource;
             packet.strTime = "(" + timeCode + ")";
             packet.aData = data;
-            // Convert bytes in hex string values
-            packet.strData = string.Empty;
-            foreach (byte dataByte in data)
+            if (this.linkType == LinkType.Binary)
             {
-                packet.strData += dataByte.ToString("X2");
-                packet.strData += CustomDefs.strMuxByteSeparator;
+                // Convert bytes in hex string values
+                packet.strData = string.Empty;
+                foreach (byte dataByte in data)
+                {
+                    packet.strData += dataByte.ToString("X2");
+                    packet.strData += CustomDefs.strMuxBinaryByteSeparator;
+                }
             }
-            // Add the packet to the list of packets to be uploaded
-            mux.AddPacketToUpload(packet);
+            else if (this.linkType == LinkType.Ascii)
+            {
+                packet.strData = string.Empty;
+                foreach (byte dataByte in data)
+                {
+                    packet.strData += Convert.ToChar(dataByte).ToString();
+                    packet.strData += CustomDefs.strMuxAsciiByteSeparator;
+                }
+            }
+                // Add the packet to the list of packets to be uploaded
+                mux.AddPacketToUpload(packet);
         }
 
         private void dataReceptionBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -68,7 +80,7 @@ namespace UartMuxDemux
                     string strReceptionTime = PortTools.GetTimeString();
                     int iBytesToRead = serialPort.BytesToRead;
                     // Are we already receiving a packet?
-                    if (RxCurrentPacket == null)
+                    if ((RxCurrentPacket == null) || (RxCurrentPacket.Count == 0))
                     {
                         // No: instanciate a new packet
                         RxCurrentPacket = new List<byte>();
@@ -102,6 +114,8 @@ namespace UartMuxDemux
                                 UploadDataToMux(serialPort.PortName,
                                     strCurrentPacketTimecode,
                                     RxCurrentPacket.ToArray());
+                                // Free the rx buffer
+                                RxCurrentPacket.Clear();
                             }
                             break;
                         case EofDetection.FirstByte:
@@ -116,8 +130,6 @@ namespace UartMuxDemux
                             }
                             break;
                     }
-                    // Upload the received data to MUX
-                    UploadDataToMux(serialPort.PortName, strReceptionTime, rxBuffer);
                 }
                 else
                 {
