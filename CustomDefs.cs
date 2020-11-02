@@ -15,7 +15,8 @@ namespace UartMuxDemux
         public const string strDeMuxFieldSeparator = " : ";
         public const string strMuxTimecodePrefix = " ";
         public const string strMuxEndOfLine = "\n\r";
-        public const string strDemuxHeader = "Tx";
+        public const char cDemuxEndOfLine = '\n';
+        public const string strDemuxHeader = "Tx ";
         public const string strMuxAsciiByteSeparator = "";
         public const string strMuxBinaryByteSeparator = " ";
         public const string strDemuxByteSeparator = ":";
